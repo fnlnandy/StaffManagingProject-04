@@ -4,6 +4,9 @@
  */
 package fnln.andy.gpcp;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 /**
  *
  * @author andy
@@ -15,6 +18,13 @@ public class GPCPUi extends javax.swing.JFrame {
      */
     public GPCPUi() {
         initComponents();
+        
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+                DBControl.loadEmployees(GPCPUi.jEmployeeTable);
+            }
+        });
     }
 
     /**
@@ -35,13 +45,12 @@ public class GPCPUi extends javax.swing.JFrame {
         jHolidayTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestion de Congé(s) et de Pointage(s) du Personnel");
+        getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         jEmployeeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Numéro", "Nom", "Prenom", "Poste", "Salaire"
@@ -62,10 +71,7 @@ public class GPCPUi extends javax.swing.JFrame {
 
         jPointageTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Date de pointage", "Numéro d'employé", "Pointage"
@@ -86,10 +92,7 @@ public class GPCPUi extends javax.swing.JFrame {
 
         jHolidayTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Numéro de congé", "Numéro d'employé", "Motif", "Nombre de jours", "Date de demande", "Date de retour"
@@ -107,23 +110,7 @@ public class GPCPUi extends javax.swing.JFrame {
 
         jMainTabs.addTab("Congé(s)", jHolidayScrollPanel);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jMainTabs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jMainTabs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
+        getContentPane().add(jMainTabs);
         jMainTabs.getAccessibleContext().setAccessibleName("employeeTab");
         jMainTabs.getAccessibleContext().setAccessibleDescription("");
 
@@ -167,11 +154,11 @@ public class GPCPUi extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jEmployeeScrollPanel;
-    private javax.swing.JTable jEmployeeTable;
+    public static javax.swing.JTable jEmployeeTable;
     private javax.swing.JScrollPane jHolidayScrollPanel;
-    private javax.swing.JTable jHolidayTable;
+    public static javax.swing.JTable jHolidayTable;
     private javax.swing.JTabbedPane jMainTabs;
     private javax.swing.JScrollPane jPointageScrollPanel;
-    private javax.swing.JTable jPointageTable;
+    public static javax.swing.JTable jPointageTable;
     // End of variables declaration//GEN-END:variables
 }
