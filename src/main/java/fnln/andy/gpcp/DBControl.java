@@ -99,25 +99,25 @@ public class DBControl {
                                 toAdd.getNom(),
                                 toAdd.getPrenom(),
                                 toAdd.getPoste(),
-                                toAdd.getSalaire()});
+                                toAdd.getSalaire()
+                                });
             
         });
-    }
-    
+    }   
     public static List<Employee> getEmployees() {
         List<Employee> retVal = new ArrayList<>();
         String selectEmps = "SELECT * FROM Employe;";
         ResultSet res = null;
         
         try {
-            Employee toPush = new Employee();
-            
             res = m_DatabaseStatement.executeQuery(selectEmps);
             
             if (res == null)
                 return retVal;
             
             while (res.next()) {
+                Employee toPush = new Employee();
+                
                 toPush.setNumEmp(res.getString("NumEmp"));
                 toPush.setNom(res.getString("Nom"));
                 toPush.setPrenom(res.getString("Prenom"));
@@ -132,7 +132,6 @@ public class DBControl {
         
         return retVal;
     }
-    
     public static void loadEmployees(JTable dest) {
         List<Employee> toPush = getEmployees();
         
@@ -140,5 +139,143 @@ public class DBControl {
             pushEmployee(dest, emp);
             System.out.println(emp.getNom());
         }
+    }
+    public static void reloadEmployees(JTable dest) {
+        dest.setModel(new DefaultTableModel());
+        loadEmployees(dest);
+    }
+    
+    public static void pushPointage(JTable pointageTable, Pointage toAdd) {
+        SwingUtilities.invokeLater(() -> {
+            if (pointageTable == null) {
+                System.out.println("\"pointageTable\" is null.");
+                return;
+            }
+            
+            TableModel tableModel = pointageTable.getModel();
+            
+            if (!(tableModel instanceof DefaultTableModel)) {
+                System.out.println("\"tableModel\" is not a DefaultTableModel.");
+                return;
+            }
+            
+            DefaultTableModel defaultModel = (DefaultTableModel)(tableModel);
+            
+            defaultModel.addRow(new Object[] {
+                                toAdd.getDatePointage(),
+                                toAdd.getNumEmp(),
+                                toAdd.getPointage()
+                                });
+        });
+    }
+    public static List<Pointage> getPointages() {
+        List<Pointage> retVal = new ArrayList<>();
+        String selectPointage = "SELECT * FROM Pointage;";
+        ResultSet res = null;
+        
+        try { 
+            res = m_DatabaseStatement.executeQuery(selectPointage);
+            
+            if (res == null)
+                return retVal;
+            
+            while (res.next()) {
+                Pointage toPush = new Pointage();
+                
+                toPush.setDatePointage(res.getString("DatePointage"));
+                toPush.setNumEmp(res.getString("NumEmp"));
+                toPush.setPointage(res.getString("Pointage"));
+                
+                retVal.add(toPush);
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return retVal;
+    }    
+    public static void loadPointages(JTable dest) {
+        List<Pointage> toPush = getPointages();
+        
+        for (Pointage p : toPush) {
+            pushPointage(dest, p);
+            System.out.println(p.getDatePointage() + " " + 
+                               p.getNumEmp() + " " + 
+                               p.getPointage());
+        }
+    }
+    public static void reloadPointages(JTable dest) {
+        dest.setModel(new DefaultTableModel());
+        loadPointages(dest);
+    }
+    
+    public static void pushHoliday(JTable holidayTable, Holiday toAdd) {
+        SwingUtilities.invokeLater(() -> {
+            if (holidayTable == null) {
+                System.out.println("\"holidayTable\" is null.");
+                return;
+            }
+            
+            TableModel tableModel = holidayTable.getModel();
+            
+            if (!(tableModel instanceof DefaultTableModel)) {
+                System.out.println("\"tableModel\" is not a DefaultTableModel.");
+                return;
+            }
+            
+            DefaultTableModel defaultModel = (DefaultTableModel)(tableModel);
+            
+            defaultModel.addRow(new Object[] {
+                                toAdd.getNumConge(),
+                                toAdd.getNumEmp(),
+                                toAdd.getMotif(),
+                                toAdd.getNombreJours(),
+                                toAdd.getDateDemande(),
+                                toAdd.getDateRetour()
+                                });
+        });
+    }
+    public static List<Holiday> getHolidays() {
+        List<Holiday> retVal = new ArrayList<>();
+        String selectPointage = "SELECT * FROM Conge;";
+        ResultSet res = null;
+        
+        try { 
+            res = m_DatabaseStatement.executeQuery(selectPointage);
+            
+            if (res == null)
+                return retVal;
+            
+            while (res.next()) {
+                Holiday toPush = new Holiday();
+                
+                toPush.setNumConge(res.getString("NumConge"));
+                toPush.setNumEmp(res.getString("NumEmp"));
+                toPush.setMotif(res.getString("Motif"));
+                toPush.setNombreJours(res.getInt("NombreJours"));
+                toPush.setDateDemande(res.getString("DateDemande"));
+                toPush.setDateRetour(res.getString("DateRetour"));
+                
+                retVal.add(toPush);
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return retVal;
+    }
+    public static void loadHolidays(JTable dest) {
+        List<Holiday> toPush = getHolidays();
+        
+        for (Holiday h : toPush) {
+            pushHoliday(dest, h);
+            System.out.println(h.getNumConge());
+        }
+    }
+    public static void reloadHolidays(JTable dest) {
+        dest.setModel(new DefaultTableModel());
+        loadHolidays(dest);
     }
 }

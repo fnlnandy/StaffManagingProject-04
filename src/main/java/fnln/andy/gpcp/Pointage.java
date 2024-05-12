@@ -15,16 +15,14 @@ public class Pointage {
     
     public Pointage()
     {
-        this.m_DatePointage = "1999-01-01";
-        this.m_NumEmp = "0";
-        this.m_Pointage = "Non";
+        this("1999-01-01", "0", "Non");
     }
     
     public Pointage(final String datePointage, final String numEmp, final String pointage)
     {
         this.m_DatePointage = datePointage;
         this.m_NumEmp = numEmp;
-        this.m_Pointage = pointage;
+        this.m_Pointage = ("oui".equals(pointage.toLowerCase()) ? "Oui" : "Non");
     }
     
     public String getDatePointage() { return m_DatePointage; }

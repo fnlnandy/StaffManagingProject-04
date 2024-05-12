@@ -19,12 +19,9 @@ public class GPCPUi extends javax.swing.JFrame {
     public GPCPUi() {
         initComponents();
         
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowOpened(WindowEvent e) {
-                DBControl.loadEmployees(GPCPUi.jEmployeeTable);
-            }
-        });
+        DBControl.loadEmployees(GPCPUi.jEmployeeTable);
+        DBControl.loadPointages(GPCPUi.jPointageTable);
+        DBControl.loadHolidays(GPCPUi.jHolidayTable);
     }
 
     /**
@@ -37,16 +34,64 @@ public class GPCPUi extends javax.swing.JFrame {
     private void initComponents() {
 
         jMainTabs = new javax.swing.JTabbedPane();
-        jEmployeeScrollPanel = new javax.swing.JScrollPane();
+        jEmployeePanel = new javax.swing.JPanel();
+        jSearchBarPanel = new javax.swing.JPanel();
+        jSearchEmployeeLabel = new javax.swing.JLabel();
+        jSearchContentTextField = new javax.swing.JTextField();
+        jEmployeeCrudPanel = new javax.swing.JPanel();
+        jAddNewEmployeeButton = new javax.swing.JButton();
+        jEditEmployeeButton = new javax.swing.JButton();
+        jRemoveEmployeeButton = new javax.swing.JButton();
+        jEmployeeScrollPane = new javax.swing.JScrollPane();
         jEmployeeTable = new javax.swing.JTable();
-        jPointageScrollPanel = new javax.swing.JScrollPane();
+        jPointagePanel = new javax.swing.JPanel();
+        jPointageScrollPane = new javax.swing.JScrollPane();
         jPointageTable = new javax.swing.JTable();
-        jHolidayScrollPanel = new javax.swing.JScrollPane();
+        jHolidayPanel = new javax.swing.JPanel();
+        jHolidayScrollPane = new javax.swing.JScrollPane();
         jHolidayTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gestion de Congé(s) et de Pointage(s) du Personnel");
+        setMaximumSize(new java.awt.Dimension(600, 400));
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
+
+        jEmployeePanel.setMaximumSize(new java.awt.Dimension(32767, 78));
+        jEmployeePanel.setLayout(new java.awt.GridLayout(0, 1, 0, 30));
+
+        jSearchBarPanel.setLayout(new java.awt.GridLayout(0, 2));
+
+        jSearchEmployeeLabel.setText("Rechercher:");
+        jSearchBarPanel.add(jSearchEmployeeLabel);
+
+        jSearchContentTextField.setText("Nom(s) et Prénom(s)...");
+        jSearchContentTextField.setMaximumSize(new java.awt.Dimension(2147483647, 24));
+        jSearchContentTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSearchContentTextFieldActionPerformed(evt);
+            }
+        });
+        jSearchBarPanel.add(jSearchContentTextField);
+
+        jEmployeePanel.add(jSearchBarPanel);
+
+        jAddNewEmployeeButton.setText("Ajouter un employé");
+        jAddNewEmployeeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAddNewEmployeeButtonActionPerformed(evt);
+            }
+        });
+        jEmployeeCrudPanel.add(jAddNewEmployeeButton);
+
+        jEditEmployeeButton.setText("Modifier un employé");
+        jEmployeeCrudPanel.add(jEditEmployeeButton);
+
+        jRemoveEmployeeButton.setText("Retirer un employé");
+        jEmployeeCrudPanel.add(jRemoveEmployeeButton);
+
+        jEmployeePanel.add(jEmployeeCrudPanel);
+
+        jEmployeeScrollPane.setMaximumSize(new java.awt.Dimension(32767, 100));
 
         jEmployeeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -65,9 +110,15 @@ public class GPCPUi extends javax.swing.JFrame {
             }
         });
         jEmployeeTable.getTableHeader().setReorderingAllowed(false);
-        jEmployeeScrollPanel.setViewportView(jEmployeeTable);
+        jEmployeeScrollPane.setViewportView(jEmployeeTable);
 
-        jMainTabs.addTab("Employé(s)", jEmployeeScrollPanel);
+        jEmployeePanel.add(jEmployeeScrollPane);
+
+        jMainTabs.addTab("Employé(s)", jEmployeePanel);
+
+        jPointagePanel.setLayout(new java.awt.GridLayout(1, 0));
+
+        jPointageScrollPane.setMaximumSize(new java.awt.Dimension(32767, 100));
 
         jPointageTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -86,9 +137,15 @@ public class GPCPUi extends javax.swing.JFrame {
             }
         });
         jPointageTable.getTableHeader().setReorderingAllowed(false);
-        jPointageScrollPanel.setViewportView(jPointageTable);
+        jPointageScrollPane.setViewportView(jPointageTable);
 
-        jMainTabs.addTab("Pointage(s)", jPointageScrollPanel);
+        jPointagePanel.add(jPointageScrollPane);
+
+        jMainTabs.addTab("Pointage(s)", jPointagePanel);
+
+        jHolidayPanel.setLayout(new java.awt.GridLayout(1, 0));
+
+        jHolidayScrollPane.setMaximumSize(new java.awt.Dimension(32767, 100));
 
         jHolidayTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -106,9 +163,11 @@ public class GPCPUi extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jHolidayScrollPanel.setViewportView(jHolidayTable);
+        jHolidayScrollPane.setViewportView(jHolidayTable);
 
-        jMainTabs.addTab("Congé(s)", jHolidayScrollPanel);
+        jHolidayPanel.add(jHolidayScrollPane);
+
+        jMainTabs.addTab("Congé(s)", jHolidayPanel);
 
         getContentPane().add(jMainTabs);
         jMainTabs.getAccessibleContext().setAccessibleName("employeeTab");
@@ -116,6 +175,14 @@ public class GPCPUi extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jSearchContentTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSearchContentTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jSearchContentTextFieldActionPerformed
+
+    private void jAddNewEmployeeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAddNewEmployeeButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jAddNewEmployeeButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,12 +220,22 @@ public class GPCPUi extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jEmployeeScrollPanel;
-    public static javax.swing.JTable jEmployeeTable;
-    private javax.swing.JScrollPane jHolidayScrollPanel;
-    public static javax.swing.JTable jHolidayTable;
+    private javax.swing.JButton jAddNewEmployeeButton;
+    private javax.swing.JButton jEditEmployeeButton;
+    private javax.swing.JPanel jEmployeeCrudPanel;
+    private javax.swing.JPanel jEmployeePanel;
+    private javax.swing.JScrollPane jEmployeeScrollPane;
+    private static javax.swing.JTable jEmployeeTable;
+    private javax.swing.JPanel jHolidayPanel;
+    private javax.swing.JScrollPane jHolidayScrollPane;
+    private static javax.swing.JTable jHolidayTable;
     private javax.swing.JTabbedPane jMainTabs;
-    private javax.swing.JScrollPane jPointageScrollPanel;
-    public static javax.swing.JTable jPointageTable;
+    private javax.swing.JPanel jPointagePanel;
+    private javax.swing.JScrollPane jPointageScrollPane;
+    private static javax.swing.JTable jPointageTable;
+    private javax.swing.JButton jRemoveEmployeeButton;
+    private javax.swing.JPanel jSearchBarPanel;
+    private javax.swing.JTextField jSearchContentTextField;
+    private javax.swing.JLabel jSearchEmployeeLabel;
     // End of variables declaration//GEN-END:variables
 }
