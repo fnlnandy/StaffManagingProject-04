@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package fnln.andy.gpcp;
+package fnln.andy.gpcp.core;
 
 /**
  *
@@ -36,6 +36,19 @@ public class Holiday {
     public int getNombreJours() { return this.m_NombreJours; }
     public String getDateDemande() { return this.m_DateDemande; }
     public String getDateRetour() { return this.m_DateRetour; }
+    public String getPrintable()
+    {
+        String printable = "Holiday(";
+        
+        printable += m_NumConge + ", ";
+        printable += m_NumEmp + ", ";
+        printable += "`" + m_Motif + "`, ";
+        printable += String.valueOf(m_NombreJours) + ", ";
+        printable += m_DateDemande + ", ";
+        printable += m_DateRetour + ")";
+        
+        return printable;
+    }
     
     public void setNumConge(final String numConge) { this.m_NumConge = numConge; }
     public void setNumEmp(final String numEmp) { this.m_NumEmp = numEmp; }

@@ -2,10 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package fnln.andy.gpcp;
+package fnln.andy.gpcp.ui;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import fnln.andy.gpcp.DBControl;
+import fnln.andy.gpcp.core.Employee;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -53,7 +56,6 @@ public class GPCPUi extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gestion de Congé(s) et de Pointage(s) du Personnel");
-        setMaximumSize(new java.awt.Dimension(600, 400));
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         jEmployeePanel.setMaximumSize(new java.awt.Dimension(32767, 78));
@@ -84,6 +86,11 @@ public class GPCPUi extends javax.swing.JFrame {
         jEmployeeCrudPanel.add(jAddNewEmployeeButton);
 
         jEditEmployeeButton.setText("Modifier un employé");
+        jEditEmployeeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jEditEmployeeButtonActionPerformed(evt);
+            }
+        });
         jEmployeeCrudPanel.add(jEditEmployeeButton);
 
         jRemoveEmployeeButton.setText("Retirer un employé");
@@ -182,7 +189,53 @@ public class GPCPUi extends javax.swing.JFrame {
 
     private void jAddNewEmployeeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAddNewEmployeeButtonActionPerformed
         // TODO add your handling code here:
+        EmployeeFormUi ui = new EmployeeFormUi(this, true);
+        
+        ui.setIsEditMode(false);
+        SwingUtilities.invokeLater(() -> {
+            ui.setVisible(true);
+        });
     }//GEN-LAST:event_jAddNewEmployeeButtonActionPerformed
+
+    private void jEditEmployeeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditEmployeeButtonActionPerformed
+        // TODO add your handling code here:
+        final int selectedEmployeeIndex = jEmployeeTable.getSelectedRow();
+        
+        if (selectedEmployeeIndex == -1)
+        {
+            // TODO: add a popup menu for no selected index
+            System.out.println("No selected employee.");
+            return;
+        }
+        
+        TableModel employeeTableModel = jEmployeeTable.getModel();
+        
+        if (!(employeeTableModel instanceof DefaultTableModel))
+        {
+            return;
+        }
+        
+        DefaultTableModel defaultTM = (DefaultTableModel)(employeeTableModel);
+        Employee selectedEmployee = new Employee();
+        
+        selectedEmployee.setNumEmp((String)(defaultTM.getValueAt(selectedEmployeeIndex, 0)));
+        selectedEmployee.setNom((String)(defaultTM.getValueAt(selectedEmployeeIndex, 1)));
+        selectedEmployee.setPrenom((String)(defaultTM.getValueAt(selectedEmployeeIndex, 2)));
+        selectedEmployee.setPoste((String)(defaultTM.getValueAt(selectedEmployeeIndex, 3)));
+        selectedEmployee.setSalaire((int)(defaultTM.getValueAt(selectedEmployeeIndex, 4)));
+        
+        EmployeeFormUi ui = new EmployeeFormUi(this, true);
+        
+        ui.setIsEditMode(true);
+        ui.setEmployeeName(selectedEmployee.getNom());
+        ui.setEmployeeFirstName(selectedEmployee.getPrenom());
+        ui.setEmployeeJob(selectedEmployee.getPoste());
+        ui.setEmployeeSalary(selectedEmployee.getSalaire());
+        
+        SwingUtilities.invokeLater(() -> {
+            ui.setVisible(true);
+        });
+    }//GEN-LAST:event_jEditEmployeeButtonActionPerformed
 
     /**
      * @param args the command line arguments

@@ -4,8 +4,9 @@
  */
 package fnln.andy.gpcp;
 
-import java.awt.Component;
-import java.io.Console;
+import fnln.andy.gpcp.core.Holiday;
+import fnln.andy.gpcp.core.Pointage;
+import fnln.andy.gpcp.core.Employee;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;

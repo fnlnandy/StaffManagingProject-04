@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package fnln.andy.gpcp;
+package fnln.andy.gpcp.core;
 
 /**
  *
@@ -28,6 +28,17 @@ public class Pointage {
     public String getDatePointage() { return m_DatePointage; }
     public String getNumEmp() { return m_NumEmp; }
     public String getPointage() { return m_Pointage; }
+    public String getPrintable()
+    {
+        String printable = "Pointage(";
+        
+        printable += m_DatePointage + ", ";
+        printable += m_NumEmp + ", ";
+        printable += m_Pointage + ")";
+        
+        return printable;
+    }
+    
     public void setDatePointage(final String datePointage) { this.m_DatePointage = datePointage; }
     public void setNumEmp(final String numEmp) { this.m_NumEmp = numEmp; }
     public void setPointage(final String pointage) { this.m_Pointage = pointage; }

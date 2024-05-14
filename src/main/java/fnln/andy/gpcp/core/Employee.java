@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package fnln.andy.gpcp;
+package fnln.andy.gpcp.core;
 
 /**
  *
@@ -39,6 +39,18 @@ public class Employee {
     public String getPrenom() { return m_Prenom; }
     public String getPoste() { return m_Poste; }
     public int getSalaire() { return m_Salaire; }
+    public String getPrintable()
+    {
+        String printable = "Employee(";
+        
+        printable += m_NumEmp + ", ";
+        printable += m_Nom + ", ";
+        printable += m_Prenom + ", ";
+        printable += m_Poste + ", ";
+        printable += String.valueOf(m_Salaire) + ")";
+        
+        return printable;
+    }
     
     public void setNumEmp(final String numEmp) { this.m_NumEmp = numEmp; }
     public void setNom(final String nom) { this.m_Nom = nom; }

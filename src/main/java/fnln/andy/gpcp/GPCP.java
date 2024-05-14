@@ -4,10 +4,7 @@
 
 package fnln.andy.gpcp;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import javax.swing.SwingUtilities;
+import fnln.andy.gpcp.ui.GPCPUi;
 
 /**
  *
