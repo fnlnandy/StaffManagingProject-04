@@ -9,6 +9,7 @@ import fnln.andy.gpcp.core.Pointage;
 import fnln.andy.gpcp.core.Employee;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -144,6 +145,88 @@ public class DBControl {
     public static void reloadEmployees(JTable dest) {
         dest.setModel(new DefaultTableModel());
         loadEmployees(dest);
+    }
+    public static boolean addEmployee(Employee e)
+    {
+        String addEmp = "INSERT INTO Employe VALUES("
+                + "?,"
+                + "?,"
+                + "?,"
+                + "?,"
+                + "?"
+                + ");";
+        PreparedStatement req = null;
+        boolean retVal = false;
+        
+        try {
+            req = m_DatabaseConnection.prepareStatement(addEmp);
+        } catch (SQLException sqlE)
+        {
+            sqlE.printStackTrace();
+        }
+        
+        try {
+            req.setString(1, e.getNumEmp());
+            req.setString(2, e.getNom());
+            req.setString(3, e.getPrenom());
+            req.setString(4, e.getPoste());
+            req.setInt(5, e.getSalaire());
+        } catch (SQLException sqlE)
+        {
+            sqlE.printStackTrace();
+        }
+  
+        System.out.println(req.toString());
+        try {
+            retVal = req.executeUpdate() >= 0;
+        } catch (SQLException sqlE)
+        {
+            sqlE.printStackTrace();
+        }
+        
+        return retVal;
+    }
+    public static boolean editEmployee(Employee e, String prevEmpId)
+    {
+        String addEmp = "UPDATE Employe SET "
+                + "NumEmp = ?, "
+                + "Nom = ?, "
+                + "Prenom = ?, "
+                + "Poste = ?, "
+                + "Salaire = ? "
+                + "WHERE NumEmp = ? "
+                + ";";
+        PreparedStatement req = null;
+        boolean retVal = false;
+        
+        try {
+            req = m_DatabaseConnection.prepareStatement(addEmp);
+        } catch (SQLException sqlE)
+        {
+            sqlE.printStackTrace();
+        }
+        
+        try {
+            req.setString(1, e.getNumEmp());
+            req.setString(2, e.getNom());
+            req.setString(3, e.getPrenom());
+            req.setString(4, e.getPoste());
+            req.setInt(5, e.getSalaire());
+            req.setString(6, prevEmpId);
+        } catch (SQLException sqlE)
+        {
+            sqlE.printStackTrace();
+        }
+        
+        System.out.println(req.toString());
+        try {
+            retVal = req.executeUpdate() >= 0;
+        } catch (SQLException sqlE)
+        {
+            sqlE.printStackTrace();
+        }
+        
+        return retVal;
     }
     
     public static void pushPointage(JTable pointageTable, Pointage toAdd) {

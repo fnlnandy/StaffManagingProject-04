@@ -4,6 +4,9 @@
  */
 package fnln.andy.gpcp.ui;
 
+import fnln.andy.gpcp.DBControl;
+import fnln.andy.gpcp.core.Employee;
+
 /**
  *
  * @author andy
@@ -27,6 +30,8 @@ public class EmployeeFormUi extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jEmployeeIdLabel = new javax.swing.JLabel();
+        jEmployeeIdSpinner = new javax.swing.JSpinner();
         jEmployeeNameLabel = new javax.swing.JLabel();
         jEmployeeNameTextField = new javax.swing.JTextField();
         jEmployeeFirstNameLabel = new javax.swing.JLabel();
@@ -41,6 +46,10 @@ public class EmployeeFormUi extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Formulaire d'un employé");
         getContentPane().setLayout(new java.awt.GridLayout(0, 2, 0, 3));
+
+        jEmployeeIdLabel.setText("Numéro de l'employé(e):");
+        getContentPane().add(jEmployeeIdLabel);
+        getContentPane().add(jEmployeeIdSpinner);
 
         jEmployeeNameLabel.setText("Nom de l'employé(e):");
         getContentPane().add(jEmployeeNameLabel);
@@ -71,6 +80,11 @@ public class EmployeeFormUi extends javax.swing.JDialog {
         getContentPane().add(jEmployeeSalarySpinner);
 
         jEmployeeConfirmButton.setText("Confirmer");
+        jEmployeeConfirmButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jEmployeeConfirmButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(jEmployeeConfirmButton);
 
         jEmployeeResetButton.setText("Réinitialiser");
@@ -99,8 +113,37 @@ public class EmployeeFormUi extends javax.swing.JDialog {
         jEmployeeJobTextField.setText("");
         jEmployeeSalarySpinner.setValue(0);
     }//GEN-LAST:event_jEmployeeResetButtonActionPerformed
+    
+    private void jEmployeeConfirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEmployeeConfirmButtonActionPerformed
+        // TODO add your handling code here:
+        if (!isFormLegit())
+        {
+            // TODO: add a popup menu
+            System.out.println("The form isn't legit.");
+            return;
+        }
+        
+        Employee e = new Employee();
+        
+        e.setNumEmp(String.valueOf((int)jEmployeeIdSpinner.getValue()));
+        e.setNom(jEmployeeNameTextField.getText());
+        e.setPrenom(jEmployeeFirstNameTextField.getText());
+        e.setPoste(jEmployeeJobTextField.getText());
+        e.setSalaire((int)jEmployeeSalarySpinner.getValue());
+        
+        if (m_IsEditMode)
+            DBControl.editEmployee(e, m_PreviousEmployeeId);
+        else
+            DBControl.addEmployee(e);
+    }//GEN-LAST:event_jEmployeeConfirmButtonActionPerformed
 
     public void setIsEditMode(boolean isEditMode) { this.m_IsEditMode = isEditMode; }
+    public void setPreviousEmployeeId(String prevEmployeeId) {
+        this.m_PreviousEmployeeId = prevEmployeeId;
+    }
+    public void setEmployeeId(String employeeId) {
+        jEmployeeIdSpinner.setValue(Integer.parseInt(employeeId));
+    }
     public void setEmployeeName(String employeeName) { 
         jEmployeeNameTextField.setText(employeeName); 
     }
@@ -169,11 +212,14 @@ public class EmployeeFormUi extends javax.swing.JDialog {
     }
 
     private boolean m_IsEditMode;
+    private String m_PreviousEmployeeId;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jEmployeeConfirmButton;
     private javax.swing.JLabel jEmployeeFirstNameLabel;
     private javax.swing.JTextField jEmployeeFirstNameTextField;
+    private javax.swing.JLabel jEmployeeIdLabel;
+    private javax.swing.JSpinner jEmployeeIdSpinner;
     private javax.swing.JLabel jEmployeeJobLabel;
     private javax.swing.JTextField jEmployeeJobTextField;
     private javax.swing.JLabel jEmployeeNameLabel;

@@ -192,6 +192,7 @@ public class GPCPUi extends javax.swing.JFrame {
         EmployeeFormUi ui = new EmployeeFormUi(this, true);
         
         ui.setIsEditMode(false);
+        ui.setTitle("Ajouter un nouvel employé");
         SwingUtilities.invokeLater(() -> {
             ui.setVisible(true);
         });
@@ -227,10 +228,13 @@ public class GPCPUi extends javax.swing.JFrame {
         EmployeeFormUi ui = new EmployeeFormUi(this, true);
         
         ui.setIsEditMode(true);
+        ui.setPreviousEmployeeId(selectedEmployee.getNumEmp());
+        ui.setEmployeeId(selectedEmployee.getNumEmp());
         ui.setEmployeeName(selectedEmployee.getNom());
         ui.setEmployeeFirstName(selectedEmployee.getPrenom());
         ui.setEmployeeJob(selectedEmployee.getPoste());
         ui.setEmployeeSalary(selectedEmployee.getSalaire());
+        ui.setTitle("Modifier l'employé: " + selectedEmployee.getPrintable());
         
         SwingUtilities.invokeLater(() -> {
             ui.setVisible(true);

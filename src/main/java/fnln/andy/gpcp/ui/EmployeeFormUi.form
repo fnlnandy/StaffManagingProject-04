@@ -28,6 +28,13 @@
     <Property name="verticalGap" type="int" value="3"/>
   </Layout>
   <SubComponents>
+    <Component class="javax.swing.JLabel" name="jEmployeeIdLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Num&#xe9;ro de l&apos;employ&#xe9;(e):"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="jEmployeeIdSpinner">
+    </Component>
     <Component class="javax.swing.JLabel" name="jEmployeeNameLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nom de l&apos;employ&#xe9;(e):"/>
@@ -66,6 +73,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Confirmer"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jEmployeeConfirmButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jEmployeeResetButton">
       <Properties>
