@@ -299,6 +299,7 @@ public class GPCPUi extends javax.swing.JFrame {
         // TODO add your handling code here:
         PointageFormUi ui = new PointageFormUi(this, true);
         
+        ui.initEmployeeData(DBControl.getEmployees());
         SwingUtilities.invokeLater(() -> {
             ui.setVisible(true);
         });

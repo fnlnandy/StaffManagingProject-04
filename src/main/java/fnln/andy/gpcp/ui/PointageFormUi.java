@@ -4,7 +4,11 @@
  */
 package fnln.andy.gpcp.ui;
 
+import fnln.andy.gpcp.core.Employee;
 import fnln.andy.gpcp.inputverifiers.DayInDateInputVerifier;
+import java.util.List;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JSpinner;
@@ -21,6 +25,24 @@ public class PointageFormUi extends javax.swing.JDialog {
     public PointageFormUi(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+    
+    public void initEmployeeData(List<Employee> employees)
+    {
+        ComboBoxModel<String> numEmpCBM = jNumEmpComboBox.getModel();
+        ComboBoxModel<String> empNameCBM = jEmployeeNameComboBox.getModel();
+        
+        if ((!(numEmpCBM instanceof DefaultComboBoxModel)) ||
+             !(empNameCBM instanceof DefaultComboBoxModel))
+            return;
+        
+        DefaultComboBoxModel<String> realNECBM = (DefaultComboBoxModel<String>)(numEmpCBM);
+        DefaultComboBoxModel<String> realENCBM = (DefaultComboBoxModel<String>)(empNameCBM);
+        
+        for (Employee e : employees) {
+            realNECBM.addElement(e.getNumEmp());
+            realENCBM.addElement(e.getNom() + " " + e.getPrenom());
+        }
     }
   
 
@@ -41,10 +63,14 @@ public class PointageFormUi extends javax.swing.JDialog {
         jDatePointageDaySpinner = new javax.swing.JSpinner();
         jDatePointageMonthComboBox = new javax.swing.JComboBox<>();
         jDatePointageYearSpinner = new javax.swing.JSpinner();
+        jNumEmpLabel = new javax.swing.JLabel();
+        jNumEmpPanel = new javax.swing.JPanel();
+        jNumEmpComboBox = new javax.swing.JComboBox<>();
+        jEmployeeNameComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jDatePointageLabel.setText("jLabel1");
+        jDatePointageLabel.setText("Date de pointage:");
 
         jDatePointagePanel.setLayout(new java.awt.GridLayout(0, 3, 4, 0));
 
@@ -80,25 +106,58 @@ public class PointageFormUi extends javax.swing.JDialog {
         });
         jDatePointagePanel.add(jDatePointageYearSpinner);
 
+        jNumEmpLabel.setText("Numéro d'employé:");
+
+        javax.swing.GroupLayout jNumEmpPanelLayout = new javax.swing.GroupLayout(jNumEmpPanel);
+        jNumEmpPanel.setLayout(jNumEmpPanelLayout);
+        jNumEmpPanelLayout.setHorizontalGroup(
+            jNumEmpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jNumEmpPanelLayout.createSequentialGroup()
+                .addComponent(jNumEmpComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 96, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jNumEmpPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jEmployeeNameComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jNumEmpPanelLayout.setVerticalGroup(
+            jNumEmpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jNumEmpPanelLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jNumEmpComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jEmployeeNameComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jDatePointageLabel)
-                .addGap(205, 205, 205)
-                .addComponent(jDatePointagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jNumEmpLabel)
+                        .addGap(96, 96, 96)
+                        .addComponent(jNumEmpPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jDatePointageLabel)
+                        .addGap(182, 182, 182)
+                        .addComponent(jDatePointagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(254, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jDatePointagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDatePointageLabel))
-                .addContainerGap(230, Short.MAX_VALUE))
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jNumEmpLabel)
+                    .addComponent(jNumEmpPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         pack();
@@ -173,5 +232,9 @@ public class PointageFormUi extends javax.swing.JDialog {
     private javax.swing.JPanel jDatePointagePanel;
     private javax.swing.JLabel jDatePointageYearLabel;
     private javax.swing.JSpinner jDatePointageYearSpinner;
+    private javax.swing.JComboBox<String> jEmployeeNameComboBox;
+    private javax.swing.JComboBox<String> jNumEmpComboBox;
+    private javax.swing.JLabel jNumEmpLabel;
+    private javax.swing.JPanel jNumEmpPanel;
     // End of variables declaration//GEN-END:variables
 }
