@@ -143,7 +143,16 @@ public class DBControl {
         }
     }
     public static void reloadEmployees(JTable dest) {
-        dest.setModel(new DefaultTableModel());
+        TableModel tm = dest.getModel();
+        
+        if (!(tm instanceof DefaultTableModel))
+            return;
+        
+        DefaultTableModel defaultTM = (DefaultTableModel)(tm);
+        
+        for (int i = defaultTM.getRowCount() - 1; i >= 0; i--)
+            defaultTM.removeRow(i);
+        
         loadEmployees(dest);
     }
     public static boolean addEmployee(Employee e)
