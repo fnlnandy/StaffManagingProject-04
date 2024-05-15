@@ -138,6 +138,7 @@ public class EmployeeFormUi extends javax.swing.JDialog {
             DBControl.addEmployee(e);
         
         DBControl.reloadEmployees(GPCPUi.getEmployeeTable());
+        setVisible(false);
     }//GEN-LAST:event_jEmployeeConfirmButtonActionPerformed
 
     public void setIsEditMode(boolean isEditMode) { this.m_IsEditMode = isEditMode; }
