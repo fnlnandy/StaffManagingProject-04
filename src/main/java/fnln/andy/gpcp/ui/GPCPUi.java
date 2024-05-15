@@ -272,6 +272,7 @@ public class GPCPUi extends javax.swing.JFrame {
         DefaultTableModel defaultTM = (DefaultTableModel)(tm);
         
         DBControl.deleteEmployee((String)defaultTM.getValueAt(selectedIndex, 0));
+        DBControl.reloadEmployees(jEmployeeTable);
     }//GEN-LAST:event_jRemoveEmployeeButtonActionPerformed
 
     /**
