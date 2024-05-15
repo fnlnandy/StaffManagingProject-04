@@ -26,6 +26,10 @@ public class GPCPUi extends javax.swing.JFrame {
         DBControl.loadPointages(GPCPUi.jPointageTable);
         DBControl.loadHolidays(GPCPUi.jHolidayTable);
     }
+    
+    public static javax.swing.JTable getEmployeeTable() { return jEmployeeTable; }
+    public static javax.swing.JTable getPointageTable() { return jPointageTable; }
+    public static javax.swing.JTable getHolidayTable() { return jHolidayTable; }
 
     /**
      * This method is called from within the constructor to initialize the form.
