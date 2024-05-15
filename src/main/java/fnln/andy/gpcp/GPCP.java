@@ -5,6 +5,7 @@
 package fnln.andy.gpcp;
 
 import fnln.andy.gpcp.ui.GPCPUi;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -17,11 +18,10 @@ public class GPCP {
         DBControl.initDatabaseConnection();
         DBControl.initBaseTables();
         
-//        m_MainAppUi = new GPCPUi();
-//        
-//        SwingUtilities.invokeLater(() -> {
-//            m_MainAppUi.setVisible(true);
-//        });
-        GPCPUi.main(args);
+        m_MainAppUi = new GPCPUi();
+        
+        SwingUtilities.invokeLater(() -> {
+            m_MainAppUi.setVisible(true);
+        });
     }
 }
