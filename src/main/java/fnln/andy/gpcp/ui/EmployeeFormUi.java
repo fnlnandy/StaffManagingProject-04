@@ -6,6 +6,7 @@ package fnln.andy.gpcp.ui;
 
 import fnln.andy.gpcp.DBControl;
 import fnln.andy.gpcp.core.Employee;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -163,10 +164,35 @@ public class EmployeeFormUi extends javax.swing.JDialog {
         String employeeJob = jEmployeeJobTextField.getText();
         int employeeSalary = (int) jEmployeeSalarySpinner.getValue();
         
-        return (!employeeName.isEmpty() && 
-                !employeeFirstName.isEmpty() &&
-                !employeeJob.isEmpty() &&
-                (employeeSalary >= minimalSalary));
+        ErrorDialog err = new ErrorDialog((java.awt.Frame)getOwner(), true);
+        
+        if (employeeName.isEmpty())
+        {
+            err.setErrorMessage("Le nom de l'employé ne peut pas être vide.");
+            err.showWithSwing();
+            return false;
+        }
+        if (employeeFirstName.isEmpty())
+        {
+            err.setErrorMessage("Le prénom de l'employé ne peut pas être vide.");
+            err.showWithSwing();
+            return false;
+        }
+        if (employeeJob.isEmpty())
+        {
+            err.setErrorMessage("Le poste de l'employé ne peut pas être vide.");
+            err.showWithSwing();
+            return false;
+        }
+        if (employeeSalary < minimalSalary)
+        {
+            err.setErrorMessage("Le salaire ne doit pas être inférieur à "
+                                + String.valueOf(minimalSalary) + ".");
+            err.showWithSwing();
+            return false;
+        }
+        
+        return true;
     }
     
     /**

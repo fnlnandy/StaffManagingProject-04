@@ -104,6 +104,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Retirer un employ&#xe9;"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRemoveEmployeeButtonActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

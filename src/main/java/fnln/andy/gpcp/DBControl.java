@@ -228,6 +228,26 @@ public class DBControl {
         
         return retVal;
     }
+    public static boolean deleteEmployee(String employeeId)
+    {
+        boolean retVal = false;
+        PreparedStatement req = null;
+        String delEmp = "DELETE FROM Employe WHERE NumEmp = ?;";
+        
+        try {
+            req = m_DatabaseConnection.prepareStatement(delEmp);
+            
+            req.setString(1, employeeId);
+            
+            retVal = req.executeUpdate() >= 0;
+        } catch(SQLException sqle)
+        {
+            sqle.printStackTrace();
+        }
+        
+        
+        return retVal;
+    }
     
     public static void pushPointage(JTable pointageTable, Pointage toAdd) {
         SwingUtilities.invokeLater(() -> {

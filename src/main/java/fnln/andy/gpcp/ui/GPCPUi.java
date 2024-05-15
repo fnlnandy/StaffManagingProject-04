@@ -94,6 +94,11 @@ public class GPCPUi extends javax.swing.JFrame {
         jEmployeeCrudPanel.add(jEditEmployeeButton);
 
         jRemoveEmployeeButton.setText("Retirer un employé");
+        jRemoveEmployeeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRemoveEmployeeButtonActionPerformed(evt);
+            }
+        });
         jEmployeeCrudPanel.add(jRemoveEmployeeButton);
 
         jEmployeePanel.add(jEmployeeCrudPanel);
@@ -240,6 +245,30 @@ public class GPCPUi extends javax.swing.JFrame {
             ui.setVisible(true);
         });
     }//GEN-LAST:event_jEditEmployeeButtonActionPerformed
+
+    private void jRemoveEmployeeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRemoveEmployeeButtonActionPerformed
+        // TODO add your handling code here:
+        int selectedIndex = jEmployeeTable.getSelectedRow();
+        
+        if (selectedIndex == -1)
+        {
+            // TODO: add a popup window
+            System.out.println("No employee row selected for deletion.");
+            return;
+        }
+        
+        TableModel tm = jEmployeeTable.getModel();
+        
+        if (!(tm instanceof DefaultTableModel))
+        {
+            System.out.println("The table model isn't a DefaultTableModel.");
+            return;
+        }
+        
+        DefaultTableModel defaultTM = (DefaultTableModel)(tm);
+        
+        DBControl.deleteEmployee((String)defaultTM.getValueAt(selectedIndex, 0));
+    }//GEN-LAST:event_jRemoveEmployeeButtonActionPerformed
 
     /**
      * @param args the command line arguments
