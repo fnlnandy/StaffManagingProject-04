@@ -181,10 +181,34 @@
           </Constraints>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
-            <Property name="columns" type="int" value="0"/>
-            <Property name="rows" type="int" value="1"/>
+            <Property name="columns" type="int" value="1"/>
+            <Property name="rows" type="int" value="0"/>
           </Layout>
           <SubComponents>
+            <Container class="javax.swing.JPanel" name="jPointageCrudPanel">
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JButton" name="jAddPointageButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Ajouter un pointage"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAddPointageButtonActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="jEditPointageButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Modifier un pointage"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="jRemovePointageButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Retirer un pointage"/>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
             <Container class="javax.swing.JScrollPane" name="jPointageScrollPane">
               <Properties>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">

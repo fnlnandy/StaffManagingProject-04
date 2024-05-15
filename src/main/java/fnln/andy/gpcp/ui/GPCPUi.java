@@ -52,6 +52,10 @@ public class GPCPUi extends javax.swing.JFrame {
         jEmployeeScrollPane = new javax.swing.JScrollPane();
         jEmployeeTable = new javax.swing.JTable();
         jPointagePanel = new javax.swing.JPanel();
+        jPointageCrudPanel = new javax.swing.JPanel();
+        jAddPointageButton = new javax.swing.JButton();
+        jEditPointageButton = new javax.swing.JButton();
+        jRemovePointageButton = new javax.swing.JButton();
         jPointageScrollPane = new javax.swing.JScrollPane();
         jPointageTable = new javax.swing.JTable();
         jHolidayPanel = new javax.swing.JPanel();
@@ -132,7 +136,23 @@ public class GPCPUi extends javax.swing.JFrame {
 
         jMainTabs.addTab("Employé(s)", jEmployeePanel);
 
-        jPointagePanel.setLayout(new java.awt.GridLayout(1, 0));
+        jPointagePanel.setLayout(new java.awt.GridLayout(0, 1));
+
+        jAddPointageButton.setText("Ajouter un pointage");
+        jAddPointageButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAddPointageButtonActionPerformed(evt);
+            }
+        });
+        jPointageCrudPanel.add(jAddPointageButton);
+
+        jEditPointageButton.setText("Modifier un pointage");
+        jPointageCrudPanel.add(jEditPointageButton);
+
+        jRemovePointageButton.setText("Retirer un pointage");
+        jPointageCrudPanel.add(jRemovePointageButton);
+
+        jPointagePanel.add(jPointageCrudPanel);
 
         jPointageScrollPane.setMaximumSize(new java.awt.Dimension(32767, 100));
 
@@ -275,6 +295,15 @@ public class GPCPUi extends javax.swing.JFrame {
         DBControl.reloadEmployees(jEmployeeTable);
     }//GEN-LAST:event_jRemoveEmployeeButtonActionPerformed
 
+    private void jAddPointageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAddPointageButtonActionPerformed
+        // TODO add your handling code here:
+        PointageFormUi ui = new PointageFormUi(this, true);
+        
+        SwingUtilities.invokeLater(() -> {
+            ui.setVisible(true);
+        });
+    }//GEN-LAST:event_jAddPointageButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -312,7 +341,9 @@ public class GPCPUi extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jAddNewEmployeeButton;
+    private javax.swing.JButton jAddPointageButton;
     private javax.swing.JButton jEditEmployeeButton;
+    private javax.swing.JButton jEditPointageButton;
     private javax.swing.JPanel jEmployeeCrudPanel;
     private javax.swing.JPanel jEmployeePanel;
     private javax.swing.JScrollPane jEmployeeScrollPane;
@@ -321,10 +352,12 @@ public class GPCPUi extends javax.swing.JFrame {
     private javax.swing.JScrollPane jHolidayScrollPane;
     private static javax.swing.JTable jHolidayTable;
     private javax.swing.JTabbedPane jMainTabs;
+    private javax.swing.JPanel jPointageCrudPanel;
     private javax.swing.JPanel jPointagePanel;
     private javax.swing.JScrollPane jPointageScrollPane;
     private static javax.swing.JTable jPointageTable;
     private javax.swing.JButton jRemoveEmployeeButton;
+    private javax.swing.JButton jRemovePointageButton;
     private javax.swing.JPanel jSearchBarPanel;
     private javax.swing.JTextField jSearchContentTextField;
     private javax.swing.JLabel jSearchEmployeeLabel;
