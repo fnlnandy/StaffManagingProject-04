@@ -36,12 +36,12 @@ public class PointageFormUi extends javax.swing.JDialog {
              !(empNameCBM instanceof DefaultComboBoxModel))
             return;
         
-        DefaultComboBoxModel<String> realNECBM = (DefaultComboBoxModel<String>)(numEmpCBM);
-        DefaultComboBoxModel<String> realENCBM = (DefaultComboBoxModel<String>)(empNameCBM);
+        DefaultComboBoxModel<String> numEmpCBDefaultM = (DefaultComboBoxModel<String>)(numEmpCBM);
+        DefaultComboBoxModel<String> empNameCBDefaultM = (DefaultComboBoxModel<String>)(empNameCBM);
         
         for (Employee e : employees) {
-            realNECBM.addElement(e.getNumEmp());
-            realENCBM.addElement(e.getNom() + " " + e.getPrenom());
+            numEmpCBDefaultM.addElement(e.getNumEmp());
+            empNameCBDefaultM.addElement(e.getNom() + " " + e.getPrenom());
         }
     }
   
