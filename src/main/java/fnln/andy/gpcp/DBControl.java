@@ -505,7 +505,134 @@ public class DBControl {
         }
     }
     public static void reloadHolidays(JTable dest) {
-        dest.setModel(new DefaultTableModel());
+        TableModel tm = dest.getModel();
+        
+        if (!(tm instanceof DefaultTableModel))
+            return;
+        
+        DefaultTableModel defaultTM = (DefaultTableModel)(tm);
+        
+        for (int i = defaultTM.getRowCount() - 1; i >= 0; i--)
+            defaultTM.removeRow(i);
+        
         loadHolidays(dest);
     }
+    public static boolean addHoliday(Holiday h)
+    {
+        String addPointage = "INSERT INTO Conge VALUES("
+                + "?,"
+                + "?,"
+                + "?,"
+                + "?,"
+                + "?,"
+                + "?"
+                + ");";
+        PreparedStatement req = null;
+        boolean retVal = false;
+        
+        try {
+            req = m_DatabaseConnection.prepareStatement(addPointage);
+        } catch (SQLException sqlE)
+        {
+            sqlE.printStackTrace();
+        }
+        
+        try {
+            req.setString(1, h.getNumConge());
+            req.setString(2, h.getNumEmp());
+            req.setString(3, h.getMotif());
+            req.setInt(4, h.getNombreJours());
+            req.setDate(5, Date.valueOf(h.getDateDemande()));
+            req.setDate(6, Date.valueOf(h.getDateRetour()));
+        } catch (SQLException sqlE)
+        {
+            sqlE.printStackTrace();
+        }
+  
+        System.out.println(req.toString());
+        try {
+            retVal = req.executeUpdate() >= 0;
+        } catch (SQLException sqlE)
+        {
+            sqlE.printStackTrace();
+        }
+        
+        return retVal;
+    }
+    public static boolean editHoliday(Holiday h, Holiday previousHoliday)
+    {
+        String addEmp = "UPDATE Conge SET "
+                + "NumConge = ?, "
+                + "NumEmp = ?, "
+                + "Motif = ?, "
+                + "NombreJours = ?, "
+                + "DateDemande = ?, "
+                + "DateRetour = ? "
+                + "WHERE "
+                + "NumConge = ? "
+                + "AND "
+                + "NumEmp = ?"
+                + ";";
+        PreparedStatement req = null;
+        boolean retVal = false;
+        
+        try {
+            req = m_DatabaseConnection.prepareStatement(addEmp);
+        } catch (SQLException sqlE)
+        {
+            sqlE.printStackTrace();
+        }
+        
+        try {
+            req.setString(1, h.getNumConge());
+            req.setString(2, h.getNumEmp());
+            req.setString(3, h.getMotif());
+            req.setInt(4, h.getNombreJours());
+            req.setDate(5, Date.valueOf(h.getDateDemande()));
+            req.setDate(6, Date.valueOf(h.getDateRetour()));
+            
+            req.setString(7, previousHoliday.getNumConge());
+            req.setString(8, previousHoliday.getNumEmp());
+        } catch (SQLException sqlE)
+        {
+            sqlE.printStackTrace();
+        }
+        
+        System.out.println(req.toString());
+        try {
+            retVal = req.executeUpdate() >= 0;
+        } catch (SQLException sqlE)
+        {
+            sqlE.printStackTrace();
+        }
+        
+        return retVal;
+    }
+    public static boolean deleteHoliday(String numConge, String numEmp)
+    {
+        boolean retVal = false;
+        PreparedStatement req = null;
+        String delPointage = "DELETE FROM Conge WHERE "
+                + "NumConge = ? "
+                + "AND NumEmp = ?"
+                + ";";
+        
+        try {
+            req = m_DatabaseConnection.prepareStatement(delPointage);
+            
+            req.setString(1, numConge);
+            req.setString(2, numEmp);
+            
+            System.out.println(req.toString());
+            
+            retVal = req.executeUpdate() >= 0;
+        } catch(SQLException sqle)
+        {
+            sqle.printStackTrace();
+        }
+        
+        
+        return retVal;
+    }
+    
 }

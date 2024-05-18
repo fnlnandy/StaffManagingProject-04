@@ -274,10 +274,40 @@
           </Constraints>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
-            <Property name="columns" type="int" value="0"/>
-            <Property name="rows" type="int" value="1"/>
+            <Property name="columns" type="int" value="1"/>
+            <Property name="rows" type="int" value="0"/>
           </Layout>
           <SubComponents>
+            <Container class="javax.swing.JPanel" name="jHolidayCrudPanel">
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JButton" name="jAddHolidayButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Ajouter un cong&#xe9;"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAddHolidayButtonActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="jEditHolidayButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Modifer un cong&#xe9;"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jEditHolidayButtonActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="jRemoveHolidayButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Supprimer un cong&#xe9;"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRemoveHolidayButtonActionPerformed"/>
+                  </Events>
+                </Component>
+              </SubComponents>
+            </Container>
             <Container class="javax.swing.JScrollPane" name="jHolidayScrollPane">
               <Properties>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">

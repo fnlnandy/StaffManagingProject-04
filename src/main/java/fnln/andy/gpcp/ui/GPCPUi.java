@@ -60,6 +60,10 @@ public class GPCPUi extends javax.swing.JFrame {
         jPointageScrollPane = new javax.swing.JScrollPane();
         jPointageTable = new javax.swing.JTable();
         jHolidayPanel = new javax.swing.JPanel();
+        jHolidayCrudPanel = new javax.swing.JPanel();
+        jAddHolidayButton = new javax.swing.JButton();
+        jEditHolidayButton = new javax.swing.JButton();
+        jRemoveHolidayButton = new javax.swing.JButton();
         jHolidayScrollPane = new javax.swing.JScrollPane();
         jHolidayTable = new javax.swing.JTable();
 
@@ -190,7 +194,33 @@ public class GPCPUi extends javax.swing.JFrame {
 
         jMainTabs.addTab("Pointage(s)", jPointagePanel);
 
-        jHolidayPanel.setLayout(new java.awt.GridLayout(1, 0));
+        jHolidayPanel.setLayout(new java.awt.GridLayout(0, 1));
+
+        jAddHolidayButton.setText("Ajouter un congé");
+        jAddHolidayButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAddHolidayButtonActionPerformed(evt);
+            }
+        });
+        jHolidayCrudPanel.add(jAddHolidayButton);
+
+        jEditHolidayButton.setText("Modifer un congé");
+        jEditHolidayButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jEditHolidayButtonActionPerformed(evt);
+            }
+        });
+        jHolidayCrudPanel.add(jEditHolidayButton);
+
+        jRemoveHolidayButton.setText("Supprimer un congé");
+        jRemoveHolidayButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRemoveHolidayButtonActionPerformed(evt);
+            }
+        });
+        jHolidayCrudPanel.add(jRemoveHolidayButton);
+
+        jHolidayPanel.add(jHolidayCrudPanel);
 
         jHolidayScrollPane.setMaximumSize(new java.awt.Dimension(32767, 100));
 
@@ -364,6 +394,67 @@ public class GPCPUi extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_jEditPointageButtonActionPerformed
 
+    private void jAddHolidayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAddHolidayButtonActionPerformed
+        // TODO add your handling code here:
+        HolidayFormUi ui = new HolidayFormUi(this, true);
+        
+        ui.initEmployeeData(DBControl.getEmployees());
+        SwingUtilities.invokeLater(() -> {
+            ui.setVisible(true);
+        });
+    }//GEN-LAST:event_jAddHolidayButtonActionPerformed
+
+    private void jRemoveHolidayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRemoveHolidayButtonActionPerformed
+        // TODO add your handling code here:
+        final int selectedIndex = jHolidayTable.getSelectedRow();
+        
+        if (selectedIndex == -1)
+        {
+            // TODO: add a popup window
+            return;
+        }
+        
+        final String numConge = jHolidayTable.getValueAt(selectedIndex, 0).toString();
+        final String numEmp = jHolidayTable.getValueAt(selectedIndex, 1).toString();
+        
+        DBControl.deleteHoliday(numConge, numEmp);
+        DBControl.reloadHolidays(jHolidayTable);
+    }//GEN-LAST:event_jRemoveHolidayButtonActionPerformed
+
+    private void jEditHolidayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditHolidayButtonActionPerformed
+        // TODO add your handling code here:
+        final int selectedIndex = jHolidayTable.getSelectedRow();
+        
+        if (selectedIndex == -1)
+        {
+            // TODO: add a popup window
+            return;
+        }
+        
+        HolidayFormUi ui = new HolidayFormUi(this, true);
+        
+        final String numConge = jHolidayTable.getValueAt(selectedIndex, 0).toString();
+        final String numEmp = jHolidayTable.getValueAt(selectedIndex, 1).toString();
+        final String motif = jHolidayTable.getValueAt(selectedIndex, 2).toString();
+        final int nombreJours = (int)jHolidayTable.getValueAt(selectedIndex, 3);
+        final String dateDemande = jHolidayTable.getValueAt(selectedIndex, 4).toString();
+        final String dateRetour = jHolidayTable.getValueAt(selectedIndex, 5).toString();
+        
+        ui.initEmployeeData(DBControl.getEmployees());
+        ui.setNumConge(numConge);
+        ui.setNumEmp(numEmp);
+        ui.setMotif(motif);
+        ui.setNombreJours(nombreJours);
+        ui.setDateDemande(dateDemande);
+        ui.setDateRetour(dateRetour);
+        ui.setPreviousHoliday(numConge, numEmp);
+        ui.setIsEditMode(true);
+        
+        SwingUtilities.invokeLater(() -> {
+            ui.setVisible(true);
+        });
+    }//GEN-LAST:event_jEditHolidayButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -400,14 +491,17 @@ public class GPCPUi extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jAddHolidayButton;
     private javax.swing.JButton jAddNewEmployeeButton;
     private javax.swing.JButton jAddPointageButton;
     private javax.swing.JButton jEditEmployeeButton;
+    private javax.swing.JButton jEditHolidayButton;
     private javax.swing.JButton jEditPointageButton;
     private javax.swing.JPanel jEmployeeCrudPanel;
     private javax.swing.JPanel jEmployeePanel;
     private javax.swing.JScrollPane jEmployeeScrollPane;
     private static javax.swing.JTable jEmployeeTable;
+    private javax.swing.JPanel jHolidayCrudPanel;
     private javax.swing.JPanel jHolidayPanel;
     private javax.swing.JScrollPane jHolidayScrollPane;
     private static javax.swing.JTable jHolidayTable;
@@ -417,6 +511,7 @@ public class GPCPUi extends javax.swing.JFrame {
     private javax.swing.JScrollPane jPointageScrollPane;
     private static javax.swing.JTable jPointageTable;
     private javax.swing.JButton jRemoveEmployeeButton;
+    private javax.swing.JButton jRemoveHolidayButton;
     private javax.swing.JButton jRemovePointageButton;
     private javax.swing.JPanel jSearchBarPanel;
     private javax.swing.JTextField jSearchContentTextField;
