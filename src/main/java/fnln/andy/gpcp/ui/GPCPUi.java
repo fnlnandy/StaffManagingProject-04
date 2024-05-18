@@ -6,10 +6,9 @@ package fnln.andy.gpcp.ui;
 
 import fnln.andy.gpcp.DBControl;
 import fnln.andy.gpcp.core.Employee;
+import fnln.andy.gpcp.core.Holiday;
 import fnln.andy.gpcp.core.Pointage;
 import javax.swing.SwingUtilities;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
  *
@@ -23,9 +22,11 @@ public class GPCPUi extends javax.swing.JFrame {
     public GPCPUi() {
         initComponents();
         
-        DBControl.loadEmployees(GPCPUi.jEmployeeTable);
-        DBControl.loadPointages(GPCPUi.jPointageTable);
-        DBControl.loadHolidays(GPCPUi.jHolidayTable);
+        SwingUtilities.invokeLater(() -> {
+            DBControl.deferEmployeeController().loadEntries(jEmployeeTable);
+            DBControl.deferPointageController().loadEntries(jPointageTable);
+            DBControl.deferHolidayController().loadEntries(jHolidayTable);
+        });
     }
     
     public static javax.swing.JTable getEmployeeTable() { return jEmployeeTable; }
@@ -270,41 +271,32 @@ public class GPCPUi extends javax.swing.JFrame {
 
     private void jEditEmployeeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditEmployeeButtonActionPerformed
         // TODO add your handling code here:
-        final int selectedEmployeeIndex = jEmployeeTable.getSelectedRow();
+        final int selectedIndex = jEmployeeTable.getSelectedRow();
         
-        if (selectedEmployeeIndex == -1)
+        if (selectedIndex == -1)
         {
             // TODO: add a popup menu for no selected index
             System.out.println("No selected employee.");
             return;
         }
         
-        TableModel employeeTableModel = jEmployeeTable.getModel();
-        
-        if (!(employeeTableModel instanceof DefaultTableModel))
-        {
-            return;
-        }
-        
-        DefaultTableModel defaultTM = (DefaultTableModel)(employeeTableModel);
-        Employee selectedEmployee = new Employee();
-        
-        selectedEmployee.setNumEmp((String)(defaultTM.getValueAt(selectedEmployeeIndex, 0)));
-        selectedEmployee.setNom((String)(defaultTM.getValueAt(selectedEmployeeIndex, 1)));
-        selectedEmployee.setPrenom((String)(defaultTM.getValueAt(selectedEmployeeIndex, 2)));
-        selectedEmployee.setPoste((String)(defaultTM.getValueAt(selectedEmployeeIndex, 3)));
-        selectedEmployee.setSalaire((int)(defaultTM.getValueAt(selectedEmployeeIndex, 4)));
-        
+        final String numEmp = jEmployeeTable.getValueAt(selectedIndex, 0).toString();
+        final String nom = jEmployeeTable.getValueAt(selectedIndex, 1).toString();
+        final String prenom = jEmployeeTable.getValueAt(selectedIndex, 2).toString();
+        final String poste = jEmployeeTable.getValueAt(selectedIndex, 3).toString();
+        final int salaire = (int) jEmployeeTable.getValueAt(selectedIndex, 4);
+
+        Employee employee = new Employee(numEmp, nom, prenom, poste, salaire);
         EmployeeFormUi ui = new EmployeeFormUi(this, true);
         
         ui.setIsEditMode(true);
-        ui.setPreviousEmployeeId(selectedEmployee.getNumEmp());
-        ui.setEmployeeId(selectedEmployee.getNumEmp());
-        ui.setEmployeeName(selectedEmployee.getNom());
-        ui.setEmployeeFirstName(selectedEmployee.getPrenom());
-        ui.setEmployeeJob(selectedEmployee.getPoste());
-        ui.setEmployeeSalary(selectedEmployee.getSalaire());
-        ui.setTitle("Modifier l'employé: " + selectedEmployee.getPrintable());
+        ui.setPreviousEmployeeId(numEmp);
+        ui.setEmployeeId(numEmp);
+        ui.setEmployeeName(nom);
+        ui.setEmployeeFirstName(prenom);
+        ui.setEmployeeJob(poste);
+        ui.setEmployeeSalary(salaire);
+        ui.setTitle("Modifier l'employé: " + employee.getPrintable());
         
         SwingUtilities.invokeLater(() -> {
             ui.setVisible(true);
@@ -322,25 +314,17 @@ public class GPCPUi extends javax.swing.JFrame {
             return;
         }
         
-        TableModel tm = jEmployeeTable.getModel();
+        final String numEmp = jEmployeeTable.getValueAt(selectedIndex, 0).toString();
         
-        if (!(tm instanceof DefaultTableModel))
-        {
-            System.out.println("The table model isn't a DefaultTableModel.");
-            return;
-        }
-        
-        DefaultTableModel defaultTM = (DefaultTableModel)(tm);
-        
-        DBControl.deleteEmployee((String)defaultTM.getValueAt(selectedIndex, 0));
-        DBControl.reloadEmployees(jEmployeeTable);
+        DBControl.deferEmployeeController().removeEntry(numEmp);
+        DBControl.deferEmployeeController().reloadEntries(jEmployeeTable);
     }//GEN-LAST:event_jRemoveEmployeeButtonActionPerformed
 
     private void jAddPointageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAddPointageButtonActionPerformed
         // TODO add your handling code here:
         PointageFormUi ui = new PointageFormUi(this, true);
         
-        ui.initEmployeeData(DBControl.getEmployees());
+        ui.initEmployeeData(DBControl.deferEmployeeController().getAllEntries());
         SwingUtilities.invokeLater(() -> {
             ui.setVisible(true);
         });
@@ -361,8 +345,8 @@ public class GPCPUi extends javax.swing.JFrame {
         p.setNumEmp(jPointageTable.getValueAt(selectedIndex, 1).toString());
         p.setPointage(jPointageTable.getValueAt(selectedIndex, 2).toString());
         
-        DBControl.deletePointage(p.getDatePointage(), p.getNumEmp(), p.getPointage());
-        DBControl.reloadPointages(jPointageTable);
+        DBControl.deferPointageController().removeEntry(p);
+        DBControl.deferPointageController().reloadEntries(jPointageTable);
     }//GEN-LAST:event_jRemovePointageButtonActionPerformed
 
     private void jEditPointageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditPointageButtonActionPerformed
@@ -375,18 +359,17 @@ public class GPCPUi extends javax.swing.JFrame {
             return;
         }
         
-        Pointage p = new Pointage();
+        final String datePointage = jPointageTable.getValueAt(selectedIndex, 0).toString();
+        final String numEmp = jPointageTable.getValueAt(selectedIndex, 1).toString();
+        final String pointage = jPointageTable.getValueAt(selectedIndex, 2).toString();
+
         PointageFormUi ui = new PointageFormUi(this, true);
         
-        p.setDatePointage(jPointageTable.getValueAt(selectedIndex, 0).toString());
-        p.setNumEmp(jPointageTable.getValueAt(selectedIndex, 1).toString());
-        p.setPointage(jPointageTable.getValueAt(selectedIndex, 2).toString());
-        
-        ui.initEmployeeData(DBControl.getEmployees());
-        ui.setPreviousPointage(p.getDatePointage(), p.getNumEmp(), p.getPointage());
-        ui.setDatePointage(p.getDatePointage());
-        ui.setNumEmp(p.getNumEmp());
-        ui.setPointage(p.getPointage());
+        ui.initEmployeeData(DBControl.deferEmployeeController().getAllEntries());
+        ui.setPreviousPointage(datePointage, numEmp, pointage);
+        ui.setDatePointage(datePointage);
+        ui.setNumEmp(numEmp);
+        ui.setPointage(pointage);
         ui.setIsEditMode(true);
         
         SwingUtilities.invokeLater(() -> {
@@ -398,7 +381,7 @@ public class GPCPUi extends javax.swing.JFrame {
         // TODO add your handling code here:
         HolidayFormUi ui = new HolidayFormUi(this, true);
         
-        ui.initEmployeeData(DBControl.getEmployees());
+        ui.initEmployeeData(DBControl.deferEmployeeController().getAllEntries());
         SwingUtilities.invokeLater(() -> {
             ui.setVisible(true);
         });
@@ -417,8 +400,10 @@ public class GPCPUi extends javax.swing.JFrame {
         final String numConge = jHolidayTable.getValueAt(selectedIndex, 0).toString();
         final String numEmp = jHolidayTable.getValueAt(selectedIndex, 1).toString();
         
-        DBControl.deleteHoliday(numConge, numEmp);
-        DBControl.reloadHolidays(jHolidayTable);
+        Holiday holiday = new Holiday(numConge, numEmp, null, 0, null, null);
+        
+        DBControl.deferHolidayController().removeEntry(holiday);
+        DBControl.deferHolidayController().reloadEntries(jHolidayTable);
     }//GEN-LAST:event_jRemoveHolidayButtonActionPerformed
 
     private void jEditHolidayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditHolidayButtonActionPerformed
@@ -440,7 +425,7 @@ public class GPCPUi extends javax.swing.JFrame {
         final String dateDemande = jHolidayTable.getValueAt(selectedIndex, 4).toString();
         final String dateRetour = jHolidayTable.getValueAt(selectedIndex, 5).toString();
         
-        ui.initEmployeeData(DBControl.getEmployees());
+        ui.initEmployeeData(DBControl.deferEmployeeController().getAllEntries());
         ui.setNumConge(numConge);
         ui.setNumEmp(numEmp);
         ui.setMotif(motif);
@@ -483,10 +468,8 @@ public class GPCPUi extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GPCPUi().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new GPCPUi().setVisible(true);
         });
     }
 

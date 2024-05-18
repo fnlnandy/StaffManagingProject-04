@@ -133,11 +133,11 @@ public class EmployeeFormUi extends javax.swing.JDialog {
         e.setSalaire((int)jEmployeeSalarySpinner.getValue());
         
         if (m_IsEditMode)
-            DBControl.editEmployee(e, m_PreviousEmployeeId);
+            DBControl.deferEmployeeController().editEntry(new Object[] { e, m_PreviousEmployeeId });
         else
-            DBControl.addEmployee(e);
+            DBControl.deferEmployeeController().addEntry(e);
         
-        DBControl.reloadEmployees(GPCPUi.getEmployeeTable());
+        DBControl.deferEmployeeController().reloadEntries(GPCPUi.getEmployeeTable());
         setVisible(false);
     }//GEN-LAST:event_jEmployeeConfirmButtonActionPerformed
 

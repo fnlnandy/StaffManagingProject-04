@@ -405,11 +405,11 @@ public class HolidayFormUi extends javax.swing.JDialog {
         h.setDateRetour(constructDate(returnDay, returnMonth, returnYear));
         
         if (m_IsEditMode)
-            DBControl.editHoliday(h, m_PreviousHoliday);
+            DBControl.deferHolidayController().editEntry(new Object[] { h, m_PreviousHoliday });
         else
-            DBControl.addHoliday(h);
+            DBControl.deferHolidayController().addEntry(h);
         
-        DBControl.reloadHolidays(GPCPUi.getHolidayTable());
+        DBControl.deferHolidayController().reloadEntries(GPCPUi.getHolidayTable());
         setVisible(false);
     }//GEN-LAST:event_jConfirmButtonActionPerformed
 

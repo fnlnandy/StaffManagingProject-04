@@ -326,13 +326,11 @@ public class PointageFormUi extends javax.swing.JDialog {
         p.setPointage(pointage);
         
         if (m_IsEditMode)
-        {
-            DBControl.editPointage(p, m_PreviousPointage);
-        }
+            DBControl.deferPointageController().editEntry(new Object[] { p, m_PreviousPointage });
         else
-            DBControl.addPointage(p);
+            DBControl.deferPointageController().addEntry(p);
         
-        DBControl.reloadPointages(GPCPUi.getPointageTable());
+        DBControl.deferPointageController().reloadEntries(GPCPUi.getPointageTable());
         setVisible(false);
     }//GEN-LAST:event_jConfirmPointageButtonActionPerformed
 
