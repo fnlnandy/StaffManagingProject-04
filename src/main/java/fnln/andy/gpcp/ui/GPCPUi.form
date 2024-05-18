@@ -201,11 +201,17 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Modifier un pointage"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jEditPointageButtonActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jRemovePointageButton">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Retirer un pointage"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRemovePointageButtonActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

@@ -4,7 +4,9 @@
  */
 package fnln.andy.gpcp.ui;
 
+import fnln.andy.gpcp.DBControl;
 import fnln.andy.gpcp.core.Employee;
+import fnln.andy.gpcp.core.Pointage;
 import fnln.andy.gpcp.inputverifiers.DayInDateInputVerifier;
 import java.util.List;
 import javax.swing.ComboBoxModel;
@@ -44,6 +46,73 @@ public class PointageFormUi extends javax.swing.JDialog {
             empNameCBDefaultM.addElement(e.getNom() + " " + e.getPrenom());
         }
     }
+    
+    public boolean isFormLegit()
+    {
+        final int currentYear = (int)jDatePointageYearSpinner.getValue();
+        
+        return currentYear >= 2000;
+    }
+    
+    public void setPreviousPointage(String datePointage, String numEmp, String pointage)
+    {
+        m_PreviousPointage.setDatePointage(datePointage);
+        m_PreviousPointage.setNumEmp(numEmp);
+        m_PreviousPointage.setPointage(pointage);
+    }
+    
+    public void setIsEditMode(boolean isEditMode)
+    {
+        m_IsEditMode = isEditMode;
+    }
+    
+    public void setDatePointage(String datePointage)
+    {
+        final String[] parts = datePointage.split("-");
+        
+        if (parts.length < 3)
+            return;
+        
+        final int year = Integer.parseInt(parts[0]);
+        final int month = Integer.parseInt(parts[1]);
+        final int day = Integer.parseInt(parts[2]);
+        
+        jDatePointageDaySpinner.setValue(day);
+        jDatePointageMonthComboBox.setSelectedIndex(month - 1);
+        jDatePointageYearSpinner.setValue(year);
+    }
+    public void setNumEmp(String numEmp)
+    {
+        int index = 0;
+        final int max = jNumEmpComboBox.getItemCount();
+        
+        for (; index < max; index++)
+        {
+            String curr = jNumEmpComboBox.getItemAt(index);
+            
+            if (curr.equals(numEmp))
+                break;
+        }
+        
+        if (index >= max)
+            index = 0;
+        
+        jNumEmpComboBox.setSelectedIndex(index);
+    }
+    public void setPointage(String pointage)
+    {
+        if ("Oui".equals(pointage))
+        {
+            jPointageYesRadioButton.setSelected(true);
+            jPointageNoRadioButton.setSelected(false);
+        }
+        else
+        {
+            jPointageYesRadioButton.setSelected(false);
+            jPointageNoRadioButton.setSelected(true);
+        }
+    }
+            
   
 
     /**
@@ -67,10 +136,19 @@ public class PointageFormUi extends javax.swing.JDialog {
         jNumEmpPanel = new javax.swing.JPanel();
         jNumEmpComboBox = new javax.swing.JComboBox<>();
         jEmployeeNameComboBox = new javax.swing.JComboBox<>();
+        jPointageLabel = new javax.swing.JLabel();
+        jPointagePanel = new javax.swing.JPanel();
+        jPointageYesRadioButton = new javax.swing.JRadioButton();
+        jPointageNoRadioButton = new javax.swing.JRadioButton();
+        jConfirmPointageButton = new javax.swing.JButton();
+        jResetPointageButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Formulaire d'un pointage");
+        getContentPane().setLayout(new java.awt.GridLayout(0, 2));
 
         jDatePointageLabel.setText("Date de pointage:");
+        getContentPane().add(jDatePointageLabel);
 
         jDatePointagePanel.setLayout(new java.awt.GridLayout(0, 3, 4, 0));
 
@@ -99,6 +177,7 @@ public class PointageFormUi extends javax.swing.JDialog {
         });
         jDatePointagePanel.add(jDatePointageMonthComboBox);
 
+        jDatePointageYearSpinner.setValue(2024);
         jDatePointageYearSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jDatePointageYearSpinnerStateChanged(evt);
@@ -106,59 +185,64 @@ public class PointageFormUi extends javax.swing.JDialog {
         });
         jDatePointagePanel.add(jDatePointageYearSpinner);
 
+        getContentPane().add(jDatePointagePanel);
+
         jNumEmpLabel.setText("Numéro d'employé:");
+        getContentPane().add(jNumEmpLabel);
 
-        javax.swing.GroupLayout jNumEmpPanelLayout = new javax.swing.GroupLayout(jNumEmpPanel);
-        jNumEmpPanel.setLayout(jNumEmpPanelLayout);
-        jNumEmpPanelLayout.setHorizontalGroup(
-            jNumEmpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jNumEmpPanelLayout.createSequentialGroup()
-                .addComponent(jNumEmpComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 96, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jNumEmpPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jEmployeeNameComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jNumEmpPanelLayout.setVerticalGroup(
-            jNumEmpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jNumEmpPanelLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jNumEmpComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jEmployeeNameComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
-        );
+        jNumEmpComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jNumEmpComboBoxActionPerformed(evt);
+            }
+        });
+        jNumEmpPanel.add(jNumEmpComboBox);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jNumEmpLabel)
-                        .addGap(96, 96, 96)
-                        .addComponent(jNumEmpPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jDatePointageLabel)
-                        .addGap(182, 182, 182)
-                        .addComponent(jDatePointagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(254, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jDatePointagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDatePointageLabel))
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jNumEmpLabel)
-                    .addComponent(jNumEmpPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(82, Short.MAX_VALUE))
-        );
+        jEmployeeNameComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jEmployeeNameComboBoxActionPerformed(evt);
+            }
+        });
+        jNumEmpPanel.add(jEmployeeNameComboBox);
+
+        getContentPane().add(jNumEmpPanel);
+
+        jPointageLabel.setText("Pointage:");
+        getContentPane().add(jPointageLabel);
+
+        jPointageYesRadioButton.setSelected(true);
+        jPointageYesRadioButton.setText("Oui");
+        jPointageYesRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPointageYesRadioButtonActionPerformed(evt);
+            }
+        });
+        jPointagePanel.add(jPointageYesRadioButton);
+
+        jPointageNoRadioButton.setText("Non");
+        jPointageNoRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPointageNoRadioButtonActionPerformed(evt);
+            }
+        });
+        jPointagePanel.add(jPointageNoRadioButton);
+
+        getContentPane().add(jPointagePanel);
+
+        jConfirmPointageButton.setText("Confirmer");
+        jConfirmPointageButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jConfirmPointageButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jConfirmPointageButton);
+
+        jResetPointageButton.setText("Réinitialiser");
+        jResetPointageButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jResetPointageButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jResetPointageButton);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -180,6 +264,76 @@ public class PointageFormUi extends javax.swing.JDialog {
         // TODO add your handling code here:
         jDatePointageDaySpinnerStateChanged(null);
     }//GEN-LAST:event_jDatePointageMonthComboBoxActionPerformed
+
+    private void jPointageYesRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPointageYesRadioButtonActionPerformed
+        // TODO add your handling code here:
+        jPointageNoRadioButton.setSelected(!jPointageYesRadioButton.isSelected());
+    }//GEN-LAST:event_jPointageYesRadioButtonActionPerformed
+
+    private void jPointageNoRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPointageNoRadioButtonActionPerformed
+        // TODO add your handling code here:
+        jPointageYesRadioButton.setSelected(!jPointageNoRadioButton.isSelected());
+    }//GEN-LAST:event_jPointageNoRadioButtonActionPerformed
+
+    private void jNumEmpComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNumEmpComboBoxActionPerformed
+        // TODO add your handling code here:
+        if (jEmployeeNameComboBox.getItemCount() == 0)
+            return;
+        
+        jEmployeeNameComboBox.setSelectedIndex(jNumEmpComboBox.getSelectedIndex());
+    }//GEN-LAST:event_jNumEmpComboBoxActionPerformed
+
+    private void jEmployeeNameComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEmployeeNameComboBoxActionPerformed
+        // TODO add your handling code here:
+        if (jNumEmpComboBox.getItemCount() == 0)
+            return;
+        
+        jNumEmpComboBox.setSelectedIndex(jEmployeeNameComboBox.getSelectedIndex());
+    }//GEN-LAST:event_jEmployeeNameComboBoxActionPerformed
+
+    private void jResetPointageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jResetPointageButtonActionPerformed
+        // TODO add your handling code here:
+        jDatePointageDaySpinner.setValue(1);
+        jDatePointageMonthComboBox.setSelectedIndex(0);
+        jDatePointageYearSpinner.setValue(2024);
+        
+        if (jNumEmpComboBox.getItemCount() > 0)
+            jNumEmpComboBox.setSelectedIndex(0);
+        
+        jPointageNoRadioButton.setSelected(true);
+        jPointageYesRadioButton.setSelected(false);
+    }//GEN-LAST:event_jResetPointageButtonActionPerformed
+
+    private void jConfirmPointageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConfirmPointageButtonActionPerformed
+        // TODO add your handling code here:
+        if (!isFormLegit())
+            return;
+        
+        final int datePointageDay = (int)jDatePointageDaySpinner.getValue();
+        final int datePointageMonth = jDatePointageMonthComboBox.getSelectedIndex() + 1; // The first index (0) is January.
+        final int datePointageYear = (int)jDatePointageYearSpinner.getValue();
+        final String datePointage = String.valueOf(datePointageYear) + "-"
+                                    + String.valueOf(datePointageMonth) + "-"
+                                    + String.valueOf(datePointageDay);
+        final String numEmp = jNumEmpComboBox.getSelectedItem().toString();
+        final String pointage = jPointageYesRadioButton.isSelected() ? "Oui" : "Non";
+        
+        Pointage p = new Pointage();
+        
+        p.setDatePointage(datePointage);
+        p.setNumEmp(numEmp);
+        p.setPointage(pointage);
+        
+        if (m_IsEditMode)
+        {
+            DBControl.editPointage(p, m_PreviousPointage);
+        }
+        else
+            DBControl.addPointage(p);
+        
+        DBControl.reloadPointages(GPCPUi.getPointageTable());
+        setVisible(false);
+    }//GEN-LAST:event_jConfirmPointageButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -222,8 +376,12 @@ public class PointageFormUi extends javax.swing.JDialog {
             }
         });
     }
+    
+    private boolean m_IsEditMode;
+    private Pointage m_PreviousPointage = new Pointage();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jConfirmPointageButton;
     private javax.swing.JLabel jDatePointageDayLabel;
     private javax.swing.JSpinner jDatePointageDaySpinner;
     private javax.swing.JLabel jDatePointageLabel;
@@ -236,5 +394,10 @@ public class PointageFormUi extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> jNumEmpComboBox;
     private javax.swing.JLabel jNumEmpLabel;
     private javax.swing.JPanel jNumEmpPanel;
+    private javax.swing.JLabel jPointageLabel;
+    private javax.swing.JRadioButton jPointageNoRadioButton;
+    private javax.swing.JPanel jPointagePanel;
+    private javax.swing.JRadioButton jPointageYesRadioButton;
+    private javax.swing.JButton jResetPointageButton;
     // End of variables declaration//GEN-END:variables
 }

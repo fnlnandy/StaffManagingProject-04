@@ -6,6 +6,7 @@ package fnln.andy.gpcp.ui;
 
 import fnln.andy.gpcp.DBControl;
 import fnln.andy.gpcp.core.Employee;
+import fnln.andy.gpcp.core.Pointage;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -147,9 +148,19 @@ public class GPCPUi extends javax.swing.JFrame {
         jPointageCrudPanel.add(jAddPointageButton);
 
         jEditPointageButton.setText("Modifier un pointage");
+        jEditPointageButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jEditPointageButtonActionPerformed(evt);
+            }
+        });
         jPointageCrudPanel.add(jEditPointageButton);
 
         jRemovePointageButton.setText("Retirer un pointage");
+        jRemovePointageButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRemovePointageButtonActionPerformed(evt);
+            }
+        });
         jPointageCrudPanel.add(jRemovePointageButton);
 
         jPointagePanel.add(jPointageCrudPanel);
@@ -304,6 +315,54 @@ public class GPCPUi extends javax.swing.JFrame {
             ui.setVisible(true);
         });
     }//GEN-LAST:event_jAddPointageButtonActionPerformed
+
+    private void jRemovePointageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRemovePointageButtonActionPerformed
+        // TODO add your handling code here:
+        final int selectedIndex = jPointageTable.getSelectedRow();
+        Pointage p = new Pointage();
+        
+        if (selectedIndex == -1)
+        {
+            // TODO: add a popup window
+            return;
+        }
+        
+        p.setDatePointage(jPointageTable.getValueAt(selectedIndex, 0).toString());
+        p.setNumEmp(jPointageTable.getValueAt(selectedIndex, 1).toString());
+        p.setPointage(jPointageTable.getValueAt(selectedIndex, 2).toString());
+        
+        DBControl.deletePointage(p.getDatePointage(), p.getNumEmp(), p.getPointage());
+        DBControl.reloadPointages(jPointageTable);
+    }//GEN-LAST:event_jRemovePointageButtonActionPerformed
+
+    private void jEditPointageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditPointageButtonActionPerformed
+        // TODO add your handling code here:
+        final int selectedIndex = jPointageTable.getSelectedRow();
+        
+        if (selectedIndex == -1)
+        {
+            // TODO: add a popup window
+            return;
+        }
+        
+        Pointage p = new Pointage();
+        PointageFormUi ui = new PointageFormUi(this, true);
+        
+        p.setDatePointage(jPointageTable.getValueAt(selectedIndex, 0).toString());
+        p.setNumEmp(jPointageTable.getValueAt(selectedIndex, 1).toString());
+        p.setPointage(jPointageTable.getValueAt(selectedIndex, 2).toString());
+        
+        ui.initEmployeeData(DBControl.getEmployees());
+        ui.setPreviousPointage(p.getDatePointage(), p.getNumEmp(), p.getPointage());
+        ui.setDatePointage(p.getDatePointage());
+        ui.setNumEmp(p.getNumEmp());
+        ui.setPointage(p.getPointage());
+        ui.setIsEditMode(true);
+        
+        SwingUtilities.invokeLater(() -> {
+            ui.setVisible(true);  
+        });
+    }//GEN-LAST:event_jEditPointageButtonActionPerformed
 
     /**
      * @param args the command line arguments

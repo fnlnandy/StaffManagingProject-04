@@ -8,6 +8,7 @@ import fnln.andy.gpcp.core.Holiday;
 import fnln.andy.gpcp.core.Pointage;
 import fnln.andy.gpcp.core.Employee;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -319,8 +320,124 @@ public class DBControl {
         }
     }
     public static void reloadPointages(JTable dest) {
-        dest.setModel(new DefaultTableModel());
+        TableModel tm = dest.getModel();
+        
+        if (!(tm instanceof DefaultTableModel))
+            return;
+        
+        DefaultTableModel defaultTM = (DefaultTableModel)(tm);
+        
+        for (int i = defaultTM.getRowCount() - 1; i >= 0; i--)
+            defaultTM.removeRow(i);
+        
         loadPointages(dest);
+    }
+    public static boolean addPointage(Pointage p)
+    {
+        String addPointage = "INSERT INTO Pointage VALUES("
+                + "?,"
+                + "?,"
+                + "?"
+                + ");";
+        PreparedStatement req = null;
+        boolean retVal = false;
+        
+        try {
+            req = m_DatabaseConnection.prepareStatement(addPointage);
+        } catch (SQLException sqlE)
+        {
+            sqlE.printStackTrace();
+        }
+        
+        try {
+            req.setDate(1, Date.valueOf(p.getDatePointage()));
+            req.setString(2, p.getNumEmp());
+            req.setString(3, p.getPointage());
+        } catch (SQLException sqlE)
+        {
+            sqlE.printStackTrace();
+        }
+  
+        System.out.println(req.toString());
+        try {
+            retVal = req.executeUpdate() >= 0;
+        } catch (SQLException sqlE)
+        {
+            sqlE.printStackTrace();
+        }
+        
+        return retVal;
+    }
+    public static boolean editPointage(Pointage p, Pointage prevPointage)
+    {
+        String addEmp = "UPDATE Pointage SET "
+                + "DatePointage = ?, "
+                + "NumEmp = ?, "
+                + "Pointage = ? "
+                + "WHERE "
+                + "DatePointage = ? "
+                + "AND NumEmp = ? "
+                + "AND Pointage = ?"
+                + ";";
+        PreparedStatement req = null;
+        boolean retVal = false;
+        
+        try {
+            req = m_DatabaseConnection.prepareStatement(addEmp);
+        } catch (SQLException sqlE)
+        {
+            sqlE.printStackTrace();
+        }
+        
+        try {
+            req.setDate(1, Date.valueOf(p.getDatePointage()));
+            req.setString(2, p.getNumEmp());
+            req.setString(3, p.getPointage());
+            
+            req.setDate(4, Date.valueOf(prevPointage.getDatePointage()));
+            req.setString(5, prevPointage.getNumEmp());
+            req.setString(6, prevPointage.getPointage());
+        } catch (SQLException sqlE)
+        {
+            sqlE.printStackTrace();
+        }
+        
+        System.out.println(req.toString());
+        try {
+            retVal = req.executeUpdate() >= 0;
+        } catch (SQLException sqlE)
+        {
+            sqlE.printStackTrace();
+        }
+        
+        return retVal;
+    }
+    public static boolean deletePointage(String datePointage, String numEmp, String pointage)
+    {
+        boolean retVal = false;
+        PreparedStatement req = null;
+        String delPointage = "DELETE FROM Pointage WHERE DatePointage = ? "
+                + "AND NumEmp = ? "
+                + "AND Pointage = ? "
+                + ";";
+        
+        try {
+            req = m_DatabaseConnection.prepareStatement(delPointage);
+            
+            req.setDate(1, Date.valueOf(datePointage));
+            req.setString(2, numEmp);
+            req.setString(3, pointage);
+            
+            System.out.println(req.toString());
+            
+            retVal = req.executeUpdate() >= 0;
+        } catch(SQLException sqle)
+        {
+            sqle.printStackTrace();
+        }
+        
+        
+        return retVal;
     }
     
     public static void pushHoliday(JTable holidayTable, Holiday toAdd) {
