@@ -50,8 +50,9 @@ public class PointageFormUi extends javax.swing.JDialog {
     public boolean isFormLegit()
     {
         final int currentYear = (int)jDatePointageYearSpinner.getValue();
+        final int numEmp = jNumEmpComboBox.getSelectedIndex();
         
-        return currentYear >= 2000;
+        return currentYear >= 2000 && numEmp > -1;
     }
     
     public void setPreviousPointage(String datePointage, String numEmp, String pointage)
