@@ -61,6 +61,7 @@ public class GPCPUi extends javax.swing.JFrame {
         jAddPointageButton = new javax.swing.JButton();
         jEditPointageButton = new javax.swing.JButton();
         jRemovePointageButton = new javax.swing.JButton();
+        jDisplayAbsentEmployeesButton = new javax.swing.JButton();
         jPointageScrollPane = new javax.swing.JScrollPane();
         jPointageTable = new javax.swing.JTable();
         jHolidayPanel = new javax.swing.JPanel();
@@ -177,6 +178,14 @@ public class GPCPUi extends javax.swing.JFrame {
             }
         });
         jPointageCrudPanel.add(jRemovePointageButton);
+
+        jDisplayAbsentEmployeesButton.setText("Afficher les employés absent pour une date");
+        jDisplayAbsentEmployeesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jDisplayAbsentEmployeesButtonActionPerformed(evt);
+            }
+        });
+        jPointageCrudPanel.add(jDisplayAbsentEmployeesButton);
 
         jPointagePanel.add(jPointageCrudPanel);
 
@@ -467,6 +476,15 @@ public class GPCPUi extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jSearchEmployeeButtonActionPerformed
 
+    private void jDisplayAbsentEmployeesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDisplayAbsentEmployeesButtonActionPerformed
+        // TODO add your handling code here:
+        AbsentEmployeesUi ui = new AbsentEmployeesUi(this, true);
+        
+        SwingUtilities.invokeLater(() -> {
+            ui.setVisible(true);
+        });
+    }//GEN-LAST:event_jDisplayAbsentEmployeesButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -504,6 +522,7 @@ public class GPCPUi extends javax.swing.JFrame {
     private javax.swing.JButton jAddHolidayButton;
     private javax.swing.JButton jAddNewEmployeeButton;
     private javax.swing.JButton jAddPointageButton;
+    private javax.swing.JButton jDisplayAbsentEmployeesButton;
     private javax.swing.JButton jEditEmployeeButton;
     private javax.swing.JButton jEditHolidayButton;
     private javax.swing.JButton jEditPointageButton;

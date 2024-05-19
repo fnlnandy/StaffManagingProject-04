@@ -38,6 +38,9 @@ public abstract class ATableController<Type> {
     
     public void loadEntries(List<Type> elements, Object dest)
     {
+        if (elements == null || elements.isEmpty())
+            return;
+        
         for (Object o : elements)
         {
             if (o instanceof Employee)

@@ -196,9 +196,11 @@ public class EmployeeTableController extends ATableController<Employee> {
         
         String matchPresentQuery = """
                                    SELECT Employe.* FROM Employe, Pointage WHERE 
-                                   (Employe.NumEmp NOT IN (SELECT NumEmp FROM Pointage) OR 
-                                   (Employe.NumEmp = Pointage.NumEmp AND Pointage.Pointage = 'Non')) 
-                                   AND Pointage.DatePointage = ?;
+                                   (Employe.NumEmp NOT IN (SELECT NumEmp FROM Pointage WHERE 
+                                   Pointage.DatePointage = ?)) OR 
+                                   (Employe.NumEmp = Pointage.NumEmp AND Pointage.Pointage = 'Non'
+                                   AND Pointage.DatePointage = ?)
+                                   GROUP BY Employe.NumEmp;
                                    """;
         PreparedStatement preparedStatement = null;
         
@@ -206,6 +208,7 @@ public class EmployeeTableController extends ATableController<Employee> {
             preparedStatement = m_SQLConnection.prepareStatement(matchPresentQuery);
             
             preparedStatement.setDate(1, date.toSQLDate());
+            preparedStatement.setDate(2, date.toSQLDate());
         } catch (SQLException e) {}
         
         if (preparedStatement == null)
