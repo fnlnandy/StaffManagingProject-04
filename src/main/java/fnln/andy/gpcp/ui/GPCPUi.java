@@ -9,6 +9,7 @@ import fnln.andy.gpcp.core.DataArg;
 import fnln.andy.gpcp.core.Employee;
 import fnln.andy.gpcp.core.Holiday;
 import fnln.andy.gpcp.core.Pointage;
+import fnln.andy.gpcp.core.PseudoDate;
 import java.util.List;
 import javax.swing.SwingUtilities;
 
@@ -54,6 +55,7 @@ public class GPCPUi extends javax.swing.JFrame {
         jAddNewEmployeeButton = new javax.swing.JButton();
         jEditEmployeeButton = new javax.swing.JButton();
         jRemoveEmployeeButton = new javax.swing.JButton();
+        jDisplayRemainingHolidays = new javax.swing.JButton();
         jEmployeeScrollPane = new javax.swing.JScrollPane();
         jEmployeeTable = new javax.swing.JTable();
         jPointagePanel = new javax.swing.JPanel();
@@ -125,6 +127,14 @@ public class GPCPUi extends javax.swing.JFrame {
             }
         });
         jEmployeeCrudPanel.add(jRemoveEmployeeButton);
+
+        jDisplayRemainingHolidays.setText("Consulter le reste des congés de cet employé");
+        jDisplayRemainingHolidays.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jDisplayRemainingHolidaysActionPerformed(evt);
+            }
+        });
+        jEmployeeCrudPanel.add(jDisplayRemainingHolidays);
 
         jEmployeePanel.add(jEmployeeCrudPanel);
 
@@ -485,6 +495,29 @@ public class GPCPUi extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_jDisplayAbsentEmployeesButtonActionPerformed
 
+    private void jDisplayRemainingHolidaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDisplayRemainingHolidaysActionPerformed
+        // TODO add your handling code here:
+        final int selectedIndex = jEmployeeTable.getSelectedRow();
+        
+        if (selectedIndex == -1)
+        {
+            // TODO: add a popup window
+            return;
+        }
+        
+        final String numEmp = jEmployeeTable.getValueAt(selectedIndex, 0).toString();
+        final String nom = jEmployeeTable.getValueAt(selectedIndex, 1).toString();
+        final String prenom = jEmployeeTable.getValueAt(selectedIndex, 2).toString();
+        
+        RemainingHolidaysUi ui = new RemainingHolidaysUi(this, true);
+        
+        ui.initDataWithEmployee(new Employee(numEmp, nom, prenom, null, 0));
+        
+        SwingUtilities.invokeLater(() -> { 
+            ui.setVisible(true);
+        });
+    }//GEN-LAST:event_jDisplayRemainingHolidaysActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -523,6 +556,7 @@ public class GPCPUi extends javax.swing.JFrame {
     private javax.swing.JButton jAddNewEmployeeButton;
     private javax.swing.JButton jAddPointageButton;
     private javax.swing.JButton jDisplayAbsentEmployeesButton;
+    private javax.swing.JButton jDisplayRemainingHolidays;
     private javax.swing.JButton jEditEmployeeButton;
     private javax.swing.JButton jEditHolidayButton;
     private javax.swing.JButton jEditPointageButton;

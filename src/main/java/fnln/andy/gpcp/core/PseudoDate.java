@@ -5,6 +5,7 @@
 package fnln.andy.gpcp.core;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -71,4 +72,13 @@ public class PseudoDate {
     
     public int getYear() { return m_Year; }
     
+    public static PseudoDate getCurrentDate()
+    {
+        LocalDate today = LocalDate.now();
+        PseudoDate retVal = new PseudoDate();
+        
+        retVal.create(today.getDayOfMonth(), today.getMonthValue(), today.getYear());
+        
+        return retVal;
+    }
 }
