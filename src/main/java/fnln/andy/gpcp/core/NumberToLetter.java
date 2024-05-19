@@ -136,41 +136,23 @@ public class NumberToLetter {
         String retVal = "";
         
         if (n < m_Digits.length) 
-        {
             retVal = m_Digits[(int)n];
-        }
         else if (n % 10 == 0 && n < 100) 
-        {
             retVal = m_MultiplesOfTen[(int)(n / 10 - 1)];
-        }
         else if (n < 20)
-        {
             retVal = m_AfterTens[(int)(n - 10 - 1)];
-        }
         else if (n < 70)
-        {
             retVal = getUnderSeventy(n);
-        }
         else if (n < 100)
-        {
             retVal = getUnderHundred(n);
-        }
         else if (n < 1_000)
-        {
             retVal = getHundred(n);
-        }
         else if (n < 1_000_000)
-        {
             retVal = getThousand(n);
-        }
         else if (n < 1_000_000_000)
-        {
             retVal = getMillion(n);
-        }
         else if (n < 1_000_000_000_000l)
-        {
             retVal = getBillion(n);
-        }
         
         return retVal;
     }
