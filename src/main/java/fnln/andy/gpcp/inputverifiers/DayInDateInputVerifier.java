@@ -4,7 +4,6 @@
  */
 package fnln.andy.gpcp.inputverifiers;
 
-import javax.swing.JComponent;
 import javax.swing.JSpinner;
 
 /**

@@ -4,8 +4,6 @@
  */
 package fnln.andy.gpcp.core;
 
-import fnln.andy.gpcp.core.PseudoDate;
-
 /**
  *
  * @author andy
@@ -46,8 +44,8 @@ public class Holiday {
         printable += m_NumEmp + ", ";
         printable += "`" + m_Motif + "`, ";
         printable += String.valueOf(m_NombreJours) + ", ";
-        printable += m_DateDemande + ", ";
-        printable += m_DateRetour + ")";
+        printable += m_DateDemande.constructStringDate() + ", ";
+        printable += m_DateRetour.constructStringDate() + ")";
         
         return printable;
     }

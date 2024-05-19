@@ -5,9 +5,11 @@
 package fnln.andy.gpcp.ui;
 
 import fnln.andy.gpcp.DBControl;
+import fnln.andy.gpcp.core.DataArg;
 import fnln.andy.gpcp.core.Employee;
 import fnln.andy.gpcp.core.Holiday;
 import fnln.andy.gpcp.core.Pointage;
+import java.util.List;
 import javax.swing.SwingUtilities;
 
 /**
@@ -47,6 +49,7 @@ public class GPCPUi extends javax.swing.JFrame {
         jSearchBarPanel = new javax.swing.JPanel();
         jSearchEmployeeLabel = new javax.swing.JLabel();
         jSearchContentTextField = new javax.swing.JTextField();
+        jSearchEmployeeButton = new javax.swing.JButton();
         jEmployeeCrudPanel = new javax.swing.JPanel();
         jAddNewEmployeeButton = new javax.swing.JButton();
         jEditEmployeeButton = new javax.swing.JButton();
@@ -75,12 +78,11 @@ public class GPCPUi extends javax.swing.JFrame {
         jEmployeePanel.setMaximumSize(new java.awt.Dimension(32767, 78));
         jEmployeePanel.setLayout(new java.awt.GridLayout(0, 1, 0, 30));
 
-        jSearchBarPanel.setLayout(new java.awt.GridLayout(0, 2));
+        jSearchBarPanel.setLayout(new java.awt.GridLayout(0, 3, 10, 0));
 
         jSearchEmployeeLabel.setText("Rechercher:");
         jSearchBarPanel.add(jSearchEmployeeLabel);
 
-        jSearchContentTextField.setText("Nom(s) et Prénom(s)...");
         jSearchContentTextField.setMaximumSize(new java.awt.Dimension(2147483647, 24));
         jSearchContentTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,6 +90,14 @@ public class GPCPUi extends javax.swing.JFrame {
             }
         });
         jSearchBarPanel.add(jSearchContentTextField);
+
+        jSearchEmployeeButton.setText("Commencer la recherche");
+        jSearchEmployeeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSearchEmployeeButtonActionPerformed(evt);
+            }
+        });
+        jSearchBarPanel.add(jSearchEmployeeButton);
 
         jEmployeePanel.add(jSearchBarPanel);
 
@@ -256,6 +266,7 @@ public class GPCPUi extends javax.swing.JFrame {
 
     private void jSearchContentTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSearchContentTextFieldActionPerformed
         // TODO add your handling code here:
+        jSearchEmployeeButtonActionPerformed(null);
     }//GEN-LAST:event_jSearchContentTextFieldActionPerformed
 
     private void jAddNewEmployeeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAddNewEmployeeButtonActionPerformed
@@ -440,6 +451,22 @@ public class GPCPUi extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_jEditHolidayButtonActionPerformed
 
+    private void jSearchEmployeeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSearchEmployeeButtonActionPerformed
+        // TODO add your handling code here:
+        String searchContent = jSearchContentTextField.getText().trim();
+        
+        if (searchContent.isEmpty())
+        {
+            DBControl.deferEmployeeController().reloadEntries(jEmployeeTable);
+        }
+        else
+        {
+            List<Employee> elements = DBControl.deferEmployeeController().getMatchingName(searchContent);
+            
+            DBControl.deferEmployeeController().reloadEntries(elements, jEmployeeTable);
+        }
+    }//GEN-LAST:event_jSearchEmployeeButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -498,6 +525,7 @@ public class GPCPUi extends javax.swing.JFrame {
     private javax.swing.JButton jRemovePointageButton;
     private javax.swing.JPanel jSearchBarPanel;
     private javax.swing.JTextField jSearchContentTextField;
+    private javax.swing.JButton jSearchEmployeeButton;
     private javax.swing.JLabel jSearchEmployeeLabel;
     // End of variables declaration//GEN-END:variables
 }

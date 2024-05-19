@@ -8,7 +8,6 @@ import fnln.andy.gpcp.core.DataArg;
 import fnln.andy.gpcp.core.Pointage;
 import fnln.andy.gpcp.core.Util;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -45,17 +44,6 @@ public class PointageTableController extends ATableController<Pointage> {
                                             pointage.getPointage()
                                         }
                         );
-    }
-    
-    @Override
-    public void loadEntries(Object dest)
-    {
-        m_Entries = fetchEntries();
-        
-        for (Pointage p : m_Entries)
-            pushEntryIntoTable(p, dest);
-        
-        m_PersonalDestTable = (JTable)(dest);
     }
     
     @Override

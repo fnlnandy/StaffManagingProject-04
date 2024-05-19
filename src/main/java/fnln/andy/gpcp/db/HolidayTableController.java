@@ -51,17 +51,6 @@ public class HolidayTableController extends ATableController<Holiday> {
     }
     
     @Override
-    public void loadEntries(Object dest)
-    {
-        m_Entries = fetchEntries();
-        
-        for (Holiday h : m_Entries)
-            pushEntryIntoTable(h, dest);
-        
-        m_PersonalDestTable = (JTable)(dest);
-    }
-    
-    @Override
     public List<Holiday> fetchEntries()
     {
         final String selectHolidaysQuery = "SELECT * FROM Conge;";

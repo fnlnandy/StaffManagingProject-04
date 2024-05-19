@@ -32,7 +32,7 @@ public class Pointage {
     {
         String printable = "Pointage(";
         
-        printable += m_DatePointage + ", ";
+        printable += m_DatePointage.constructStringDate() + ", ";
         printable += m_NumEmp + ", ";
         printable += m_Pointage + ")";
         

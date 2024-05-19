@@ -6,6 +6,7 @@ package fnln.andy.gpcp.db;
 
 import fnln.andy.gpcp.core.DataArg;
 import fnln.andy.gpcp.core.Employee;
+import fnln.andy.gpcp.core.PseudoDate;
 import fnln.andy.gpcp.core.Util;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -46,17 +47,6 @@ public class EmployeeTableController extends ATableController<Employee> {
                                             employee.getSalaire()
                                         }
                         );
-    }
-    
-    @Override
-    public void loadEntries(Object dest)
-    {
-        m_Entries = fetchEntries();
-        
-        for (Employee e : m_Entries)
-            pushEntryIntoTable(e, dest);
-        
-        m_PersonalDestTable = (JTable)(dest);
     }
     
     @Override
@@ -171,5 +161,109 @@ public class EmployeeTableController extends ATableController<Employee> {
         }
         
         return retVal;
+    }
+    
+    private List<Employee> fetchConditional(String query)
+    {
+        List<Employee> retVal = new ArrayList<>();
+        
+        try {
+            ResultSet resultSet = m_SQLStatement.executeQuery(query);
+            
+            while (resultSet.next())
+            {
+                Employee newEmployee = new Employee();
+                
+                newEmployee.setNumEmp(resultSet.getString("NumEmp"));
+                newEmployee.setNom(resultSet.getString("Nom"));
+                newEmployee.setPrenom(resultSet.getString("Prenom"));
+                newEmployee.setPoste(resultSet.getString("Poste"));
+                newEmployee.setSalaire(resultSet.getInt("Salaire"));
+                
+                retVal.add(newEmployee);
+            }
+        } catch (SQLException e) {}
+        
+        return retVal;
+    }
+    
+    public List<Employee> getAbsentEntries(DataArg args)
+    {
+        PseudoDate date = (PseudoDate)(args.popFrontArg());
+        
+        if (date == null)
+            return null;
+        
+        String matchPresentQuery = """
+                                   SELECT Employe.* FROM Employe, Pointage WHERE 
+                                   (Employe.NumEmp NOT IN (SELECT NumEmp FROM Pointage) OR 
+                                   (Employe.NumEmp = Pointage.NumEmp AND Pointage.Pointage = 'Non')) 
+                                   AND Pointage.DatePointage = ?;
+                                   """;
+        PreparedStatement preparedStatement = null;
+        
+        try {
+            preparedStatement = m_SQLConnection.prepareStatement(matchPresentQuery);
+            
+            preparedStatement.setDate(1, date.toSQLDate());
+        } catch (SQLException e) {}
+        
+        if (preparedStatement == null)
+            return null;
+        
+        return fetchConditional(preparedStatement.toString());
+    }
+    
+    public List<Employee> getAbsentEntries(Object[] objects)
+    {
+        return getAbsentEntries(DataArg.makeDataArg(objects));
+    }
+    
+    public List<Employee> getAbsentEntries(Object object)
+    {
+        return getAbsentEntries(DataArg.makeDataArg(object));
+    }
+    
+    public List<Employee> getMatchingName(DataArg args)
+    {
+        final String matchNameQuery = "SELECT * FROM Employe WHERE (Nom LIKE ? AND Prenom LIKE ?)"
+                + "OR Nom LIKE ? OR Prenom LIKE ?;";
+        final String toSearch = args.popFrontArg().toString();
+        
+        if (toSearch == null)
+            return null;
+        
+        final String[] parts = toSearch.split(" ", 2);
+       
+        PreparedStatement preparedStatement = null;
+        
+        try {
+            preparedStatement = m_SQLConnection.prepareStatement(matchNameQuery);
+            
+            preparedStatement.setString(1, "%" + parts[0] + "%");
+            
+            if (parts.length == 2)
+                preparedStatement.setString(2, "%" + parts[1] + "%");
+            else
+                preparedStatement.setString(2, "%" + parts[0] + "%");
+            
+            preparedStatement.setString(3, "%" + toSearch + "%");
+            preparedStatement.setString(4, "%" + toSearch + "%");
+        } catch (SQLException e) {}
+        
+        if (preparedStatement == null)
+            return null;
+        
+        return fetchConditional(preparedStatement.toString());
+    }
+    
+    public List<Employee> getMatchingName(Object[] objects)
+    {
+        return getMatchingName(DataArg.makeDataArg(objects));
+    }
+    
+    public List<Employee> getMatchingName(Object object)
+    {
+        return getMatchingName(DataArg.makeDataArg(object));
     }
 }

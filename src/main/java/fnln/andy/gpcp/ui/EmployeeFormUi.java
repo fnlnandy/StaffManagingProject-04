@@ -6,7 +6,6 @@ package fnln.andy.gpcp.ui;
 
 import fnln.andy.gpcp.DBControl;
 import fnln.andy.gpcp.core.Employee;
-import javax.swing.JOptionPane;
 
 /**
  *

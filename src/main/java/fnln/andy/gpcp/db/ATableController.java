@@ -5,6 +5,9 @@
 package fnln.andy.gpcp.db;
 
 import fnln.andy.gpcp.core.DataArg;
+import fnln.andy.gpcp.core.Employee;
+import fnln.andy.gpcp.core.Holiday;
+import fnln.andy.gpcp.core.Pointage;
 import fnln.andy.gpcp.core.Util;
 import java.sql.Connection;
 import java.sql.Statement;
@@ -28,14 +31,41 @@ public abstract class ATableController<Type> {
         m_SQLConnection = connection;
     }
     public abstract void pushEntryIntoTable(DataArg args, Object dest);
-    public abstract void loadEntries(Object dest);
     public abstract List<Type> fetchEntries();
     public abstract boolean addEntry(DataArg args);
     public abstract boolean editEntry(DataArg args);
     public abstract boolean removeEntry(DataArg args);
     
-    public void reloadEntries(Object dest)
+    public void loadEntries(List<Type> elements, Object dest)
     {
+        for (Object o : elements)
+        {
+            if (o instanceof Employee)
+                System.out.println(((Employee) o).getPrintable());
+            else if (o instanceof Pointage)
+                System.out.println(((Pointage) o).getPrintable());
+            else if (o instanceof Holiday)
+                System.out.println(((Holiday) o).getPrintable());
+            else
+                System.out.println(o.toString());
+        }
+        
+        for (Type element : elements)
+            pushEntryIntoTable(element, dest);
+    }
+    
+    public void loadEntries(Object dest)
+    {
+        m_Entries = fetchEntries();
+
+        loadEntries(m_Entries, dest);
+        
+        m_PersonalDestTable = (JTable)(dest);
+    }
+    
+    public void reloadEntries(List<Type> elements, Object dest)
+    {
+        System.out.println("reloadEntries(List<Type> elements, Object dest)");
         if (dest == null)
         {
             System.out.println("dest is null, in reloadEntries.");
@@ -55,7 +85,15 @@ public abstract class ATableController<Type> {
         for (int i = tableModel.getRowCount() - 1; i >= 0; i--)
             tableModel.removeRow(i);
         
-        loadEntries(dest);
+        loadEntries(elements, dest);
+    }
+    
+    public void reloadEntries(Object dest)
+    {
+        System.out.println("reloadEntries(Object dest)");
+        
+        m_Entries = fetchEntries();
+        reloadEntries(m_Entries, dest);
     }
     
     public void reloadEntries()
