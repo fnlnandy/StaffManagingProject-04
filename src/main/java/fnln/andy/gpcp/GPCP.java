@@ -25,6 +25,6 @@ public class GPCP {
             m_MainAppUi.setVisible(true);
         });
         
-        System.out.println("999_999_999 = " + NumberToLetter.convertToLetter(999_999_999));
+        System.out.println("1_478_042_789 = " + NumberToLetter.convertToLetter(1_478_042_789));
     }
 }

@@ -9,7 +9,13 @@ package fnln.andy.gpcp.core;
  * @author andy
  */
 public class NumberToLetter {
-    public static final int m_MaxSupported = 999_999_999;
+    public static final long m_MaxSupported = 999_999_999_999l;
+    private static final long TEN = 10l;
+    private static final long HUNDRED = 100l;
+    private static final long THOUSAND = 1_000l;
+    private static final long MILLION = 1_000_000l;
+    private static final long BILLION = 1_000_000_000l;
+    
     private static final String[] m_Digits = { 
         "zéro", "un", "deux", "trois", "quatre", "cinq", 
         "six", "sept", "huit", "neuf"
@@ -26,56 +32,58 @@ public class NumberToLetter {
         "cent", "mille", "million", "milliard"
     };
     
-    private static String getUnderSeventy(final int n)
+    private static String getUnderSeventy(final long n)
     {
-        final int digit = n % 10;
-        String retVal = m_MultiplesOfTen[n/10 - 1];
+        final long leading = n / TEN;
+        final long trailing = n % TEN;
+        String retVal = m_MultiplesOfTen[(int)(leading - 1)];
         
-        if (digit == 1)
+        if (trailing == 1)
             retVal += "-et";
         
-        retVal += "-" + m_Digits[digit];
+        retVal += "-" + m_Digits[(int)trailing];
         
         return retVal;
     }
     
-    private static String getUnderHundred(final int n)
+    private static String getUnderHundred(final long n)
     {
-        final int digit = n % 10;
-        String retVal = m_MultiplesOfTen[n/10 - 1];
+        final long leading = n / TEN;
+        final long trailing = n % TEN;
+        String retVal = m_MultiplesOfTen[(int)(leading - 1)];
         
-        if (digit == 0)
+        if (trailing == 0)
             return retVal;
         else if (n > 70 && n < 80)
         {
             retVal = m_MultiplesOfTen[5];
             
-            if (digit == 1)
+            if (trailing == 1)
                 retVal += "-et";
             
-            retVal += "-" + m_AfterTens[digit - 1];
+            retVal += "-" + m_AfterTens[(int)(trailing - 1)];
         }
         else if (n > 80 && n < 90)
         {
-            retVal += "-" + m_Digits[digit];
+            retVal += "-" + m_Digits[(int)trailing];
         }
         else {
             retVal = m_MultiplesOfTen[7];
             
-            retVal += "-" + m_AfterTens[digit - 1];
+            retVal += "-" + m_AfterTens[(int)trailing - 1];
         }
         
         return retVal;
     }
     
-    private static String getHundred(final int n)
+    private static String getHundred(final long n)
     {
-        final int leading = n / 100;
-        final int trailing = n % 100;
+        final long leading = n / HUNDRED;
+        final long trailing = n % HUNDRED;
         String retVal = "";
         
         if (n > 1)
-            retVal = m_Digits[leading] + " ";
+            retVal = m_Digits[(int)leading] + " ";
         
         retVal += m_PowersOfTen[0];
         retVal += " " + convertToLetter(trailing);
@@ -83,10 +91,10 @@ public class NumberToLetter {
         return retVal;
     }
     
-    private static String getThousand(final int n)
+    private static String getThousand(final long n)
     {
-        final int leading = n / 1_000;
-        final int trailing = n % 1_000;
+        final long leading = n / THOUSAND;
+        final long trailing = n % THOUSAND;
         String retVal = "";
         
         if (n > 1)
@@ -98,14 +106,11 @@ public class NumberToLetter {
         return retVal;
     }
     
-    private static String getMillion(final int n)
+    private static String getMillion(final long n)
     {
-        final int leading = n / 1_000_000;
-        final int trailing = n % 1_000_000;
-        String retVal = "";
-        
-        if (n > 1)
-            retVal = convertToLetter(leading) + " ";
+        final long leading = n / MILLION;
+        final long trailing = n % MILLION;
+        String retVal = convertToLetter(leading) + " ";
         
         retVal += m_PowersOfTen[2] + (leading > 1 ? "s" : "");
         retVal += " " + convertToLetter(trailing);
@@ -113,21 +118,34 @@ public class NumberToLetter {
         return retVal;
     }
     
-    public static String convertToLetter(final int n)
+    private static String getBillion(final long n)
+    {
+        final long leading = n / BILLION;
+        final long trailing = n % BILLION;
+        String retVal = convertToLetter(leading) + " ";
+        
+        retVal += m_PowersOfTen[3] + (leading > 1 ? "s" : "");
+        retVal += " " + convertToLetter(trailing);
+        
+        return retVal;
+        
+    }
+    
+    public static String convertToLetter(final long n)
     {
         String retVal = "";
         
         if (n < m_Digits.length) 
         {
-            retVal = m_Digits[n];
+            retVal = m_Digits[(int)n];
         }
         else if (n % 10 == 0 && n < 100) 
         {
-            retVal = m_MultiplesOfTen[n / 10 - 1];
+            retVal = m_MultiplesOfTen[(int)(n / 10 - 1)];
         }
         else if (n < 20)
         {
-            retVal = m_AfterTens[n - 10 - 1];
+            retVal = m_AfterTens[(int)(n - 10 - 1)];
         }
         else if (n < 70)
         {
@@ -148,6 +166,10 @@ public class NumberToLetter {
         else if (n < 1_000_000_000)
         {
             retVal = getMillion(n);
+        }
+        else if (n < 1_000_000_000_000l)
+        {
+            retVal = getBillion(n);
         }
         
         return retVal;
