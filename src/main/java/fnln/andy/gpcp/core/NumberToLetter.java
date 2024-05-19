@@ -76,59 +76,60 @@ public class NumberToLetter {
         return retVal;
     }
     
-    private static String getHundred(final long n)
+    private static String getAboveNinetyNine(final long n)
     {
-        final long leading = n / HUNDRED;
-        final long trailing = n % HUNDRED;
+        enum NumberClass { Hundred, Thousand, Million, Billion }
+        NumberClass numberClass = NumberClass.Hundred;
         String retVal = "";
+        long leading = 0;
+        long trailing = 0;
+        int powOfTenIndex = 0;
         
-        if (n > 1)
-            retVal = m_Digits[(int)leading] + " ";
-        
-        retVal += m_PowersOfTen[0];
-        retVal += " " + convertToLetter(trailing);
-        
-        return retVal;
-    }
-    
-    private static String getThousand(final long n)
-    {
-        final long leading = n / THOUSAND;
-        final long trailing = n % THOUSAND;
-        String retVal = "";
-        
-        if (n > 1)
+        if ((leading = n / BILLION) > 0)
+        {   
+            numberClass = NumberClass.Billion;
+            trailing = n % BILLION;
+            powOfTenIndex = 3;
+            
             retVal = convertToLetter(leading) + " ";
+        }
+        else if ((leading = n / MILLION) > 0)
+        {   
+            numberClass = NumberClass.Million;
+            trailing = n % MILLION;
+            powOfTenIndex = 2;
+            
+            retVal = convertToLetter(leading) + " ";
+        }
+        else if ((leading = n / THOUSAND) > 0)
+        {   
+            numberClass = NumberClass.Thousand;
+            trailing = n % THOUSAND;
+            powOfTenIndex = 1;
+            
+            if (leading > 1)
+                retVal = convertToLetter(leading) + " ";
+        }
+        else if ((leading = n / HUNDRED) > 0)
+        {
+            numberClass = NumberClass.Hundred;
+            trailing = n % HUNDRED;
+            powOfTenIndex = 0;
+            
+            if (leading > 1)
+                retVal = convertToLetter(leading) + " ";
+        }
         
-        retVal += m_PowersOfTen[1];
+        retVal += m_PowersOfTen[powOfTenIndex];
+        
+        // Only "million" and "milliard" take an "s", apparently, when the leading number is
+        // superior to 1.
+        if ((numberClass == NumberClass.Million || numberClass == NumberClass.Billion) && leading > 1)
+            retVal += "s";
+        
         retVal += " " + convertToLetter(trailing);
         
         return retVal;
-    }
-    
-    private static String getMillion(final long n)
-    {
-        final long leading = n / MILLION;
-        final long trailing = n % MILLION;
-        String retVal = convertToLetter(leading) + " ";
-        
-        retVal += m_PowersOfTen[2] + (leading > 1 ? "s" : "");
-        retVal += " " + convertToLetter(trailing);
-        
-        return retVal;
-    }
-    
-    private static String getBillion(final long n)
-    {
-        final long leading = n / BILLION;
-        final long trailing = n % BILLION;
-        String retVal = convertToLetter(leading) + " ";
-        
-        retVal += m_PowersOfTen[3] + (leading > 1 ? "s" : "");
-        retVal += " " + convertToLetter(trailing);
-        
-        return retVal;
-        
     }
     
     public static String convertToLetter(final long n)
@@ -145,14 +146,8 @@ public class NumberToLetter {
             retVal = getUnderSeventy(n);
         else if (n < HUNDRED)
             retVal = getUnderHundred(n);
-        else if (n < THOUSAND)
-            retVal = getHundred(n);
-        else if (n < MILLION)
-            retVal = getThousand(n);
-        else if (n < BILLION)
-            retVal = getMillion(n);
         else if (n <= MAX_CONVERTIBLE)
-            retVal = getBillion(n);
+            retVal = getAboveNinetyNine(n);
         
         return retVal;
     }
