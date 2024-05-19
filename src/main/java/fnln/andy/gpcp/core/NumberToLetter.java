@@ -76,7 +76,7 @@ public class NumberToLetter {
         String retVal = "";
         
         if (n > 1)
-            retVal = m_Digits[leading] + "-";
+            retVal = m_Digits[leading] + " ";
         
         retVal += m_PowersOfTen[0];
         retVal += " " + convertToLetter(trailing);
@@ -91,7 +91,7 @@ public class NumberToLetter {
         String retVal = "";
         
         if (n > 1)
-            retVal = convertToLetter(leading) + "-";
+            retVal = convertToLetter(leading) + " ";
         
         retVal += m_PowersOfTen[1];
         retVal += " " + convertToLetter(trailing);
