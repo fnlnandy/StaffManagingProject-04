@@ -23,8 +23,7 @@ public class NumberToLetter {
         "dix-huit", "dix-neuf"
     };
     private static final String[] m_PowersOfTen = {
-        "cent", "mille", "dix-mille", "cent-mille", "million",
-        "milliard"
+        "cent", "mille", "million", "milliard"
     };
     
     private static String getUnderSeventy(final int n)
@@ -108,7 +107,7 @@ public class NumberToLetter {
         if (n > 1)
             retVal = convertToLetter(leading) + " ";
         
-        retVal += m_PowersOfTen[4] + (leading > 1 ? "s" : "");
+        retVal += m_PowersOfTen[2] + (leading > 1 ? "s" : "");
         retVal += " " + convertToLetter(trailing);
         
         return retVal;
