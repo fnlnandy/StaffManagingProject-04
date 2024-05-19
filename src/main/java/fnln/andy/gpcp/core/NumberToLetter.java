@@ -16,6 +16,14 @@ public class NumberToLetter {
     private static final long MILLION = 1_000_000l;
     private static final long BILLION = 1_000_000_000l;
     
+    private static final long[] POWERS_OF_TEN = { HUNDRED, THOUSAND, MILLION, BILLION };
+    
+    private static final int UNK_NUMBER_CLASS = 0;
+    private static final int HUNDRED_NUMBER_CLASS = 1;
+    private static final int THOUSAND_NUMBER_CLASS = 2;
+    private static final int MILLION_NUMBER_CLASS = 3;
+    private static final int BILLION_NUMBER_CLASS = 4;
+    
     private static final String[] m_Digits = { 
         "zéro", "un", "deux", "trois", "quatre", "cinq", 
         "six", "sept", "huit", "neuf"
@@ -31,8 +39,6 @@ public class NumberToLetter {
     private static final String[] m_PowersOfTen = {
         "cent", "mille", "million", "milliard"
     };
-    
-    enum NumberClass { Unk, Hundred, Thousand, Million, Billion }
     
     private static String getUnderSeventy(final long n)
     {
@@ -78,89 +84,39 @@ public class NumberToLetter {
         return retVal;
     }
     
-    private static NumberClass getNumberClass(final long n)
+    private static int getNumberClass(final long n)
     {
         if ((n / BILLION) > 0)
-            return NumberClass.Billion;
+            return BILLION_NUMBER_CLASS;
         if ((n / MILLION) > 0)
-            return NumberClass.Million;
+            return MILLION_NUMBER_CLASS;
         if ((n / THOUSAND) > 0)
-            return NumberClass.Thousand;
+            return THOUSAND_NUMBER_CLASS;
         if ((n / HUNDRED) > 0)
-            return NumberClass.Hundred;
+            return HUNDRED_NUMBER_CLASS;
         
-        return NumberClass.Unk;
-    }
-    
-    private static long getLeadingFromNumberClass(final long n, final NumberClass numberClass)
-    {
-        switch (numberClass)
-        {
-            case NumberClass.Billion:
-                return n / BILLION;
-            case NumberClass.Million:
-                return n / MILLION;
-            case NumberClass.Thousand:
-                return n / THOUSAND;
-            case NumberClass.Hundred:
-                return n / HUNDRED;
-        }
-        
-        return n;
-    }
-    
-    private static long getTrailingFromNumberClass(final long n, final NumberClass numberClass)
-    {
-        switch (numberClass)
-        {
-            case NumberClass.Billion:
-                return n % BILLION;
-            case NumberClass.Million:
-                return n % MILLION;
-            case NumberClass.Thousand:
-                return n % THOUSAND;
-            case NumberClass.Hundred:
-                return n % HUNDRED;
-        }
-        
-        return n;
-    }
-    
-    private static int getPowOfTenIndexFromNumberClass(final NumberClass numberClass)
-    {
-        switch (numberClass)
-        {
-            case NumberClass.Billion:
-                return 3;
-            case NumberClass.Million:
-                return 2;
-            case NumberClass.Thousand:
-                return 1;
-            case NumberClass.Hundred:
-                return 0;
-        }
-        
-        return 0;
+        return UNK_NUMBER_CLASS;
     }
     
     private static String getAboveNinetyNine(final long n)
     {
-        final NumberClass numberClass = getNumberClass(n);
-        final long leading = getLeadingFromNumberClass(n, numberClass);
-        final long trailing = getTrailingFromNumberClass(n, numberClass);
-        final int powOfTenIndex = getPowOfTenIndexFromNumberClass(numberClass);
-        String retVal = "";
+        final int numberClass = getNumberClass(n);
         
-        if (numberClass == NumberClass.Million || numberClass == NumberClass.Billion
-            || (leading > 1 && numberClass == NumberClass.Hundred) 
-            || (leading > 1 && numberClass == NumberClass.Thousand))
+        if (numberClass == UNK_NUMBER_CLASS)
+            return "";
+        
+        final int powOfTenIndex = numberClass - 1;
+        final long leading = n / POWERS_OF_TEN[powOfTenIndex];
+        final long trailing = n % POWERS_OF_TEN[powOfTenIndex];
+        String retVal = "";
+         
+        if (numberClass >= MILLION_NUMBER_CLASS || (leading > 1 && numberClass > UNK_NUMBER_CLASS))
             retVal = convertToLetter(leading) + " ";
         
         retVal += m_PowersOfTen[powOfTenIndex];
         
-        // Only "million" and "milliard" take an "s", apparently, when the leading number is
-        // superior to 1.
-        if ((numberClass == NumberClass.Million || numberClass == NumberClass.Billion) && leading > 1)
+        // Only "million" and "milliard" take an "s", if leading > 1.
+        if (numberClass >= MILLION_NUMBER_CLASS && leading > 1)
             retVal += "s";
         
         retVal += " " + convertToLetter(trailing);
@@ -172,18 +128,21 @@ public class NumberToLetter {
     {
         String retVal = "";
         
+        if (n < 0)
+            return retVal;
+        
         if (n < m_Digits.length) 
-            retVal = m_Digits[(int)n];
+            retVal += m_Digits[(int)n];
         else if (n % 10 == 0 && n < 100) 
-            retVal = m_MultiplesOfTen[(int)(n / 10 - 1)];
+            retVal += m_MultiplesOfTen[(int)(n / 10 - 1)];
         else if (n < 20)
-            retVal = m_AfterTens[(int)(n - 10 - 1)];
+            retVal += m_AfterTens[(int)(n - 10 - 1)];
         else if (n < 70)
-            retVal = getUnderSeventy(n);
+            retVal += getUnderSeventy(n);
         else if (n < HUNDRED)
-            retVal = getUnderHundred(n);
+            retVal += getUnderHundred(n);
         else if (n <= MAX_CONVERTIBLE)
-            retVal = getAboveNinetyNine(n);
+            retVal += getAboveNinetyNine(n);
         
         return retVal;
     }
