@@ -32,6 +32,8 @@ public class NumberToLetter {
         "cent", "mille", "million", "milliard"
     };
     
+    enum NumberClass { Unk, Hundred, Thousand, Million, Billion }
+    
     private static String getUnderSeventy(final long n)
     {
         final long leading = n / TEN;
@@ -76,49 +78,83 @@ public class NumberToLetter {
         return retVal;
     }
     
+    private static NumberClass getNumberClass(final long n)
+    {
+        if ((n / BILLION) > 0)
+            return NumberClass.Billion;
+        if ((n / MILLION) > 0)
+            return NumberClass.Million;
+        if ((n / THOUSAND) > 0)
+            return NumberClass.Thousand;
+        if ((n / HUNDRED) > 0)
+            return NumberClass.Hundred;
+        
+        return NumberClass.Unk;
+    }
+    
+    private static long getLeadingFromNumberClass(final long n, final NumberClass numberClass)
+    {
+        switch (numberClass)
+        {
+            case NumberClass.Billion:
+                return n / BILLION;
+            case NumberClass.Million:
+                return n / MILLION;
+            case NumberClass.Thousand:
+                return n / THOUSAND;
+            case NumberClass.Hundred:
+                return n / HUNDRED;
+        }
+        
+        return n;
+    }
+    
+    private static long getTrailingFromNumberClass(final long n, final NumberClass numberClass)
+    {
+        switch (numberClass)
+        {
+            case NumberClass.Billion:
+                return n % BILLION;
+            case NumberClass.Million:
+                return n % MILLION;
+            case NumberClass.Thousand:
+                return n % THOUSAND;
+            case NumberClass.Hundred:
+                return n % HUNDRED;
+        }
+        
+        return n;
+    }
+    
+    private static int getPowOfTenIndexFromNumberClass(final NumberClass numberClass)
+    {
+        switch (numberClass)
+        {
+            case NumberClass.Billion:
+                return 3;
+            case NumberClass.Million:
+                return 2;
+            case NumberClass.Thousand:
+                return 1;
+            case NumberClass.Hundred:
+                return 0;
+        }
+        
+        return 0;
+    }
+    
     private static String getAboveNinetyNine(final long n)
     {
-        enum NumberClass { Hundred, Thousand, Million, Billion }
-        NumberClass numberClass = NumberClass.Hundred;
+        final NumberClass numberClass = getNumberClass(n);
+        final long leading = getLeadingFromNumberClass(n, numberClass);
+        final long trailing = getTrailingFromNumberClass(n, numberClass);
+        final int powOfTenIndex = getPowOfTenIndexFromNumberClass(numberClass);
         String retVal = "";
-        long leading = 0;
-        long trailing = 0;
-        int powOfTenIndex = 0;
         
-        if ((leading = n / BILLION) > 0)
-        {   
-            numberClass = NumberClass.Billion;
-            trailing = n % BILLION;
-            powOfTenIndex = 3;
-            
+        if (numberClass == NumberClass.Million || numberClass == NumberClass.Billion
+            || (leading > 1 && numberClass == NumberClass.Hundred) 
+            || (leading > 1 && numberClass == NumberClass.Thousand))
             retVal = convertToLetter(leading) + " ";
-        }
-        else if ((leading = n / MILLION) > 0)
-        {   
-            numberClass = NumberClass.Million;
-            trailing = n % MILLION;
-            powOfTenIndex = 2;
-            
-            retVal = convertToLetter(leading) + " ";
-        }
-        else if ((leading = n / THOUSAND) > 0)
-        {   
-            numberClass = NumberClass.Thousand;
-            trailing = n % THOUSAND;
-            powOfTenIndex = 1;
-            
-            if (leading > 1)
-                retVal = convertToLetter(leading) + " ";
-        }
-        else if ((leading = n / HUNDRED) > 0)
-        {
-            numberClass = NumberClass.Hundred;
-            trailing = n % HUNDRED;
-            powOfTenIndex = 0;
-            
-            if (leading > 1)
-                retVal = convertToLetter(leading) + " ";
-        }
         
         retVal += m_PowersOfTen[powOfTenIndex];
         
