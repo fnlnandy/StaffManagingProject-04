@@ -7,6 +7,7 @@ package fnln.andy.gpcp.ui;
 import fnln.andy.gpcp.DBControl;
 import fnln.andy.gpcp.core.Employee;
 import fnln.andy.gpcp.core.PseudoDate;
+import fnln.andy.gpcp.inputverifiers.DayInDateInputVerifier;
 import java.util.List;
 
 /**
@@ -44,13 +45,28 @@ public class AbsentEmployeesUi extends javax.swing.JDialog {
         getContentPane().setLayout(new java.awt.GridLayout(0, 1));
 
         jDaySpinner.setValue(PseudoDate.getCurrentDate().getDay());
+        jDaySpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jDaySpinnerStateChanged(evt);
+            }
+        });
         jDatePanel.add(jDaySpinner);
 
         jMonthComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre" }));
         jMonthComboBox.setSelectedIndex(PseudoDate.getCurrentDate().getMonth() - 1);
+        jMonthComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMonthComboBoxActionPerformed(evt);
+            }
+        });
         jDatePanel.add(jMonthComboBox);
 
         jYearSpinner.setValue(PseudoDate.getCurrentDate().getYear());
+        jYearSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jYearSpinnerStateChanged(evt);
+            }
+        });
         jDatePanel.add(jYearSpinner);
 
         getContentPane().add(jDatePanel);
@@ -105,6 +121,24 @@ public class AbsentEmployeesUi extends javax.swing.JDialog {
         
         DBControl.deferEmployeeController().reloadEntries(toLoad, jAbsentEmployeesTable);
     }//GEN-LAST:event_jDisplayAbsentEmployeesButtonActionPerformed
+
+    private void jDaySpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jDaySpinnerStateChanged
+        // TODO add your handling code here:
+        final int year = (int)jYearSpinner.getValue();
+        final int month = jMonthComboBox.getSelectedIndex() + 1;
+        
+        DayInDateInputVerifier.validateSpinnerValue(month, year, jDaySpinner);
+    }//GEN-LAST:event_jDaySpinnerStateChanged
+
+    private void jMonthComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMonthComboBoxActionPerformed
+        // TODO add your handling code here:
+        jDaySpinnerStateChanged(null);
+    }//GEN-LAST:event_jMonthComboBoxActionPerformed
+
+    private void jYearSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jYearSpinnerStateChanged
+        // TODO add your handling code here:
+        jDaySpinnerStateChanged(null);
+    }//GEN-LAST:event_jYearSpinnerStateChanged
 
     /**
      * @param args the command line arguments

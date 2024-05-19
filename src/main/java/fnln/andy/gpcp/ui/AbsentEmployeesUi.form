@@ -36,6 +36,9 @@
               <Connection code="PseudoDate.getCurrentDate().getDay()" type="code"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jDaySpinnerStateChanged"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="jMonthComboBox">
           <Properties>
@@ -59,6 +62,9 @@
               <Connection code="PseudoDate.getCurrentDate().getMonth() - 1" type="code"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMonthComboBoxActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -69,6 +75,9 @@
               <Connection code="PseudoDate.getCurrentDate().getYear()" type="code"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jYearSpinnerStateChanged"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
