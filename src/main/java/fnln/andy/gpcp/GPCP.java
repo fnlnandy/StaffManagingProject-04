@@ -4,6 +4,7 @@
 
 package fnln.andy.gpcp;
 
+import fnln.andy.gpcp.core.NumberToLetter;
 import fnln.andy.gpcp.ui.GPCPUi;
 import javax.swing.SwingUtilities;
 
@@ -23,5 +24,7 @@ public class GPCP {
         SwingUtilities.invokeLater(() -> {
             m_MainAppUi.setVisible(true);
         });
+        
+        System.out.println("999_999_999 = " + NumberToLetter.convertToLetter(999_999_999));
     }
 }
