@@ -53,8 +53,7 @@ public class HolidayTableController extends ATableController<Holiday> {
     @Override
     public void loadEntries(Object dest)
     {
-        if (m_Entries == null)
-            m_Entries = fetchEntries();
+        m_Entries = fetchEntries();
         
         for (Holiday h : m_Entries)
             pushEntryIntoTable(h, dest);
@@ -65,13 +64,13 @@ public class HolidayTableController extends ATableController<Holiday> {
     @Override
     public List<Holiday> fetchEntries()
     {
-        final String selectPointagesQuery = "SELECT * FROM Pointage;";
+        final String selectHolidaysQuery = "SELECT * FROM Conge;";
         
         List<Holiday> retVal = new ArrayList<>();
         ResultSet resultSet;
         
         try {
-            resultSet = m_SQLStatement.executeQuery(selectPointagesQuery);
+            resultSet = m_SQLStatement.executeQuery(selectHolidaysQuery);
             
             if (resultSet == null)
                 return retVal;
@@ -122,7 +121,9 @@ public class HolidayTableController extends ATableController<Holiday> {
             preparedStatement.setDate(6, Date.valueOf(holiday.getDateRetour()));
         
             retVal = preparedStatement.executeUpdate() >= 0;
-        } catch (SQLException sqlE) {}
+        } catch (SQLException sqlE) {
+            sqlE.printStackTrace();
+        }
         
         return retVal;
     }
@@ -142,8 +143,8 @@ public class HolidayTableController extends ATableController<Holiday> {
                 + "AND "
                 + "NumEmp = ?"
                 + ";";
-        final Holiday oldHoliday = (Holiday)(args.popFrontArg());
         final Holiday newHoliday = (Holiday)(args.popFrontArg());
+        final Holiday oldHoliday = (Holiday)(args.popFrontArg());
         
         PreparedStatement preparedStatement = null;
         boolean retVal = false;
@@ -160,6 +161,8 @@ public class HolidayTableController extends ATableController<Holiday> {
             
             preparedStatement.setString(7, oldHoliday.getNumConge());
             preparedStatement.setString(8, oldHoliday.getNumEmp());
+            
+            System.out.println(preparedStatement.toString());
         
             retVal = preparedStatement.executeUpdate() >= 0;
         } catch (SQLException sqlE)

@@ -50,8 +50,7 @@ public class PointageTableController extends ATableController<Pointage> {
     @Override
     public void loadEntries(Object dest)
     {
-        if (m_Entries == null)
-            m_Entries = fetchEntries();
+        m_Entries = fetchEntries();
         
         for (Pointage p : m_Entries)
             pushEntryIntoTable(p, dest);

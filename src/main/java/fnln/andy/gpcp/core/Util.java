@@ -22,6 +22,14 @@ public class Util {
     }
     public static DefaultTableModel getDefaultTableModel(JTable table)
     {
-        return getDefaultTableModel(table.getModel());
+        TableModel model = table.getModel();
+        DefaultTableModel retVal = null;
+        
+        if (!(model instanceof DefaultTableModel))
+            return retVal;
+        
+        retVal = (DefaultTableModel)(model);
+        
+        return retVal;
     }
 }

@@ -51,8 +51,7 @@ public class EmployeeTableController extends ATableController<Employee> {
     @Override
     public void loadEntries(Object dest)
     {
-        if (m_Entries == null)
-            m_Entries = fetchEntries();
+        m_Entries = fetchEntries();
         
         for (Employee e : m_Entries)
             pushEntryIntoTable(e, dest);
