@@ -9,7 +9,7 @@ package fnln.andy.gpcp.core;
  * @author andy
  */
 public class NumberToLetter {
-    public static final long m_MaxSupported = 999_999_999_999l;
+    public static final long MAX_CONVERTIBLE = 999_999_999_999l;
     private static final long TEN = 10l;
     private static final long HUNDRED = 100l;
     private static final long THOUSAND = 1_000l;
@@ -143,15 +143,15 @@ public class NumberToLetter {
             retVal = m_AfterTens[(int)(n - 10 - 1)];
         else if (n < 70)
             retVal = getUnderSeventy(n);
-        else if (n < 100)
+        else if (n < HUNDRED)
             retVal = getUnderHundred(n);
-        else if (n < 1_000)
+        else if (n < THOUSAND)
             retVal = getHundred(n);
-        else if (n < 1_000_000)
+        else if (n < MILLION)
             retVal = getThousand(n);
-        else if (n < 1_000_000_000)
+        else if (n < BILLION)
             retVal = getMillion(n);
-        else if (n < 1_000_000_000_000l)
+        else if (n <= MAX_CONVERTIBLE)
             retVal = getBillion(n);
         
         return retVal;

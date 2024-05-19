@@ -24,7 +24,5 @@ public class GPCP {
         SwingUtilities.invokeLater(() -> {
             m_MainAppUi.setVisible(true);
         });
-        
-        System.out.println("1_478_042_789 = " + NumberToLetter.convertToLetter(1_478_042_789));
     }
 }
