@@ -9,7 +9,7 @@ package fnln.andy.gpcp.core;
  * @author andy
  */
 public class Pointage {
-    private String m_DatePointage;
+    private PseudoDate m_DatePointage;
     private String m_NumEmp;
     private String m_Pointage;
     
@@ -20,12 +20,12 @@ public class Pointage {
     
     public Pointage(final String datePointage, final String numEmp, final String pointage)
     {
-        this.m_DatePointage = datePointage;
+        this.m_DatePointage = new PseudoDate(datePointage);
         this.m_NumEmp = numEmp;
         this.m_Pointage = ("oui".equals(pointage.toLowerCase()) ? "Oui" : "Non");
     }
     
-    public String getDatePointage() { return m_DatePointage; }
+    public PseudoDate getDatePointage() { return m_DatePointage; }
     public String getNumEmp() { return m_NumEmp; }
     public String getPointage() { return m_Pointage; }
     public String getPrintable()
@@ -39,7 +39,7 @@ public class Pointage {
         return printable;
     }
     
-    public void setDatePointage(final String datePointage) { this.m_DatePointage = datePointage; }
+    public void setDatePointage(final String datePointage) { this.m_DatePointage.create(datePointage); }
     public void setNumEmp(final String numEmp) { this.m_NumEmp = numEmp; }
     public void setPointage(final String pointage) { this.m_Pointage = pointage; }
     

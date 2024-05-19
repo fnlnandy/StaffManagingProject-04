@@ -32,4 +32,14 @@ public class Util {
         
         return retVal;
     }
+    public static String constructDateString(int day, int month, int year)
+    {
+        String retVal = "";
+        
+        retVal += String.valueOf(year) + "-";
+        retVal += String.valueOf(month) + "-";
+        retVal += String.valueOf(day);
+        
+        return retVal;
+    }
 }

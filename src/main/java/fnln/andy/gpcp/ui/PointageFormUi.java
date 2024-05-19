@@ -7,13 +7,12 @@ package fnln.andy.gpcp.ui;
 import fnln.andy.gpcp.DBControl;
 import fnln.andy.gpcp.core.Employee;
 import fnln.andy.gpcp.core.Pointage;
+import fnln.andy.gpcp.core.PseudoDate;
+import fnln.andy.gpcp.core.Util;
 import fnln.andy.gpcp.inputverifiers.DayInDateInputVerifier;
 import java.util.List;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.InputVerifier;
-import javax.swing.JComponent;
-import javax.swing.JSpinner;
 
 /**
  *
@@ -69,18 +68,11 @@ public class PointageFormUi extends javax.swing.JDialog {
     
     public void setDatePointage(String datePointage)
     {
-        final String[] parts = datePointage.split("-");
+        PseudoDate date = new PseudoDate(datePointage);
         
-        if (parts.length < 3)
-            return;
-        
-        final int year = Integer.parseInt(parts[0]);
-        final int month = Integer.parseInt(parts[1]);
-        final int day = Integer.parseInt(parts[2]);
-        
-        jDatePointageDaySpinner.setValue(day);
-        jDatePointageMonthComboBox.setSelectedIndex(month - 1);
-        jDatePointageYearSpinner.setValue(year);
+        jDatePointageDaySpinner.setValue(date.getDay());
+        jDatePointageMonthComboBox.setSelectedIndex(date.getMonth() - 1);
+        jDatePointageYearSpinner.setValue(date.getYear());
     }
     public void setNumEmp(String numEmp)
     {
@@ -313,9 +305,7 @@ public class PointageFormUi extends javax.swing.JDialog {
         final int datePointageDay = (int)jDatePointageDaySpinner.getValue();
         final int datePointageMonth = jDatePointageMonthComboBox.getSelectedIndex() + 1; // The first index (0) is January.
         final int datePointageYear = (int)jDatePointageYearSpinner.getValue();
-        final String datePointage = String.valueOf(datePointageYear) + "-"
-                                    + String.valueOf(datePointageMonth) + "-"
-                                    + String.valueOf(datePointageDay);
+        final String datePointage = Util.constructDateString(datePointageDay, datePointageMonth, datePointageYear);
         final String numEmp = jNumEmpComboBox.getSelectedItem().toString();
         final String pointage = jPointageYesRadioButton.isSelected() ? "Oui" : "Non";
         

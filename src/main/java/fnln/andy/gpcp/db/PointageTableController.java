@@ -40,7 +40,7 @@ public class PointageTableController extends ATableController<Pointage> {
             return;
         
         tableModel.addRow(new Object[] {    
-                                            pointage.getDatePointage(),
+                                            pointage.getDatePointage().constructStringDate(),
                                             pointage.getNumEmp(),
                                             pointage.getPointage()
                                         }
@@ -102,7 +102,7 @@ public class PointageTableController extends ATableController<Pointage> {
         try {
             preparedStatement = m_SQLConnection.prepareStatement(insertPointageQuery);
             
-            preparedStatement.setDate(1, Date.valueOf(pointage.getDatePointage()));
+            preparedStatement.setDate(1, pointage.getDatePointage().toSQLDate());
             preparedStatement.setString(2, pointage.getNumEmp());
             preparedStatement.setString(3, pointage.getPointage());
             
@@ -132,11 +132,11 @@ public class PointageTableController extends ATableController<Pointage> {
         try {
             preparedStatement = m_SQLConnection.prepareStatement(updatePointageQuery);
             
-            preparedStatement.setDate(1, Date.valueOf(newPointage.getDatePointage()));
+            preparedStatement.setDate(1, newPointage.getDatePointage().toSQLDate());
             preparedStatement.setString(2, newPointage.getNumEmp());
             preparedStatement.setString(3, newPointage.getPointage());
             
-            preparedStatement.setDate(4, Date.valueOf(oldPointage.getDatePointage()));
+            preparedStatement.setDate(4, oldPointage.getDatePointage().toSQLDate());
             preparedStatement.setString(5, oldPointage.getNumEmp());
             preparedStatement.setString(6, oldPointage.getPointage());
             
@@ -160,7 +160,7 @@ public class PointageTableController extends ATableController<Pointage> {
         try {
             preparedStatement = m_SQLConnection.prepareStatement(deletePointageQuery);
             
-            preparedStatement.setDate(1, Date.valueOf(pointage.getDatePointage()));
+            preparedStatement.setDate(1, pointage.getDatePointage().toSQLDate());
             preparedStatement.setString(2, pointage.getNumEmp());
             preparedStatement.setString(3, pointage.getPointage());
             

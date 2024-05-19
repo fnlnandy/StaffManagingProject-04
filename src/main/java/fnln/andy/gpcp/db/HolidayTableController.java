@@ -44,8 +44,8 @@ public class HolidayTableController extends ATableController<Holiday> {
                                             holiday.getNumEmp(),
                                             holiday.getMotif(),
                                             holiday.getNombreJours(),
-                                            holiday.getDateDemande(),
-                                            holiday.getDateRetour()
+                                            holiday.getDateDemande().constructStringDate(),
+                                            holiday.getDateRetour().constructStringDate()
                                         }
                         );
     }
@@ -117,8 +117,8 @@ public class HolidayTableController extends ATableController<Holiday> {
             preparedStatement.setString(2, holiday.getNumEmp());
             preparedStatement.setString(3, holiday.getMotif());
             preparedStatement.setInt(4, holiday.getNombreJours());
-            preparedStatement.setDate(5, Date.valueOf(holiday.getDateDemande()));
-            preparedStatement.setDate(6, Date.valueOf(holiday.getDateRetour()));
+            preparedStatement.setDate(5, holiday.getDateDemande().toSQLDate());
+            preparedStatement.setDate(6, holiday.getDateRetour().toSQLDate());
         
             retVal = preparedStatement.executeUpdate() >= 0;
         } catch (SQLException sqlE) {
@@ -156,8 +156,8 @@ public class HolidayTableController extends ATableController<Holiday> {
             preparedStatement.setString(2, newHoliday.getNumEmp());
             preparedStatement.setString(3, newHoliday.getMotif());
             preparedStatement.setInt(4, newHoliday.getNombreJours());
-            preparedStatement.setDate(5, Date.valueOf(newHoliday.getDateDemande()));
-            preparedStatement.setDate(6, Date.valueOf(newHoliday.getDateRetour()));
+            preparedStatement.setDate(5, newHoliday.getDateDemande().toSQLDate());
+            preparedStatement.setDate(6, newHoliday.getDateRetour().toSQLDate());
             
             preparedStatement.setString(7, oldHoliday.getNumConge());
             preparedStatement.setString(8, oldHoliday.getNumEmp());
