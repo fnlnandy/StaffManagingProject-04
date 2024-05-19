@@ -154,7 +154,7 @@ public class PointageFormUi extends javax.swing.JDialog {
         jDatePointageYearLabel.setText("Année");
         jDatePointagePanel.add(jDatePointageYearLabel);
 
-        jDatePointageDaySpinner.setValue(1);
+        jDatePointageDaySpinner.setValue(PseudoDate.getCurrentDate().getDay());
         jDatePointageDaySpinner.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jDatePointageDaySpinnerStateChanged(evt);
@@ -163,6 +163,7 @@ public class PointageFormUi extends javax.swing.JDialog {
         jDatePointagePanel.add(jDatePointageDaySpinner);
 
         jDatePointageMonthComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Janvier", "Fervrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre" }));
+        jDatePointageMonthComboBox.setSelectedIndex(PseudoDate.getCurrentDate().getMonth() - 1);
         jDatePointageMonthComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jDatePointageMonthComboBoxActionPerformed(evt);
@@ -170,7 +171,7 @@ public class PointageFormUi extends javax.swing.JDialog {
         });
         jDatePointagePanel.add(jDatePointageMonthComboBox);
 
-        jDatePointageYearSpinner.setValue(2024);
+        jDatePointageYearSpinner.setValue(PseudoDate.getCurrentDate().getYear());
         jDatePointageYearSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jDatePointageYearSpinnerStateChanged(evt);
@@ -286,9 +287,11 @@ public class PointageFormUi extends javax.swing.JDialog {
 
     private void jResetPointageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jResetPointageButtonActionPerformed
         // TODO add your handling code here:
-        jDatePointageDaySpinner.setValue(1);
-        jDatePointageMonthComboBox.setSelectedIndex(0);
-        jDatePointageYearSpinner.setValue(2024);
+        final PseudoDate now = PseudoDate.getCurrentDate();
+        
+        jDatePointageDaySpinner.setValue(now.getDay());
+        jDatePointageMonthComboBox.setSelectedIndex(now.getMonth() - 1);
+        jDatePointageYearSpinner.setValue(now.getYear());
         
         if (jNumEmpComboBox.getItemCount() > 0)
             jNumEmpComboBox.setSelectedIndex(0);

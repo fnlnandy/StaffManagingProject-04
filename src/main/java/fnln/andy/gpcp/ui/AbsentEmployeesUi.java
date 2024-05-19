@@ -43,13 +43,14 @@ public class AbsentEmployeesUi extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridLayout(0, 1));
 
-        jDaySpinner.setValue(1);
+        jDaySpinner.setValue(PseudoDate.getCurrentDate().getDay());
         jDatePanel.add(jDaySpinner);
 
         jMonthComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre" }));
+        jMonthComboBox.setSelectedIndex(PseudoDate.getCurrentDate().getMonth() - 1);
         jDatePanel.add(jMonthComboBox);
 
-        jYearSpinner.setValue(2024);
+        jYearSpinner.setValue(PseudoDate.getCurrentDate().getYear());
         jDatePanel.add(jYearSpinner);
 
         getContentPane().add(jDatePanel);

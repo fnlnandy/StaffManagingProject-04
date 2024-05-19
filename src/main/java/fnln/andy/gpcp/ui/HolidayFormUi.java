@@ -7,6 +7,7 @@ package fnln.andy.gpcp.ui;
 import fnln.andy.gpcp.DBControl;
 import fnln.andy.gpcp.core.Employee;
 import fnln.andy.gpcp.core.Holiday;
+import fnln.andy.gpcp.core.PseudoDate;
 import fnln.andy.gpcp.inputverifiers.DayInDateInputVerifier;
 import java.util.List;
 import javax.swing.ComboBoxModel;
@@ -244,7 +245,7 @@ public class HolidayFormUi extends javax.swing.JDialog {
         jDemandDateLabel.setText("Date de demande:");
         getContentPane().add(jDemandDateLabel);
 
-        jDemandDateDaySpinner.setValue(1);
+        jDemandDateDaySpinner.setValue(PseudoDate.getCurrentDate().getDay());
         jDemandDateDaySpinner.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jDemandDateDaySpinnerStateChanged(evt);
@@ -253,6 +254,7 @@ public class HolidayFormUi extends javax.swing.JDialog {
         jDemandDatePanel.add(jDemandDateDaySpinner);
 
         jDemandDateMonthComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Decembre" }));
+        jDemandDateMonthComboBox.setSelectedIndex(PseudoDate.getCurrentDate().getMonth() - 1);
         jDemandDateMonthComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jDemandDateMonthComboBoxActionPerformed(evt);
@@ -260,7 +262,7 @@ public class HolidayFormUi extends javax.swing.JDialog {
         });
         jDemandDatePanel.add(jDemandDateMonthComboBox);
 
-        jDemandDateYearSpinner.setValue(2024);
+        jDemandDateYearSpinner.setValue(PseudoDate.getCurrentDate().getYear());
         jDemandDateYearSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jDemandDateYearSpinnerStateChanged(evt);
@@ -273,7 +275,7 @@ public class HolidayFormUi extends javax.swing.JDialog {
         jReturnDateLabel.setText("Date de retour:");
         getContentPane().add(jReturnDateLabel);
 
-        jReturnDateDaySpinner.setValue(1);
+        jReturnDateDaySpinner.setValue(PseudoDate.getCurrentDate().getDay());
         jReturnDateDaySpinner.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jReturnDateDaySpinnerStateChanged(evt);
@@ -282,6 +284,7 @@ public class HolidayFormUi extends javax.swing.JDialog {
         jReturnDatePanel.add(jReturnDateDaySpinner);
 
         jReturnDateMonthComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Decembre" }));
+        jReturnDateMonthComboBox.setSelectedIndex(PseudoDate.getCurrentDate().getMonth() - 1);
         jReturnDateMonthComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jReturnDateMonthComboBoxActionPerformed(evt);
@@ -289,7 +292,7 @@ public class HolidayFormUi extends javax.swing.JDialog {
         });
         jReturnDatePanel.add(jReturnDateMonthComboBox);
 
-        jReturnDateYearSpinner.setValue(2024);
+        jReturnDateYearSpinner.setValue(PseudoDate.getCurrentDate().getYear());
         jReturnDateYearSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jReturnDateYearSpinnerStateChanged(evt);
@@ -368,15 +371,19 @@ public class HolidayFormUi extends javax.swing.JDialog {
 
     private void jResetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jResetButtonActionPerformed
         // TODO add your handling code here:
+        final PseudoDate now = PseudoDate.getCurrentDate();
+        
         jHolidayNumberSpinner.setValue(0);
         jReasonTextArea.setText("");
         jDaysCountSpinner.setValue(0);
-        jDemandDateDaySpinner.setValue(1);
-        jDemandDateMonthComboBox.setSelectedIndex(0);
-        jDemandDateYearSpinner.setValue(2024);
-        jReturnDateDaySpinner.setValue(1);
-        jReturnDateMonthComboBox.setSelectedIndex(0);
-        jReturnDateYearSpinner.setValue(2024);
+        
+        jDemandDateDaySpinner.setValue(now.getDay());
+        jDemandDateMonthComboBox.setSelectedIndex(now.getMonth() - 1);
+        jDemandDateYearSpinner.setValue(now.getYear());
+        
+        jReturnDateDaySpinner.setValue(now.getDay());
+        jReturnDateMonthComboBox.setSelectedIndex(now.getMonth() - 1);
+        jReturnDateYearSpinner.setValue(now.getYear());
         
         if (jNumEmpComboBox.getItemCount() > 0)
             jNumEmpComboBox.setSelectedIndex(0);
