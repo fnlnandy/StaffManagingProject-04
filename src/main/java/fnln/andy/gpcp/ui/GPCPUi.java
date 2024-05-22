@@ -156,6 +156,7 @@ public class GPCPUi extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        jEmployeeTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jEmployeeTable.getTableHeader().setReorderingAllowed(false);
         jEmployeeScrollPane.setViewportView(jEmployeeTable);
 
