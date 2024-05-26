@@ -39,6 +39,11 @@ public class PseudoDate {
         return Util.constructDateString(m_Day, m_Month, m_Year);
     }
     
+    public String constructStringDate(boolean YYmmdd)
+    {
+        return Util.constructDateString(m_Day, m_Month, m_Year, YYmmdd);
+    }
+    
     public Date toSQLDate()
     {
         String date = constructStringDate();

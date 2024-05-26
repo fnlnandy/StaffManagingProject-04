@@ -32,7 +32,8 @@ public class Util {
         
         return retVal;
     }
-    public static String constructDateString(int day, int month, int year)
+    
+    private static String construct_YYmmdd_DateString(int day, int month, int year)
     {
         String retVal = "";
         
@@ -41,5 +42,29 @@ public class Util {
         retVal += String.valueOf(day);
         
         return retVal;
+    }
+    
+    private static String construct_ddmmYY_DateString(int day, int month, int year)
+    {
+        String retVal = "";
+        
+        retVal += String.valueOf(day) + "/";
+        retVal += String.valueOf(month) + "/";
+        retVal += String.valueOf(year);
+        
+        return retVal;
+    }
+    
+    public static String constructDateString(int day, int month, int year, boolean YYmmdd)
+    {
+        if (YYmmdd)
+            return construct_YYmmdd_DateString(day, month, year);
+        else
+            return construct_ddmmYY_DateString(day, month, year);
+    }
+    
+    public static String constructDateString(int day, int month, int year)
+    {
+        return constructDateString(day, month, year, true);
     }
 }
