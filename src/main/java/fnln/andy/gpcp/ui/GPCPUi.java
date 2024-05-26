@@ -5,11 +5,9 @@
 package fnln.andy.gpcp.ui;
 
 import fnln.andy.gpcp.DBControl;
-import fnln.andy.gpcp.core.DataArg;
 import fnln.andy.gpcp.core.Employee;
 import fnln.andy.gpcp.core.Holiday;
 import fnln.andy.gpcp.core.Pointage;
-import fnln.andy.gpcp.core.PseudoDate;
 import java.util.List;
 import javax.swing.SwingUtilities;
 

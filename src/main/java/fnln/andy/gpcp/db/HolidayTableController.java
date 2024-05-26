@@ -8,7 +8,6 @@ import fnln.andy.gpcp.core.DataArg;
 import fnln.andy.gpcp.core.Holiday;
 import fnln.andy.gpcp.core.Util;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
