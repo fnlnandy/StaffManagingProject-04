@@ -10,6 +10,7 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 import fnln.andy.gpcp.DBControl;
 import fnln.andy.gpcp.core.Employee;
+import fnln.andy.gpcp.core.NumberToLetter;
 import fnln.andy.gpcp.core.PseudoDate;
 import fnln.andy.gpcp.core.Util;
 import java.io.FileNotFoundException;
@@ -163,6 +164,7 @@ public class MonthlyPayUi extends javax.swing.JDialog {
         String retVal = String.valueOf(salary);
         
         retVal += " Ar (";
+        retVal += NumberToLetter.convertToLetter(salary);
         retVal += " Ariary)";
         
         return retVal;
