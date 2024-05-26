@@ -56,6 +56,7 @@ public class GPCPUi extends javax.swing.JFrame {
         jEditEmployeeButton = new javax.swing.JButton();
         jRemoveEmployeeButton = new javax.swing.JButton();
         jDisplayRemainingHolidays = new javax.swing.JButton();
+        jGenerateMonthlyPayButton = new javax.swing.JButton();
         jEmployeeScrollPane = new javax.swing.JScrollPane();
         jEmployeeTable = new javax.swing.JTable();
         jPointagePanel = new javax.swing.JPanel();
@@ -135,6 +136,14 @@ public class GPCPUi extends javax.swing.JFrame {
             }
         });
         jEmployeeCrudPanel.add(jDisplayRemainingHolidays);
+
+        jGenerateMonthlyPayButton.setText("Générer une fiche de paie pour un mois");
+        jGenerateMonthlyPayButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jGenerateMonthlyPayButtonActionPerformed(evt);
+            }
+        });
+        jEmployeeCrudPanel.add(jGenerateMonthlyPayButton);
 
         jEmployeePanel.add(jEmployeeCrudPanel);
 
@@ -521,6 +530,28 @@ public class GPCPUi extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_jDisplayRemainingHolidaysActionPerformed
 
+    private void jGenerateMonthlyPayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGenerateMonthlyPayButtonActionPerformed
+        final int index = jEmployeeTable.getSelectedRow();
+        
+        if (index == -1)
+        {
+            return;
+        }
+ 
+        final String numEmp = jEmployeeTable.getValueAt(index, 0).toString();
+        final String nom = jEmployeeTable.getValueAt(index, 1).toString();
+        final String prenom = jEmployeeTable.getValueAt(index, 2).toString();
+        final String poste = jEmployeeTable.getValueAt(index, 3).toString();
+        final int salaire = (int)jEmployeeTable.getValueAt(index, 4);
+        
+        Employee emp = new Employee(numEmp, nom, prenom, poste, salaire);
+        MonthlyPayUi ui = new MonthlyPayUi(this, true);
+        
+        ui.initDataWithEmployee(emp);
+        
+        SwingUtilities.invokeLater(() -> { ui.setVisible(true); });
+    }//GEN-LAST:event_jGenerateMonthlyPayButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -567,6 +598,7 @@ public class GPCPUi extends javax.swing.JFrame {
     private javax.swing.JPanel jEmployeePanel;
     private javax.swing.JScrollPane jEmployeeScrollPane;
     private static javax.swing.JTable jEmployeeTable;
+    private javax.swing.JButton jGenerateMonthlyPayButton;
     private javax.swing.JPanel jHolidayCrudPanel;
     private javax.swing.JPanel jHolidayPanel;
     private javax.swing.JScrollPane jHolidayScrollPane;
