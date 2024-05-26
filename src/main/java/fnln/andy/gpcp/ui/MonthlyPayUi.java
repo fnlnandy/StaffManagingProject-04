@@ -184,7 +184,7 @@ public class MonthlyPayUi extends javax.swing.JDialog {
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
         final PseudoDate now = PseudoDate.getCurrentDate();
         final String[] toWrite = new String[] {
-            "Date: " + now.constructStringDate(),
+            "Date: " + now.constructStringDate(false),
             "Nom: " + m_CurrentEmployee.getNom(),
             "Prénoms: " + m_CurrentEmployee.getPrenom(),
             "Poste: " + m_CurrentEmployee.getPoste(),
