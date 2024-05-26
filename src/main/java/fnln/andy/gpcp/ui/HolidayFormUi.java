@@ -221,6 +221,8 @@ public class HolidayFormUi extends javax.swing.JDialog {
         jNumEmpLabel.setText("Numéro d'employé:");
         getContentPane().add(jNumEmpLabel);
 
+        jNumEmpPanel.setLayout(new java.awt.GridLayout());
+
         jNumEmpComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jNumEmpComboBoxActionPerformed(evt);
