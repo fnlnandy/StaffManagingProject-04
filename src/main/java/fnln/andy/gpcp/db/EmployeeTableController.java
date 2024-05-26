@@ -269,4 +269,21 @@ public class EmployeeTableController extends ATableController<Employee> {
     {
         return getMatchingName(DataArg.makeDataArg(object));
     }
+    
+    public void changeEmployeeSalary(final String numEmp, boolean decrease, JTable dest)
+    {
+        final String query = "UPDATE Employe SET Salaire = Salaire " + (decrease ? "-" : "+") + " ? WHERE NumEmp = ?;";
+        PreparedStatement preparedStatement = null;
+        
+        try {
+            preparedStatement = m_SQLConnection.prepareStatement(query);
+            
+            preparedStatement.setInt(1, 10_000);
+            preparedStatement.setString(2, numEmp);
+            
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) { e.printStackTrace(); }
+        
+        reloadEntries(dest);
+    }
 }

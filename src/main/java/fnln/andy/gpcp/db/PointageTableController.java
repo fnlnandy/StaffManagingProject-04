@@ -4,11 +4,13 @@
  */
 package fnln.andy.gpcp.db;
 
+import fnln.andy.gpcp.DBControl;
 import fnln.andy.gpcp.core.DataArg;
 import fnln.andy.gpcp.core.Employee;
 import fnln.andy.gpcp.core.Pointage;
 import fnln.andy.gpcp.core.PseudoDate;
 import fnln.andy.gpcp.core.Util;
+import fnln.andy.gpcp.ui.GPCPUi;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -99,6 +101,9 @@ public class PointageTableController extends ATableController<Pointage> {
             retVal = preparedStatement.executeUpdate() >= 0;
         } catch (SQLException e) {}
         
+        if (pointage.getPointage().equals("Non"))
+            DBControl.deferEmployeeController().changeEmployeeSalary(pointage.getNumEmp(), true, GPCPUi.getEmployeeTable());
+        
         return retVal;
     }
     
@@ -133,6 +138,11 @@ public class PointageTableController extends ATableController<Pointage> {
             retVal = preparedStatement.executeUpdate() >= 0;
         } catch (SQLException e) {}
         
+        if (oldPointage.getPointage().equals("Non"))
+            DBControl.deferEmployeeController().changeEmployeeSalary(oldPointage.getNumEmp(), false, GPCPUi.getEmployeeTable());
+        if (newPointage.getPointage().equals("Non"))
+            DBControl.deferEmployeeController().changeEmployeeSalary(newPointage.getNumEmp(), true, GPCPUi.getEmployeeTable());
+        
         return retVal;
     }
     
@@ -157,6 +167,9 @@ public class PointageTableController extends ATableController<Pointage> {
             retVal = preparedStatement.executeUpdate() >= 0;
         } catch(SQLException e) {}
         
+        
+        if (pointage.getPointage().equals("Non"))
+            DBControl.deferEmployeeController().changeEmployeeSalary(pointage.getNumEmp(), false, GPCPUi.getEmployeeTable());
         
         return retVal;
     }
