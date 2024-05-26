@@ -163,6 +163,18 @@ public class MonthlyPayUi extends javax.swing.JDialog {
     {
         String retVal = String.valueOf(salary);
         
+        for (int i = 0, j = retVal.length() - 1; j >= 0; i++, j--)
+        {
+            if ((i + 1) % 3 != 0)
+                continue;
+            
+            final char dot = '.';
+            final String beg = retVal.substring(0, j);
+            final String end = retVal.substring(j);
+            
+            retVal = beg + dot + end;
+        }
+        
         retVal += " Ar (";
         retVal += NumberToLetter.convertToLetter(salary);
         retVal += " Ariary)";
