@@ -105,4 +105,8 @@
         <maven.compiler.target>21</maven.compiler.target>
         <exec.mainClass>fnln.andy.gpcp.GPCP</exec.mainClass>
     </properties>
+    <name>Gestion de Pointage et de Congés du Personnel</name>
+    <description>Une application qui permet de suivre les informations
+concernant les employés, les pointages journaliers et les
+congés.</description>
 </project>
