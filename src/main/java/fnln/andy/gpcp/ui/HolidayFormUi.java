@@ -8,6 +8,7 @@ import fnln.andy.gpcp.DBControl;
 import fnln.andy.gpcp.core.Employee;
 import fnln.andy.gpcp.core.Holiday;
 import fnln.andy.gpcp.core.PseudoDate;
+import fnln.andy.gpcp.core.Util;
 import fnln.andy.gpcp.inputverifiers.DayInDateInputVerifier;
 import java.util.List;
 import javax.swing.ComboBoxModel;
@@ -54,29 +55,36 @@ public class HolidayFormUi extends javax.swing.JDialog {
         final int daysCount = (int)jDaysCountSpinner.getValue();
         final int demandYear = (int)jDemandDateYearSpinner.getValue();
         final int returnYear = (int)jReturnDateYearSpinner.getValue();
+        final java.awt.Frame parent = (java.awt.Frame)getOwner();
         
         if (holidayId <= 0)
         {
+            Util.invokeErrorMessage(parent, "Le numéro de congé doit être >= 1.");
             return false;
         }
         if (numEmp == -1)
         {
+            Util.invokeErrorMessage(parent, "L'employé séléctionné doit être valide.");
             return false;
         }
         if (holidayReason.isEmpty())
         {
+            Util.invokeErrorMessage(parent, "Le motif de congé ne peut pas être vide.");
             return false;
         }
         if (daysCount <= 0 || daysCount >= 30)
         {
+            Util.invokeErrorMessage(parent, "Le nombre de jours doit appartenir à l'intervalle [0, 30].");
             return false;
         }
         if (demandYear < 2000)
         {
+            Util.invokeErrorMessage(parent, "L'année de demande doit être >= 2000.");
             return false;
         }
         if (returnYear < 2000)
         {
+            Util.invokeErrorMessage(parent, "L'année de retour doit être >= 2000.");
             return false;
         }
         

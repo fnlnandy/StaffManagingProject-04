@@ -8,6 +8,7 @@ import fnln.andy.gpcp.DBControl;
 import fnln.andy.gpcp.core.Employee;
 import fnln.andy.gpcp.core.Holiday;
 import fnln.andy.gpcp.core.Pointage;
+import fnln.andy.gpcp.core.Util;
 import java.util.List;
 import javax.swing.SwingUtilities;
 
@@ -336,8 +337,7 @@ public class GPCPUi extends javax.swing.JFrame {
         
         if (selectedIndex == -1)
         {
-            // TODO: add a popup menu for no selected index
-            System.out.println("No selected employee.");
+            Util.invokeErrorMessage(this, "Aucun employé séléctionné.");
             return;
         }
         
@@ -370,8 +370,7 @@ public class GPCPUi extends javax.swing.JFrame {
         
         if (selectedIndex == -1)
         {
-            // TODO: add a popup window
-            System.out.println("No employee row selected for deletion.");
+            Util.invokeErrorMessage(this, "Aucun employé séléctionné.");
             return;
         }
         
@@ -398,7 +397,7 @@ public class GPCPUi extends javax.swing.JFrame {
         
         if (selectedIndex == -1)
         {
-            // TODO: add a popup window
+            Util.invokeErrorMessage(this, "Aucun pointage séléctionné.");
             return;
         }
         
@@ -416,7 +415,7 @@ public class GPCPUi extends javax.swing.JFrame {
         
         if (selectedIndex == -1)
         {
-            // TODO: add a popup window
+            Util.invokeErrorMessage(this, "Aucun pointage séléctionné.");
             return;
         }
         
@@ -454,7 +453,7 @@ public class GPCPUi extends javax.swing.JFrame {
         
         if (selectedIndex == -1)
         {
-            // TODO: add a popup window
+            Util.invokeErrorMessage(this, "Aucun congé séléctionné.");
             return;
         }
         
@@ -473,7 +472,7 @@ public class GPCPUi extends javax.swing.JFrame {
         
         if (selectedIndex == -1)
         {
-            // TODO: add a popup window
+            Util.invokeErrorMessage(this, "Aucun congé séléctionné.");
             return;
         }
         
@@ -532,7 +531,7 @@ public class GPCPUi extends javax.swing.JFrame {
         
         if (selectedIndex == -1)
         {
-            // TODO: add a popup window
+            Util.invokeErrorMessage(this, "Aucun employé séléctionné.");
             return;
         }
         
@@ -554,6 +553,7 @@ public class GPCPUi extends javax.swing.JFrame {
         
         if (index == -1)
         {
+            Util.invokeErrorMessage(this, "Aucun employé séléctionné.");
             return;
         }
  

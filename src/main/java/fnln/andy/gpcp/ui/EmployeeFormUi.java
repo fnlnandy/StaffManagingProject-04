@@ -6,6 +6,7 @@ package fnln.andy.gpcp.ui;
 
 import fnln.andy.gpcp.DBControl;
 import fnln.andy.gpcp.core.Employee;
+import fnln.andy.gpcp.core.Util;
 
 /**
  *
@@ -161,36 +162,37 @@ public class EmployeeFormUi extends javax.swing.JDialog {
     }
     private boolean isFormLegit() {
         final int minimalSalary = 1;
+        int employeeId = (int)jEmployeeIdSpinner.getValue();
         String employeeName = jEmployeeNameTextField.getText();
         String employeeFirstName = jEmployeeFirstNameTextField.getText();
         String employeeJob = jEmployeeJobTextField.getText();
         int employeeSalary = (int) jEmployeeSalarySpinner.getValue();
+        final java.awt.Frame parent = (java.awt.Frame)getOwner();
         
-        ErrorDialog err = new ErrorDialog((java.awt.Frame)getOwner(), true);
-        
+        if (employeeId <= 0)
+        {
+            Util.invokeErrorMessage(parent, "Le numéro d'un employé doit être >= 1.");
+            return false;
+        }
         if (employeeName.isEmpty())
         {
-            err.setErrorMessage("Le nom de l'employé ne peut pas être vide.");
-            err.showWithSwing();
+            Util.invokeErrorMessage(parent, "Le nom d'un employé ne peut pas être vide.");
             return false;
         }
         if (employeeFirstName.isEmpty())
         {
-            err.setErrorMessage("Le prénom de l'employé ne peut pas être vide.");
-            err.showWithSwing();
+            Util.invokeErrorMessage(parent, "Le prénom de l'employé ne peut pas être vide.");
             return false;
         }
         if (employeeJob.isEmpty())
         {
-            err.setErrorMessage("Le poste de l'employé ne peut pas être vide.");
-            err.showWithSwing();
+            Util.invokeErrorMessage(parent, "Le poste de l'employé ne peut pas être vide.");
             return false;
         }
         if (employeeSalary < minimalSalary)
         {
-            err.setErrorMessage("Le salaire ne doit pas être inférieur à "
+            Util.invokeErrorMessage(parent, "Le salaire ne doit pas être inférieur à "
                                 + String.valueOf(minimalSalary) + ".");
-            err.showWithSwing();
             return false;
         }
         

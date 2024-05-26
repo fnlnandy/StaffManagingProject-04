@@ -50,8 +50,21 @@ public class PointageFormUi extends javax.swing.JDialog {
     {
         final int currentYear = (int)jDatePointageYearSpinner.getValue();
         final int numEmp = jNumEmpComboBox.getSelectedIndex();
+        final java.awt.Frame parent = (java.awt.Frame)getOwner();
         
-        return currentYear >= 2000 && numEmp > -1;
+        if (currentYear < 2000)
+        {
+            Util.invokeErrorMessage(parent, "L'année de pointage doit être >= 2000.");
+            return false;
+        }
+        if (numEmp == -1)
+        {
+            Util.invokeErrorMessage(parent, "L'employé séléctionné doit être valide.");
+            return false;
+        }
+        
+        
+        return true;
     }
     
     public void setPreviousPointage(String datePointage, String numEmp, String pointage)
