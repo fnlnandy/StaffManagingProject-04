@@ -218,6 +218,7 @@ public class GPCPUi extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        jPointageTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jPointageTable.getTableHeader().setReorderingAllowed(false);
         jPointageScrollPane.setViewportView(jPointageTable);
 
@@ -271,6 +272,7 @@ public class GPCPUi extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        jHolidayTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jHolidayScrollPane.setViewportView(jHolidayTable);
 
         jHolidayPanel.add(jHolidayScrollPane);
