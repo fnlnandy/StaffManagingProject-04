@@ -5,7 +5,9 @@
 package fnln.andy.gpcp.db;
 
 import fnln.andy.gpcp.core.DataArg;
+import fnln.andy.gpcp.core.Employee;
 import fnln.andy.gpcp.core.Pointage;
+import fnln.andy.gpcp.core.PseudoDate;
 import fnln.andy.gpcp.core.Util;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -157,5 +159,38 @@ public class PointageTableController extends ATableController<Pointage> {
         
         
         return retVal;
+    }
+    
+    public int getAbsencesCount(Employee employee, PseudoDate forDate, boolean reload)
+    {
+        if (reload)
+            m_Entries = fetchEntries();
+        
+        final String numEmp = employee.getNumEmp();
+        int absencesCount = 0;
+        
+        for (Pointage pointage : m_Entries)
+        {
+            if (!pointage.getNumEmp().equals(numEmp))
+                continue;
+            
+            PseudoDate pDate = pointage.getDatePointage();
+            
+            if ((pDate.getMonth() != forDate.getMonth())
+                || (pDate.getYear() != forDate.getYear()))
+                continue;
+            
+            if (pointage.getPointage().equals("Oui"))
+                continue;
+            
+            absencesCount++;
+        }
+        
+        return absencesCount;
+    }
+    
+    public int getAbsencesCount(Employee employee, PseudoDate forDate)
+    {
+        return getAbsencesCount(employee, forDate, false);
     }
 }
