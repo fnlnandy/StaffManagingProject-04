@@ -6,7 +6,7 @@ package fnln.andy.gpcp;
 
 import fnln.andy.gpcp.ui.GPCPUi;
 import javax.swing.SwingUtilities;
-import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import javax.swing.UIManager;
 
 /**
@@ -18,7 +18,7 @@ public class GPCP {
     
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel(new FlatDarkLaf());
+            UIManager.setLookAndFeel(new FlatMacDarkLaf());
         } catch (Exception e) {
             System.err.println("Failed to initialize LaF."); 
         }
