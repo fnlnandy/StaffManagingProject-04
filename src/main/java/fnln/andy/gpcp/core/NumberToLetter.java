@@ -24,15 +24,15 @@ public class NumberToLetter {
     private static final int MILLION_NUMBER_CLASS = 3;
     private static final int BILLION_NUMBER_CLASS = 4;
     
-    private static final String[] m_Digits = { 
+    private static final String[] m_DigitsReps = { 
         "zéro", "un", "deux", "trois", "quatre", "cinq", 
         "six", "sept", "huit", "neuf"
     };
-    private static final String[] m_MultiplesOfTen = {
+    private static final String[] m_MultiplesOfTenReps = {
         "dix", "vingt", "trente", "quarante", "cinquante", "soixante", "soixante-dix",
         "quatre-vingt", "quatre-vingt-dix"
     };
-    private static final String[] m_AfterTens = {
+    private static final String[] m_AfterTensReps = {
         "onze", "douze", "treize", "quatorze", "quinze", "seize", "dix-sept",
         "dix-huit", "dix-neuf"
     };
@@ -40,86 +40,59 @@ public class NumberToLetter {
         "cent", "mille", "million", "milliard"
     };
     
-    private static String getUnderSeventy(final long n)
+    private static int deduceNumberClass(final long n)
     {
-        final long leading = n / TEN;
-        final long trailing = n % TEN;
-        String retVal = m_MultiplesOfTen[(int)(leading - 1)];
-        
-        if (trailing == 1)
-            retVal += "-et";
-        
-        retVal += "-" + m_Digits[(int)trailing];
-        
-        return retVal;
-    }
-    
-    private static String getUnderHundred(final long n)
-    {
-        final long leading = n / TEN;
-        final long trailing = n % TEN;
-        String retVal = m_MultiplesOfTen[(int)(leading - 1)];
-        
-        if (trailing == 0)
-            return retVal;
-        else if (n > 70 && n < 80)
-        {
-            retVal = m_MultiplesOfTen[5];
-            
-            if (trailing == 1)
-                retVal += "-et";
-            
-            retVal += "-" + m_AfterTens[(int)(trailing - 1)];
-        }
-        else if (n > 80 && n < 90)
-        {
-            retVal += "-" + m_Digits[(int)trailing];
-        }
-        else {
-            retVal = m_MultiplesOfTen[7];
-            
-            retVal += "-" + m_AfterTens[(int)trailing - 1];
-        }
-        
-        return retVal;
-    }
-    
-    private static int getNumberClass(final long n)
-    {
-        if ((n / BILLION) > 0)
-            return BILLION_NUMBER_CLASS;
-        if ((n / MILLION) > 0)
-            return MILLION_NUMBER_CLASS;
-        if ((n / THOUSAND) > 0)
-            return THOUSAND_NUMBER_CLASS;
-        if ((n / HUNDRED) > 0)
-            return HUNDRED_NUMBER_CLASS;
+        for (int i = BILLION_NUMBER_CLASS; i > UNK_NUMBER_CLASS; i--)
+            if (n / POWERS_OF_TEN[i - 1] > 0)
+                return i;
         
         return UNK_NUMBER_CLASS;
     }
     
-    private static String getAboveNinetyNine(final long n)
+    private static String getTwoDigitNumber(final long n)
     {
-        final int numberClass = getNumberClass(n);
+        final long leading = n / TEN;
+        final long trailing = n % TEN;
+        final boolean isUsingAfterTens = (n > 70 && n < 80) || n > 90;
+        String retVal = m_MultiplesOfTenReps[(int)(leading - 1)];
+        
+        if (isUsingAfterTens)
+            retVal = m_MultiplesOfTenReps[(int)(leading - 1 - 1)];
+        
+        if (trailing == 1 && n < 80)
+            retVal += "-et";
+        
+        if (isUsingAfterTens)
+            retVal += "-" + m_AfterTensReps[(int)(trailing - 1)];
+        else
+            retVal += "-" + m_DigitsReps[(int)(trailing)];
+        
+        return retVal;
+    }
+    
+    private static String getAboveHundredNumber(final long n)
+    {
+        final int numberClass = deduceNumberClass(n);
         
         if (numberClass == UNK_NUMBER_CLASS)
             return "";
         
-        final int powOfTenIndex = numberClass - 1;
-        final long leading = n / POWERS_OF_TEN[powOfTenIndex];
-        final long trailing = n % POWERS_OF_TEN[powOfTenIndex];
+        final int powerOfTenIndex = numberClass - 1;
+        final long leading = n / POWERS_OF_TEN[powerOfTenIndex];
+        final long trailing = n % POWERS_OF_TEN[powerOfTenIndex];
         String retVal = "";
-         
-        if (numberClass >= MILLION_NUMBER_CLASS || (leading > 1 && numberClass > UNK_NUMBER_CLASS))
-            retVal = convertToLetter(leading) + " ";
         
-        retVal += m_PowersOfTen[powOfTenIndex];
+        if ((numberClass >= MILLION_NUMBER_CLASS) || 
+                (leading > 1 && numberClass >= HUNDRED_NUMBER_CLASS))
+            retVal += convertToLetter(leading) + " ";
         
-        // Only "million" and "milliard" take an "s", if leading > 1.
-        if (numberClass >= MILLION_NUMBER_CLASS && leading > 1)
+        retVal += m_PowersOfTen[powerOfTenIndex];
+        
+        if ((numberClass >= MILLION_NUMBER_CLASS) && (leading > 1))
             retVal += "s";
         
-        retVal += " " + convertToLetter(trailing);
+        if (trailing > 0)
+            retVal += " " + convertToLetter(trailing);
         
         return retVal;
     }
@@ -131,18 +104,16 @@ public class NumberToLetter {
         if (n < 0)
             return retVal;
         
-        if (n < m_Digits.length) 
-            retVal += m_Digits[(int)n];
+        if (n < m_DigitsReps.length) 
+            retVal += m_DigitsReps[(int)n];
         else if (n % 10 == 0 && n < 100) 
-            retVal += m_MultiplesOfTen[(int)(n / 10 - 1)];
+            retVal += m_MultiplesOfTenReps[(int)(n / 10 - 1)];
         else if (n < 20)
-            retVal += m_AfterTens[(int)(n - 10 - 1)];
-        else if (n < 70)
-            retVal += getUnderSeventy(n);
+            retVal += m_AfterTensReps[(int)(n - 10 - 1)];
         else if (n < HUNDRED)
-            retVal += getUnderHundred(n);
+            retVal += getTwoDigitNumber(n);
         else if (n <= MAX_CONVERTIBLE)
-            retVal += getAboveNinetyNine(n);
+            retVal += getAboveHundredNumber(n);
         
         return retVal;
     }
