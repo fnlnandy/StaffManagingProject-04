@@ -229,8 +229,8 @@ public class EmployeeTableController extends ATableController<Employee> {
     
     public List<Employee> getMatchingName(DataArg args)
     {
-        final String matchNameQuery = "SELECT * FROM Employe WHERE (Nom LIKE ? AND Prenom LIKE ?)"
-                + "OR Nom LIKE ? OR Prenom LIKE ?;";
+        final String matchNameQuery = "SELECT * FROM Employe WHERE (UPPER(Nom) LIKE UPPER(?) AND UPPER(Prenom) LIKE UPPER(?))"
+                + "OR UPPER(Nom) LIKE UPPER(?) OR UPPER(Prenom) LIKE UPPER(?);";
         final String toSearch = args.popFrontArg().toString();
         
         if (toSearch == null)
