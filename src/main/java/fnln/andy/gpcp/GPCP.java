@@ -4,9 +4,10 @@
 
 package fnln.andy.gpcp;
 
-import fnln.andy.gpcp.core.NumberToLetter;
 import fnln.andy.gpcp.ui.GPCPUi;
 import javax.swing.SwingUtilities;
+import com.formdev.flatlaf.FlatDarkLaf;
+import javax.swing.UIManager;
 
 /**
  *
@@ -16,6 +17,12 @@ public class GPCP {
     private static GPCPUi m_MainAppUi;
     
     public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel(new FlatDarkLaf());
+        } catch (Exception e) {
+            System.err.println("Failed to initialize LaF."); 
+        }
+        
         DBControl.initDatabaseConnection();
         DBControl.initBaseTables();
         
