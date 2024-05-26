@@ -4,6 +4,8 @@
  */
 package fnln.andy.gpcp.core;
 
+import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -66,5 +68,15 @@ public class Util {
     public static String constructDateString(int day, int month, int year)
     {
         return constructDateString(day, month, year, true);
+    }
+    
+    public static void invokeErrorMessage(Component parent, final String text, final String title)
+    {
+        JOptionPane.showMessageDialog(parent, text, title, JOptionPane.ERROR_MESSAGE);
+    }
+    
+    public static void invokeErrorMessage(Component parent, final String text)
+    {
+        invokeErrorMessage(parent, text, "Erreur.");
     }
 }
