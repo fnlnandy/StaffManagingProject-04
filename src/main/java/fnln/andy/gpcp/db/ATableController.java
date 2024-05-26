@@ -85,9 +85,7 @@ public abstract class ATableController<Type> {
             table.setModel(tableModel);
         }
         
-        for (int i = tableModel.getRowCount() - 1; i >= 0; i--)
-            tableModel.removeRow(i);
-        
+        tableModel.setRowCount(0);
         loadEntries(elements, dest);
     }
     
