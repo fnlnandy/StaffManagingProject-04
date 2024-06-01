@@ -103,7 +103,9 @@ public class EmployeeTableController extends ATableController<Employee> {
             preparedStatement.setString(4, employee.getPoste());
             preparedStatement.setInt(5, employee.getSalaire());
 
+            beginTransaction();
             retVal = preparedStatement.executeUpdate() >= 0;
+            commitTransaction();
         } catch (SQLException e) {}
         
         return retVal;
@@ -135,7 +137,9 @@ public class EmployeeTableController extends ATableController<Employee> {
             preparedStatement.setInt(5, employee.getSalaire());
             preparedStatement.setString(6, previousEmployeeId);
 
+            beginTransaction();
             retVal = preparedStatement.executeUpdate() >= 0;
+            commitTransaction();
         } catch (SQLException sqlE) {}
         
         return retVal;
@@ -154,7 +158,9 @@ public class EmployeeTableController extends ATableController<Employee> {
             
             preparedStatement.setString(1, employeeId);
             
+            beginTransaction();
             retVal = preparedStatement.executeUpdate() >= 0;
+            commitTransaction();
         } catch(SQLException sqle)
         {
             sqle.printStackTrace();
@@ -281,7 +287,9 @@ public class EmployeeTableController extends ATableController<Employee> {
             preparedStatement.setInt(1, 10_000);
             preparedStatement.setString(2, numEmp);
             
+            beginTransaction();
             preparedStatement.executeUpdate();
+            commitTransaction();
         } catch (SQLException e) { e.printStackTrace(); }
         
         reloadEntries(dest);

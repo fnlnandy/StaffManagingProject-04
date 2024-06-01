@@ -108,7 +108,9 @@ public class HolidayTableController extends ATableController<Holiday> {
             preparedStatement.setDate(5, holiday.getDateDemande().toSQLDate());
             preparedStatement.setDate(6, holiday.getDateRetour().toSQLDate());
         
+            beginTransaction();
             retVal = preparedStatement.executeUpdate() >= 0;
+            commitTransaction();
         } catch (SQLException sqlE) {
             sqlE.printStackTrace();
         }
@@ -152,7 +154,9 @@ public class HolidayTableController extends ATableController<Holiday> {
             
             System.out.println(preparedStatement.toString());
         
+            beginTransaction();
             retVal = preparedStatement.executeUpdate() >= 0;
+            commitTransaction();
         } catch (SQLException sqlE)
         {
             sqlE.printStackTrace();
@@ -181,7 +185,9 @@ public class HolidayTableController extends ATableController<Holiday> {
             
             System.out.println(preparedStatement.toString());
             
+            beginTransaction();
             retVal = preparedStatement.executeUpdate() >= 0;
+            commitTransaction();
         } catch(SQLException sqle)
         {
             sqle.printStackTrace();

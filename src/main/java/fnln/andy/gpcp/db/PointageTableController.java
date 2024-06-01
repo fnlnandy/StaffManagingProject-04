@@ -98,7 +98,9 @@ public class PointageTableController extends ATableController<Pointage> {
             preparedStatement.setString(2, pointage.getNumEmp());
             preparedStatement.setString(3, pointage.getPointage());
             
+            beginTransaction();
             retVal = preparedStatement.executeUpdate() >= 0;
+            commitTransaction();
         } catch (SQLException e) {}
         
         if (pointage.getPointage().equals("Non"))
@@ -135,7 +137,9 @@ public class PointageTableController extends ATableController<Pointage> {
             preparedStatement.setString(5, oldPointage.getNumEmp());
             preparedStatement.setString(6, oldPointage.getPointage());
             
+            beginTransaction();
             retVal = preparedStatement.executeUpdate() >= 0;
+            commitTransaction();
         } catch (SQLException e) {}
         
         if (oldPointage.getPointage().equals("Non"))
@@ -164,7 +168,9 @@ public class PointageTableController extends ATableController<Pointage> {
             preparedStatement.setString(2, pointage.getNumEmp());
             preparedStatement.setString(3, pointage.getPointage());
             
+            beginTransaction();
             retVal = preparedStatement.executeUpdate() >= 0;
+            commitTransaction();
         } catch(SQLException e) {}
         
         

@@ -10,6 +10,7 @@ import fnln.andy.gpcp.core.Holiday;
 import fnln.andy.gpcp.core.Pointage;
 import fnln.andy.gpcp.core.Util;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import javax.swing.JTable;
@@ -148,5 +149,23 @@ public abstract class ATableController<Type> {
     public boolean removeEntry(Object object)
     {
         return removeEntry(DataArg.makeDataArg(object));
+    }
+    
+    public void beginTransaction()
+    {
+        try {
+            m_SQLStatement.execute("BEGIN TRANSACTION;");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void commitTransaction()
+    {
+        try {
+            m_SQLStatement.execute("COMMIT;");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
