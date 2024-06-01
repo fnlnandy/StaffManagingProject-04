@@ -54,7 +54,7 @@ public class PointageTableController extends ATableController<Pointage> {
     public List<Pointage> fetchEntries()
     {
         List<Pointage> retVal = new ArrayList<>();
-        String selectPointagesQuery = "SELECT * FROM Pointage;";
+        String selectPointagesQuery = "SELECT * FROM Pointage ORDER BY DatePointage ASC;";
         ResultSet resultSet;
         
         try {

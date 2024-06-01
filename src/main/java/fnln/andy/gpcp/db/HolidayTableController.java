@@ -52,7 +52,7 @@ public class HolidayTableController extends ATableController<Holiday> {
     @Override
     public List<Holiday> fetchEntries()
     {
-        final String selectHolidaysQuery = "SELECT * FROM Conge;";
+        final String selectHolidaysQuery = "SELECT * FROM Conge ORDER BY LENGTH(NumConge), NumConge ASC;";
         
         List<Holiday> retVal = new ArrayList<>();
         ResultSet resultSet;

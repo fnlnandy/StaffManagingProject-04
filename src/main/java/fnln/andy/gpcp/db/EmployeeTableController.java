@@ -53,7 +53,7 @@ public class EmployeeTableController extends ATableController<Employee> {
     public List<Employee> fetchEntries()
     {
         List<Employee> retVal = new ArrayList<>();
-        String selectEmployeesQuery = "SELECT * FROM Employe;";
+        String selectEmployeesQuery = "SELECT * FROM Employe ORDER BY LENGTH(NumEmp), NumEmp ASC;";
         ResultSet resultSet = null;
         
         try {
@@ -222,7 +222,7 @@ public class EmployeeTableController extends ATableController<Employee> {
                                    Pointage.DatePointage = ?)) OR 
                                    (Employe.NumEmp = Pointage.NumEmp AND Pointage.Pointage = 'Non'
                                    AND Pointage.DatePointage = ?)
-                                   GROUP BY Employe.NumEmp;
+                                   GROUP BY Employe.NumEmp ORDER BY LENGTH(NumEmp), NumEmp ASC;
                                    """;
         PreparedStatement preparedStatement = null;
         
@@ -252,7 +252,7 @@ public class EmployeeTableController extends ATableController<Employee> {
     public List<Employee> getMatchingName(DataArg args)
     {
         final String matchNameQuery = "SELECT * FROM Employe WHERE (UPPER(Nom) LIKE UPPER(?) AND UPPER(Prenom) LIKE UPPER(?))"
-                + "OR UPPER(Nom) LIKE UPPER(?) OR UPPER(Prenom) LIKE UPPER(?);";
+                + "OR UPPER(Nom) LIKE UPPER(?) OR UPPER(Prenom) LIKE UPPER(?) ORDER BY LENGTH(NumEmp), NumEmp ASC;";
         final String toSearch = args.popFrontArg().toString();
         
         if (toSearch == null)
