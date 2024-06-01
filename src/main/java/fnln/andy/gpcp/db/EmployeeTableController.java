@@ -161,12 +161,31 @@ public class EmployeeTableController extends ATableController<Employee> {
             beginTransaction();
             retVal = preparedStatement.executeUpdate() >= 0;
             commitTransaction();
+            
+            removeDependantData(employeeId);
         } catch(SQLException sqle)
         {
             sqle.printStackTrace();
         }
         
         return retVal;
+    }
+    
+    public void removeDependantData(String numEmp)
+    {
+        String query = "DELETE FROM Pointage WHERE NumEmp = ?; DELETE FROM Conge WHERE NumEmp = ?;";
+        PreparedStatement preparedStatement = null;
+        
+        try {
+            preparedStatement = m_SQLConnection.prepareStatement(query);
+            
+            preparedStatement.setString(1, numEmp);
+            preparedStatement.setString(2, numEmp);
+            
+            beginTransaction();
+            preparedStatement.executeUpdate();
+            commitTransaction();
+        } catch (SQLException e) { e.printStackTrace(); }
     }
     
     @Override
