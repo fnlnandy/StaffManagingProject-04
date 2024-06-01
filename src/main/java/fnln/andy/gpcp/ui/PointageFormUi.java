@@ -69,7 +69,7 @@ public class PointageFormUi extends javax.swing.JDialog {
         
         PseudoDate pointageDate = new PseudoDate(currentDay, currentMonth, currentYear);
         
-        final int numEmp = Integer.parseInt(jNumEmpComboBox.getItemAt(jNumEmpComboBox.getSelectedIndex()));
+        final int numEmp = Integer.parseInt(jNumEmpComboBox.getSelectedItem().toString());
         final java.awt.Frame parent = (java.awt.Frame)getOwner();
         
         
