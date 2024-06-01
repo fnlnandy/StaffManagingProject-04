@@ -5,6 +5,7 @@
 package fnln.andy.gpcp.ui;
 
 import fnln.andy.gpcp.DBControl;
+import fnln.andy.gpcp.core.DataArg;
 import fnln.andy.gpcp.core.Employee;
 import fnln.andy.gpcp.core.Holiday;
 import fnln.andy.gpcp.core.PseudoDate;
@@ -47,16 +48,41 @@ public class HolidayFormUi extends javax.swing.JDialog {
         }
     }
     
+    private boolean isValidEditEntry(int newNumConge)
+    {
+        if (!m_IsEditMode)
+            return true;
+        
+        int prevNumConge = Integer.parseInt(m_PreviousHoliday.getNumConge());
+        
+        if (prevNumConge == newNumConge)
+            return true;
+        
+        return !DBControl.deferHolidayController().entryExists(DataArg.makeDataArg(newNumConge));
+    }
+    
     public boolean isFormLegit()
     {
+        final java.awt.Frame parent = (java.awt.Frame)getOwner();
+        
+        if (jNumEmpComboBox.getItemCount() == 0)
+        {
+            Util.invokeErrorMessage(parent, "Aucun employé dans cette base de données.");
+            return false;
+        }
+        
         final int holidayId = (int)jHolidayNumberSpinner.getValue();
-        final int numEmp = jNumEmpComboBox.getSelectedIndex();
+        final int numEmp = Integer.parseInt(jNumEmpComboBox.getSelectedItem().toString());
         final String holidayReason = jReasonTextArea.getText();
         final int daysCount = (int)jDaysCountSpinner.getValue();
         final int demandYear = (int)jDemandDateYearSpinner.getValue();
         final int returnYear = (int)jReturnDateYearSpinner.getValue();
-        final java.awt.Frame parent = (java.awt.Frame)getOwner();
         
+        if (DBControl.deferHolidayController().entryExists(DataArg.makeDataArg(holidayId)) || !isValidEditEntry(holidayId))
+        {
+            Util.invokeErrorMessage(parent, "Un congé avec ce numéro de congé existe déjà.");
+            return false;
+        }
         if (holidayId <= 0)
         {
             Util.invokeErrorMessage(parent, "Le numéro de congé doit être >= 1.");

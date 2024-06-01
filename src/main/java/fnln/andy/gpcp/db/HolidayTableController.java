@@ -200,7 +200,7 @@ public class HolidayTableController extends ATableController<Holiday> {
     @Override
     public boolean entryExists(DataArg args)
     {
-        int numCongeToFind = Integer.parseInt(args.popFrontArg().toString());
+        int numCongeToFind = (int)(args.popFrontArg());
         
         for (Holiday currentHoliday : m_Entries)
         {
