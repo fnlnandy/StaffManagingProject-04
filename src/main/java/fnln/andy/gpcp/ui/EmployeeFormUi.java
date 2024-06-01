@@ -5,6 +5,7 @@
 package fnln.andy.gpcp.ui;
 
 import fnln.andy.gpcp.DBControl;
+import fnln.andy.gpcp.core.DataArg;
 import fnln.andy.gpcp.core.Employee;
 import fnln.andy.gpcp.core.Util;
 
@@ -160,6 +161,17 @@ public class EmployeeFormUi extends javax.swing.JDialog {
     public void setEmployeeSalary(int employeeSalary) {
         jEmployeeSalarySpinner.setValue(employeeSalary);
     }
+    
+    private boolean isNonRedundantEntry(int newNumEmp)
+    {
+        int prevNumEmp = Integer.parseInt(m_PreviousEmployeeId);
+        
+        if (m_IsEditMode && prevNumEmp == newNumEmp)
+            return true;
+        
+        return !DBControl.deferEmployeeController().entryExists(DataArg.makeDataArg(newNumEmp));
+    }
+    
     private boolean isFormLegit() {
         final int minimalSalary = 1;
         int employeeId = (int)jEmployeeIdSpinner.getValue();
@@ -172,6 +184,11 @@ public class EmployeeFormUi extends javax.swing.JDialog {
         if (employeeId <= 0)
         {
             Util.invokeErrorMessage(parent, "Le numéro d'un employé doit être >= 1.");
+            return false;
+        }
+        if (!isNonRedundantEntry(employeeId))
+        {
+            Util.invokeErrorMessage(parent, "Un employé avec ce numéro existe déjà.");
             return false;
         }
         if (employeeName.isEmpty())

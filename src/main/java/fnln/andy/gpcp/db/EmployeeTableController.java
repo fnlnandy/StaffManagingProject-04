@@ -172,7 +172,7 @@ public class EmployeeTableController extends ATableController<Employee> {
     @Override
     public boolean entryExists(DataArg args)
     {
-        int numEmpToFind = Integer.parseInt(args.popFrontArg().toString());
+        int numEmpToFind = (int)(args.popFrontArg());
         
         for (Employee currentEmployee : m_Entries)
         {
