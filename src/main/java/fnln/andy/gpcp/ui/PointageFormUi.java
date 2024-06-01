@@ -63,6 +63,14 @@ public class PointageFormUi extends javax.swing.JDialog {
     
     public boolean isFormLegit()
     {
+        final java.awt.Frame parent = (java.awt.Frame)getOwner();
+        
+        if (jNumEmpComboBox.getItemCount() == 0)
+        {
+            Util.invokeErrorMessage(parent, "Aucun employé dans cette base de données.");
+            return false;
+        }
+        
         final int currentDay = (int)jDatePointageDaySpinner.getValue();
         final int currentMonth = jDatePointageMonthComboBox.getSelectedIndex() + 1;
         final int currentYear = (int)jDatePointageYearSpinner.getValue();
@@ -70,8 +78,6 @@ public class PointageFormUi extends javax.swing.JDialog {
         PseudoDate pointageDate = new PseudoDate(currentDay, currentMonth, currentYear);
         
         final int numEmp = Integer.parseInt(jNumEmpComboBox.getSelectedItem().toString());
-        final java.awt.Frame parent = (java.awt.Frame)getOwner();
-        
         
         if (DBControl.deferPointageController().entryExists(DataArg.makeDataArg(new Object[] { pointageDate, numEmp }))
             || !isValidEditEntry(pointageDate, numEmp))
