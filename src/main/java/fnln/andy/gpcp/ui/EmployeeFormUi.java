@@ -61,6 +61,14 @@ public class EmployeeFormUi extends javax.swing.JDialog {
                 jEmployeeNameTextFieldActionPerformed(evt);
             }
         });
+        jEmployeeNameTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jEmployeeNameTextFieldKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jEmployeeNameTextFieldKeyReleased(evt);
+            }
+        });
         getContentPane().add(jEmployeeNameTextField);
 
         jEmployeeFirstNameLabel.setText("Prénom de l'employé(e):");
@@ -141,6 +149,22 @@ public class EmployeeFormUi extends javax.swing.JDialog {
         DBControl.deferEmployeeController().reloadEntries(GPCPUi.getEmployeeTable());
         setVisible(false);
     }//GEN-LAST:event_jEmployeeConfirmButtonActionPerformed
+
+    private void jEmployeeNameTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jEmployeeNameTextFieldKeyPressed
+        // TODO add your handling code here:
+        
+        String empName = jEmployeeNameTextField.getText().toUpperCase();
+        
+        jEmployeeNameTextField.setText(empName);
+    }//GEN-LAST:event_jEmployeeNameTextFieldKeyPressed
+
+    private void jEmployeeNameTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jEmployeeNameTextFieldKeyReleased
+        // TODO add your handling code here:
+        System.out.println("Action performed");
+        String empName = jEmployeeNameTextField.getText().toUpperCase();
+        
+        jEmployeeNameTextField.setText(empName);
+    }//GEN-LAST:event_jEmployeeNameTextFieldKeyReleased
 
     public void setIsEditMode(boolean isEditMode) { this.m_IsEditMode = isEditMode; }
     public void setPreviousEmployeeId(String prevEmployeeId) {
