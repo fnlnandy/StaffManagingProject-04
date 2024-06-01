@@ -164,7 +164,7 @@ public class EmployeeFormUi extends javax.swing.JDialog {
     
     private boolean isNonRedundantEntry(int newNumEmp)
     {
-        int prevNumEmp = Integer.parseInt(m_PreviousEmployeeId);
+        int prevNumEmp = (m_IsEditMode ? Integer.parseInt(m_PreviousEmployeeId) : newNumEmp);
         
         if (m_IsEditMode && prevNumEmp == newNumEmp)
             return true;

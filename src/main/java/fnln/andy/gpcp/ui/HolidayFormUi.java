@@ -48,14 +48,11 @@ public class HolidayFormUi extends javax.swing.JDialog {
         }
     }
     
-    private boolean isValidEditEntry(int newNumConge)
+    private boolean isNonRedundantEntry(int newNumConge)
     {
-        if (!m_IsEditMode)
-            return true;
+        int prevNumConge = (m_IsEditMode ? Integer.parseInt(m_PreviousHoliday.getNumConge()) : newNumConge);
         
-        int prevNumConge = Integer.parseInt(m_PreviousHoliday.getNumConge());
-        
-        if (prevNumConge == newNumConge)
+        if (m_IsEditMode && prevNumConge == newNumConge)
             return true;
         
         return !DBControl.deferHolidayController().entryExists(DataArg.makeDataArg(newNumConge));
@@ -84,14 +81,14 @@ public class HolidayFormUi extends javax.swing.JDialog {
         final int returnMonth = jReturnDateMonthComboBox.getSelectedIndex() + 1;
         final int returnYear = (int)jReturnDateYearSpinner.getValue();
         
-        if (DBControl.deferHolidayController().entryExists(DataArg.makeDataArg(holidayId)) || !isValidEditEntry(holidayId))
-        {
-            Util.invokeErrorMessage(parent, "Un congé avec ce numéro de congé existe déjà.");
-            return false;
-        }
         if (holidayId <= 0)
         {
             Util.invokeErrorMessage(parent, "Le numéro de congé doit être >= 1.");
+            return false;
+        }
+        if (!isNonRedundantEntry(holidayId))
+        {
+            Util.invokeErrorMessage(parent, "Un congé avec ce numéro de congé existe déjà.");
             return false;
         }
         if (numEmp == -1)

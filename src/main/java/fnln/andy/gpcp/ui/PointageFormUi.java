@@ -47,15 +47,12 @@ public class PointageFormUi extends javax.swing.JDialog {
         }
     }
     
-    private boolean isValidEditEntry(PseudoDate newDate, int newNumEmp)
+    private boolean isNonRedundantEntry(PseudoDate newDate, int newNumEmp)
     {
-        if (!m_IsEditMode)
-            return true;
+        PseudoDate prevDate = (m_IsEditMode ? m_PreviousPointage.getDatePointage() : newDate) ;
+        int prevNumEmp =  (m_IsEditMode ? Integer.parseInt(m_PreviousPointage.getNumEmp()) : newNumEmp);
         
-        PseudoDate prevDate = m_PreviousPointage.getDatePointage();
-        int prevNumEmp = Integer.parseInt(m_PreviousPointage.getNumEmp());
-        
-        if (prevDate.equals(newDate) && prevNumEmp == newNumEmp)
+        if (m_IsEditMode && prevDate.equals(newDate) && prevNumEmp == newNumEmp)
             return true;
         
         return !DBControl.deferPointageController().entryExists(DataArg.makeDataArg(new Object[] { newDate, newNumEmp }));
@@ -79,8 +76,7 @@ public class PointageFormUi extends javax.swing.JDialog {
         
         final int numEmp = Integer.parseInt(jNumEmpComboBox.getSelectedItem().toString());
         
-        if (DBControl.deferPointageController().entryExists(DataArg.makeDataArg(new Object[] { pointageDate, numEmp }))
-            || !isValidEditEntry(pointageDate, numEmp))
+        if (!isNonRedundantEntry(pointageDate, numEmp))
         {
             Util.invokeErrorMessage(parent, "La date de pointage et l'employé concerné correspondent déjà à une donnée présente.");
             return false;
