@@ -22,20 +22,20 @@ public class Holiday {
     
     public Holiday(String numConge, String numEmp, String motif, int nombreJours,
                    String dateDemande, String dateRetour) {
-        this.m_NumConge = numConge;
-        this.m_NumEmp = numEmp;
-        this.m_Motif = motif;
-        this.m_NombreJours = nombreJours;
-        this.m_DateDemande = new PseudoDate(dateDemande);
-        this.m_DateRetour = new PseudoDate(dateRetour);
+        m_NumConge = numConge;
+        m_NumEmp = numEmp;
+        m_Motif = motif;
+        m_NombreJours = nombreJours;
+        m_DateDemande = new PseudoDate(dateDemande);
+        m_DateRetour = new PseudoDate(dateRetour);
     }
     
-    public String getNumConge() { return this.m_NumConge; }
-    public String getNumEmp() { return this.m_NumEmp; }
-    public String getMotif() { return this.m_Motif; }
-    public int getNombreJours() { return this.m_NombreJours; }
-    public PseudoDate getDateDemande() { return this.m_DateDemande; }
-    public PseudoDate getDateRetour() { return this.m_DateRetour; }
+    public String getNumConge()        { return m_NumConge;    }
+    public String getNumEmp()          { return m_NumEmp;      }
+    public String getMotif()           { return m_Motif;       }
+    public int getNombreJours()        { return m_NombreJours; }
+    public PseudoDate getDateDemande() { return m_DateDemande; }
+    public PseudoDate getDateRetour()  { return m_DateRetour;  }
     public String getPrintable()
     {
         String printable = "Holiday(";
@@ -50,10 +50,10 @@ public class Holiday {
         return printable;
     }
     
-    public void setNumConge(final String numConge) { this.m_NumConge = numConge; }
-    public void setNumEmp(final String numEmp) { this.m_NumEmp = numEmp; }
-    public void setMotif(final String motif) { this.m_Motif = motif; }
-    public void setNombreJours(final int nombreJours) { this.m_NombreJours = nombreJours; }
-    public void setDateDemande(final String dateDemande) { this.m_DateDemande.create(dateDemande); }
-    public void setDateRetour(final String dateRetour) { this.m_DateRetour.create(dateRetour); }
+    public void setNumConge(final String numConge)       { m_NumConge = numConge;             }
+    public void setNumEmp(final String numEmp)           { m_NumEmp = numEmp;                 }
+    public void setMotif(final String motif)             { m_Motif = motif;                   }
+    public void setNombreJours(final int nombreJours)    { m_NombreJours = nombreJours;       }
+    public void setDateDemande(final String dateDemande) { m_DateDemande.create(dateDemande); }
+    public void setDateRetour(final String dateRetour)   { m_DateRetour.create(dateRetour);   }
 }

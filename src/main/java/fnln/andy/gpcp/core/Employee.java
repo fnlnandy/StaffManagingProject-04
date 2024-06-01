@@ -17,11 +17,7 @@ public class Employee {
     
     public Employee()
     {
-        m_NumEmp = "";
-        m_Nom = "";
-        m_Prenom = "";
-        m_Poste = "";
-        m_Salaire = 0;
+        this("", "", "", "", 0);
     }
     
     public Employee(final String numEmp, final String nom, final String prenom, 
@@ -34,11 +30,11 @@ public class Employee {
         this.m_Salaire = salaire;
     }
     
-    public String getNumEmp() { return m_NumEmp; } 
-    public String getNom() { return m_Nom; }
-    public String getPrenom() { return m_Prenom; }
-    public String getPoste() { return m_Poste; }
-    public int getSalaire() { return m_Salaire; }
+    public String getNumEmp() { return m_NumEmp;  } 
+    public String getNom()    { return m_Nom;     }
+    public String getPrenom() { return m_Prenom;  }
+    public String getPoste()  { return m_Poste;   }
+    public int getSalaire()   { return m_Salaire; }
     public String getPrintable()
     {
         String printable = "Employee(";
@@ -52,9 +48,9 @@ public class Employee {
         return printable;
     }
     
-    public void setNumEmp(final String numEmp) { this.m_NumEmp = numEmp; }
-    public void setNom(final String nom) { this.m_Nom = nom; }
-    public void setPrenom(final String prenom) { this.m_Prenom = prenom; }
-    public void setPoste(final String poste) { this.m_Poste = poste; }
-    public void setSalaire(final int salaire) { this.m_Salaire = salaire; }
+    public void setNumEmp(final String numEmp) { m_NumEmp = numEmp;   }
+    public void setNom(final String nom)       { m_Nom = nom;         }
+    public void setPrenom(final String prenom) { m_Prenom = prenom;   }
+    public void setPoste(final String poste)   { m_Poste = poste;     }
+    public void setSalaire(final int salaire)  { m_Salaire = salaire; }
 }

@@ -20,14 +20,14 @@ public class Pointage {
     
     public Pointage(final String datePointage, final String numEmp, final String pointage)
     {
-        this.m_DatePointage = new PseudoDate(datePointage);
-        this.m_NumEmp = numEmp;
-        this.m_Pointage = ("oui".equals(pointage.toLowerCase()) ? "Oui" : "Non");
+        m_DatePointage = new PseudoDate(datePointage);
+        m_NumEmp = numEmp;
+        m_Pointage = ("oui".equals(pointage.toLowerCase()) ? "Oui" : "Non");
     }
     
     public PseudoDate getDatePointage() { return m_DatePointage; }
-    public String getNumEmp() { return m_NumEmp; }
-    public String getPointage() { return m_Pointage; }
+    public String getNumEmp()           { return m_NumEmp;       }
+    public String getPointage()         { return m_Pointage;     }
     public String getPrintable()
     {
         String printable = "Pointage(";
@@ -39,8 +39,8 @@ public class Pointage {
         return printable;
     }
     
-    public void setDatePointage(final String datePointage) { this.m_DatePointage.create(datePointage); }
-    public void setNumEmp(final String numEmp) { this.m_NumEmp = numEmp; }
-    public void setPointage(final String pointage) { this.m_Pointage = pointage; }
+    public void setDatePointage(final String datePointage) { m_DatePointage.create(datePointage); }
+    public void setNumEmp(final String numEmp)             { m_NumEmp = numEmp;                   }
+    public void setPointage(final String pointage)         { m_Pointage = pointage;               }
     
 }
