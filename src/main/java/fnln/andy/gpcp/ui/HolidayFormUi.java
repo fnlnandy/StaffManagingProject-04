@@ -75,7 +75,13 @@ public class HolidayFormUi extends javax.swing.JDialog {
         final int numEmp = Integer.parseInt(jNumEmpComboBox.getSelectedItem().toString());
         final String holidayReason = jReasonTextArea.getText();
         final int daysCount = (int)jDaysCountSpinner.getValue();
+        
+        final int demandDay = (int)jDemandDateDaySpinner.getValue();
+        final int demandMonth = jDemandDateMonthComboBox.getSelectedIndex() + 1;
         final int demandYear = (int)jDemandDateYearSpinner.getValue();
+        
+        final int returnDay = (int)jReturnDateDaySpinner.getValue();
+        final int returnMonth = jReturnDateMonthComboBox.getSelectedIndex() + 1;
         final int returnYear = (int)jReturnDateYearSpinner.getValue();
         
         if (DBControl.deferHolidayController().entryExists(DataArg.makeDataArg(holidayId)) || !isValidEditEntry(holidayId))
@@ -111,6 +117,12 @@ public class HolidayFormUi extends javax.swing.JDialog {
         if (returnYear < 2000)
         {
             Util.invokeErrorMessage(parent, "L'année de retour doit être >= 2000.");
+            return false;
+        }
+        if (returnYear < demandYear || (demandYear == returnYear && returnMonth < demandMonth)
+                || (demandYear == returnYear && demandMonth == returnMonth && returnDay < demandDay))
+        {
+            Util.invokeErrorMessage(parent, "La date de retour ne peut pas être inférieure à la date de demande.");
             return false;
         }
         
