@@ -460,7 +460,9 @@ public class GPCPUi extends javax.swing.JFrame {
         final String numConge = jHolidayTable.getValueAt(selectedIndex, 0).toString();
         final String numEmp = jHolidayTable.getValueAt(selectedIndex, 1).toString();
         
-        Holiday holiday = new Holiday(numConge, numEmp, null, 0, null, null);
+        Holiday holiday = new Holiday();
+        holiday.setNumConge(numConge);
+        holiday.setNumEmp(numEmp);
         
         DBControl.deferHolidayController().removeEntry(holiday);
         DBControl.deferHolidayController().reloadEntries(jHolidayTable);
