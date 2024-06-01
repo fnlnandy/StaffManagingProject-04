@@ -47,6 +47,17 @@ public class PointageFormUi extends javax.swing.JDialog {
         }
     }
     
+    private boolean isValidEditEntry(PseudoDate newDate, int newNumEmp)
+    {
+        if (!m_IsEditMode)
+            return true;
+        
+        PseudoDate prevDate = m_PreviousPointage.getDatePointage();
+        int prevNumEmp = Integer.parseInt(m_PreviousPointage.getNumEmp());
+        
+        return !prevDate.equals(newDate) || prevNumEmp != newNumEmp;
+    }
+    
     public boolean isFormLegit()
     {
         final int currentDay = (int)jDatePointageDaySpinner.getValue();
@@ -55,11 +66,12 @@ public class PointageFormUi extends javax.swing.JDialog {
         
         PseudoDate pointageDate = new PseudoDate(currentDay, currentMonth, currentYear);
         
-        final int numEmp = jNumEmpComboBox.getSelectedIndex();
+        final int numEmp = Integer.parseInt(jNumEmpComboBox.getItemAt(jNumEmpComboBox.getSelectedIndex()));
         final java.awt.Frame parent = (java.awt.Frame)getOwner();
         
         
-        if (DBControl.deferPointageController().entryExists(DataArg.makeDataArg(new Object[] { pointageDate, numEmp })))
+        if (DBControl.deferPointageController().entryExists(DataArg.makeDataArg(new Object[] { pointageDate, numEmp }))
+            && isValidEditEntry(pointageDate, numEmp))
         {
             Util.invokeErrorMessage(parent, "La date de pointage et l'employé concerné correspondent déjà à une donnée présente.");
             return false;
