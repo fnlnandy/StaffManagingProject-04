@@ -73,6 +73,8 @@ public class HolidayFormUi extends javax.swing.JDialog {
         final String holidayReason = jReasonTextArea.getText();
         final int daysCount = (int)jDaysCountSpinner.getValue();
         
+        final int employeeHolidaysSum = DBControl.deferEmployeeController().getEmployeeDaysSum(String.valueOf(numEmp));
+        
         final int demandDay = (int)jDemandDateDaySpinner.getValue();
         final int demandMonth = jDemandDateMonthComboBox.getSelectedIndex() + 1;
         final int demandYear = (int)jDemandDateYearSpinner.getValue();
@@ -104,6 +106,12 @@ public class HolidayFormUi extends javax.swing.JDialog {
         if (daysCount <= 0 || daysCount >= 30)
         {
             Util.invokeErrorMessage(parent, "Le nombre de jours doit appartenir à l'intervalle [0, 30].");
+            return false;
+        }
+        if (demandYear == PseudoDate.getCurrentDate().getYear() && (m_IsEditMode ? daysCount - m_PreviousHoliday.getNombreJours() + employeeHolidaysSum > 30 :
+                daysCount + employeeHolidaysSum > 30))
+        {
+            Util.invokeErrorMessage(parent, "Le nombre de jours excède la limite autorisée de 30 jours pour un an.");
             return false;
         }
         if (demandYear < 2000)

@@ -56,6 +56,7 @@ public class EmployeeFormUi extends javax.swing.JDialog {
         jEmployeeNameLabel.setText("Nom de l'employé(e):");
         getContentPane().add(jEmployeeNameLabel);
 
+        jEmployeeNameTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jEmployeeNameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jEmployeeNameTextFieldActionPerformed(evt);

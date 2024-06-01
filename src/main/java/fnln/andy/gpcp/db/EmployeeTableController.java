@@ -310,4 +310,23 @@ public class EmployeeTableController extends ATableController<Employee> {
         
         reloadEntries(dest);
     }
+    
+    public int getEmployeeDaysSum(final String numEmp)
+    {
+        final String query = "SELECT SUM(NombreJours) AS NbJrs FROM Conge WHERE NumEmp = ? AND EXTRACT(YEAR FROM DateDemande) = EXTRACT(YEAR FROM CURRENT_DATE);";
+        PreparedStatement preparedStatement = null;
+        ResultSet result = null;
+        
+        try {
+            preparedStatement = m_SQLConnection.prepareStatement(query);
+            
+            preparedStatement.setString(1, numEmp);
+            
+            result = preparedStatement.executeQuery();
+            result.next();
+            return result.getInt("NbJrs");
+        } catch (SQLException e) { e.printStackTrace(); }
+        
+        return 0;
+    }
 }
