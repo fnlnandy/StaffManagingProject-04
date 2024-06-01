@@ -77,6 +77,15 @@ public class PseudoDate {
     
     public int getYear() { return m_Year; }
     
+    public boolean equals(PseudoDate toCompare)
+    {
+        if (m_Day != toCompare.m_Day)
+            return false;
+        if (m_Month != toCompare.m_Month)
+            return false;
+        return m_Year == toCompare.m_Year;
+    }
+    
     public static PseudoDate getCurrentDate()
     {
         LocalDate today = LocalDate.now();
