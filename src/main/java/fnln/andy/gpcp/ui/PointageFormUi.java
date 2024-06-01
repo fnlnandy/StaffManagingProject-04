@@ -5,6 +5,7 @@
 package fnln.andy.gpcp.ui;
 
 import fnln.andy.gpcp.DBControl;
+import fnln.andy.gpcp.core.DataArg;
 import fnln.andy.gpcp.core.Employee;
 import fnln.andy.gpcp.core.Pointage;
 import fnln.andy.gpcp.core.PseudoDate;
@@ -48,11 +49,22 @@ public class PointageFormUi extends javax.swing.JDialog {
     
     public boolean isFormLegit()
     {
+        final int currentDay = (int)jDatePointageDaySpinner.getValue();
+        final int currentMonth = jDatePointageMonthComboBox.getSelectedIndex() + 1;
         final int currentYear = (int)jDatePointageYearSpinner.getValue();
+        
+        PseudoDate pointageDate = new PseudoDate(currentDay, currentMonth, currentYear);
+        
         final int numEmp = jNumEmpComboBox.getSelectedIndex();
         final java.awt.Frame parent = (java.awt.Frame)getOwner();
         
-        if (currentYear < 2000)
+        
+        if (DBControl.deferPointageController().entryExists(DataArg.makeDataArg(new Object[] { pointageDate, numEmp })))
+        {
+            Util.invokeErrorMessage(parent, "La date de pointage et l'employé concerné correspondent déjà à une donnée présente.");
+            return false;
+        }
+        if (pointageDate.getYear() < 2000)
         {
             Util.invokeErrorMessage(parent, "L'année de pointage doit être >= 2000.");
             return false;

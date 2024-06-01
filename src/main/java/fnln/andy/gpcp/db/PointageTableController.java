@@ -184,7 +184,7 @@ public class PointageTableController extends ATableController<Pointage> {
     public boolean entryExists(DataArg args)
     {
         PseudoDate pointageDate = (PseudoDate)(args.popFrontArg());
-        int numEmpToFind = Integer.parseInt(args.popFrontArg().toString());
+        int numEmpToFind = (int)(args.popFrontArg());
         
         for (Pointage currentPointage : m_Entries)
         {
