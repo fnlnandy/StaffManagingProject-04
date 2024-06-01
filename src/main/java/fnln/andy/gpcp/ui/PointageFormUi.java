@@ -55,7 +55,10 @@ public class PointageFormUi extends javax.swing.JDialog {
         PseudoDate prevDate = m_PreviousPointage.getDatePointage();
         int prevNumEmp = Integer.parseInt(m_PreviousPointage.getNumEmp());
         
-        return !prevDate.equals(newDate) || prevNumEmp != newNumEmp;
+        if (prevDate.equals(newDate) && prevNumEmp == newNumEmp)
+            return true;
+        
+        return !DBControl.deferPointageController().entryExists(DataArg.makeDataArg(new Object[] { newDate, newNumEmp }));
     }
     
     public boolean isFormLegit()
@@ -71,7 +74,7 @@ public class PointageFormUi extends javax.swing.JDialog {
         
         
         if (DBControl.deferPointageController().entryExists(DataArg.makeDataArg(new Object[] { pointageDate, numEmp }))
-            && isValidEditEntry(pointageDate, numEmp))
+            || !isValidEditEntry(pointageDate, numEmp))
         {
             Util.invokeErrorMessage(parent, "La date de pointage et l'employé concerné correspondent déjà à une donnée présente.");
             return false;
