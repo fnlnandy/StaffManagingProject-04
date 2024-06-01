@@ -222,7 +222,7 @@ public class EmployeeTableController extends ATableController<Employee> {
                                    Pointage.DatePointage = ?)) OR 
                                    (Employe.NumEmp = Pointage.NumEmp AND Pointage.Pointage = 'Non'
                                    AND Pointage.DatePointage = ?)
-                                   GROUP BY Employe.NumEmp ORDER BY LENGTH(NumEmp), NumEmp ASC;
+                                   GROUP BY Employe.NumEmp ORDER BY LENGTH(Employe.NumEmp), Employe.NumEmp ASC;
                                    """;
         PreparedStatement preparedStatement = null;
         
