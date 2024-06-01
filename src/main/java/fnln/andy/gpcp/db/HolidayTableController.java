@@ -196,4 +196,20 @@ public class HolidayTableController extends ATableController<Holiday> {
         
         return retVal;
     }
+    
+    @Override
+    public boolean entryExists(DataArg args)
+    {
+        int numCongeToFind = Integer.parseInt(args.popFrontArg().toString());
+        
+        for (Holiday currentHoliday : m_Entries)
+        {
+            int currentId = Integer.parseInt(currentHoliday.getNumConge());
+            
+            if (currentId == numCongeToFind)
+                return true;
+        }
+        
+        return false;
+    }
 }

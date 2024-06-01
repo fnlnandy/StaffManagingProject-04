@@ -169,6 +169,22 @@ public class EmployeeTableController extends ATableController<Employee> {
         return retVal;
     }
     
+    @Override
+    public boolean entryExists(DataArg args)
+    {
+        int numEmpToFind = Integer.parseInt(args.popFrontArg().toString());
+        
+        for (Employee currentEmployee : m_Entries)
+        {
+            int currentId = Integer.parseInt(currentEmployee.getNumEmp());
+            
+            if (currentId == numEmpToFind)
+                return true;
+        }
+        
+        return false;
+    }
+    
     private List<Employee> fetchConditional(String query)
     {
         List<Employee> retVal = new ArrayList<>();

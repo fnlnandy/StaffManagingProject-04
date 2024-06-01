@@ -180,6 +180,24 @@ public class PointageTableController extends ATableController<Pointage> {
         return retVal;
     }
     
+    @Override
+    public boolean entryExists(DataArg args)
+    {
+        PseudoDate pointageDate = (PseudoDate)(args.popFrontArg());
+        int numEmpToFind = Integer.parseInt(args.popFrontArg().toString());
+        
+        for (Pointage currentPointage : m_Entries)
+        {
+            PseudoDate currentPointageDate = currentPointage.getDatePointage();
+            int currentEmployeeId = Integer.parseInt(currentPointage.getNumEmp());
+            
+            if (currentPointageDate.equals(pointageDate) && currentEmployeeId == numEmpToFind)
+                return true;
+        }
+        
+        return false;
+    }
+    
     public int getAbsencesCount(Employee employee, PseudoDate forDate, boolean reload)
     {
         if (reload)

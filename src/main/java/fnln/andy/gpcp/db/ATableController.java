@@ -36,6 +36,7 @@ public abstract class ATableController<Type> {
     public abstract boolean addEntry(DataArg args);
     public abstract boolean editEntry(DataArg args);
     public abstract boolean removeEntry(DataArg args);
+    public abstract boolean entryExists(DataArg args);
     
     public void loadEntries(List<Type> elements, Object dest)
     {
