@@ -88,7 +88,8 @@ public class NumberToLetter {
         
         retVal += m_PowersOfTen[powerOfTenIndex];
         
-        if ((numberClass >= MILLION_NUMBER_CLASS) && (leading > 1))
+        if (leading > 1 && (numberClass >= MILLION_NUMBER_CLASS || 
+            (numberClass == HUNDRED_NUMBER_CLASS && trailing == 0)))
             retVal += "s";
         
         if (trailing > 0)
@@ -106,8 +107,10 @@ public class NumberToLetter {
         
         if (n < m_DigitsReps.length) 
             retVal += m_DigitsReps[(int)n];
-        else if (n % 10 == 0 && n < 100) 
-            retVal += m_MultiplesOfTenReps[(int)(n / 10 - 1)];
+        else if (n % 10 == 0 && n < 100)
+        {
+            retVal += m_MultiplesOfTenReps[(int)(n / 10 - 1)] + (n == 80 ? "s" : "");
+        }
         else if (n < 20)
             retVal += m_AfterTensReps[(int)(n - 10 - 1)];
         else if (n < HUNDRED)
