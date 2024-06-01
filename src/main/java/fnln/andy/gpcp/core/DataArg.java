@@ -65,7 +65,7 @@ public class DataArg {
     
     public Object popFrontArg()
     {
-        if (m_Args.size() == 0)
+        if (m_Args.isEmpty())
             return null;
         
         Object retVal = m_Args.getFirst();
