@@ -105,7 +105,7 @@ public class HolidayFormUi extends javax.swing.JDialog {
         }
         if (daysCount <= 0 || daysCount >= 30)
         {
-            Util.invokeErrorMessage(parent, "Le nombre de jours doit appartenir à l'intervalle [0, 30].");
+            Util.invokeErrorMessage(parent, "Le nombre de jours doit appartenir à l'intervalle [1, 30].");
             return false;
         }
         if (demandYear == PseudoDate.getCurrentDate().getYear() && (m_IsEditMode ? daysCount - m_PreviousHoliday.getNombreJours() + employeeHolidaysSum > 30 :
