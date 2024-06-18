@@ -19,78 +19,112 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,0,-100,0,0,2,51"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,0,-22,0,0,2,51"/>
   </AuxValues>
 
-  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
-    <Property name="columns" type="int" value="2"/>
-    <Property name="rows" type="int" value="0"/>
-    <Property name="verticalGap" type="int" value="3"/>
+  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
+    <Property name="axis" type="int" value="3"/>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="jEmployeeIdLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Num&#xe9;ro de l&apos;employ&#xe9;(e):"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JSpinner" name="jEmployeeIdSpinner">
-    </Component>
-    <Component class="javax.swing.JLabel" name="jEmployeeNameLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Nom de l&apos;employ&#xe9;(e):"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="jEmployeeNameTextField">
-      <Properties>
-        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Text Cursor"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jEmployeeNameTextFieldActionPerformed"/>
-        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jEmployeeNameTextFieldKeyPressed"/>
-        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jEmployeeNameTextFieldKeyReleased"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jEmployeeFirstNameLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Pr&#xe9;nom de l&apos;employ&#xe9;(e):"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="jEmployeeFirstNameTextField">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jEmployeeFirstNameTextFieldActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jEmployeeJobLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Poste de l&apos;employ&#xe9;(e):"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="jEmployeeJobTextField">
-    </Component>
-    <Component class="javax.swing.JLabel" name="jEmployeeSalaryLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Salaire de l&apos;employ&#xe9;(e):"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JSpinner" name="jEmployeeSalarySpinner">
-    </Component>
-    <Component class="javax.swing.JButton" name="jEmployeeConfirmButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Confirmer"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jEmployeeConfirmButtonActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="jEmployeeResetButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="R&#xe9;initialiser"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jEmployeeResetButtonActionPerformed"/>
-      </Events>
-    </Component>
+    <Container class="javax.swing.JPanel" name="jEmployeeIdWrapperPanel">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="jEmployeeIdLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Num&#xe9;ro de l&apos;employ&#xe9;(e):"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="jEmployeeIdSpinner">
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jEmployeeNameWrapperPanel">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="jEmployeeNameLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Nom de l&apos;employ&#xe9;(e):"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jEmployeeNameTextField">
+          <Properties>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Text Cursor"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jEmployeeNameTextFieldActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jEmployeeNameTextFieldKeyPressed"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jEmployeeNameTextFieldKeyReleased"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jEmployeeFirstNameWrapperPanel">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="jEmployeeFirstNameLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Pr&#xe9;nom de l&apos;employ&#xe9;(e):"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jEmployeeFirstNameTextField">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jEmployeeFirstNameTextFieldActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jEmployeeJobWrapperPanel">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="jEmployeeJobLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Poste de l&apos;employ&#xe9;(e):"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jEmployeeJobTextField">
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jEmployeeSalaryWrapperPanel">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="jEmployeeSalaryLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Salaire de l&apos;employ&#xe9;(e):"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="jEmployeeSalarySpinner">
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jButtonsWrapperPanel">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JButton" name="jEmployeeConfirmButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Confirmer"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jEmployeeConfirmButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jEmployeeResetButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="R&#xe9;initialiser"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jEmployeeResetButtonActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>

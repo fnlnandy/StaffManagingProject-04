@@ -32,29 +32,37 @@ public class EmployeeFormUi extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jEmployeeIdWrapperPanel = new javax.swing.JPanel();
         jEmployeeIdLabel = new javax.swing.JLabel();
         jEmployeeIdSpinner = new javax.swing.JSpinner();
+        jEmployeeNameWrapperPanel = new javax.swing.JPanel();
         jEmployeeNameLabel = new javax.swing.JLabel();
         jEmployeeNameTextField = new javax.swing.JTextField();
+        jEmployeeFirstNameWrapperPanel = new javax.swing.JPanel();
         jEmployeeFirstNameLabel = new javax.swing.JLabel();
         jEmployeeFirstNameTextField = new javax.swing.JTextField();
+        jEmployeeJobWrapperPanel = new javax.swing.JPanel();
         jEmployeeJobLabel = new javax.swing.JLabel();
         jEmployeeJobTextField = new javax.swing.JTextField();
+        jEmployeeSalaryWrapperPanel = new javax.swing.JPanel();
         jEmployeeSalaryLabel = new javax.swing.JLabel();
         jEmployeeSalarySpinner = new javax.swing.JSpinner();
+        jButtonsWrapperPanel = new javax.swing.JPanel();
         jEmployeeConfirmButton = new javax.swing.JButton();
         jEmployeeResetButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Formulaire d'un employé");
-        getContentPane().setLayout(new java.awt.GridLayout(0, 2, 0, 3));
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
 
         jEmployeeIdLabel.setText("Numéro de l'employé(e):");
-        getContentPane().add(jEmployeeIdLabel);
-        getContentPane().add(jEmployeeIdSpinner);
+        jEmployeeIdWrapperPanel.add(jEmployeeIdLabel);
+        jEmployeeIdWrapperPanel.add(jEmployeeIdSpinner);
+
+        getContentPane().add(jEmployeeIdWrapperPanel);
 
         jEmployeeNameLabel.setText("Nom de l'employé(e):");
-        getContentPane().add(jEmployeeNameLabel);
+        jEmployeeNameWrapperPanel.add(jEmployeeNameLabel);
 
         jEmployeeNameTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jEmployeeNameTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -70,25 +78,33 @@ public class EmployeeFormUi extends javax.swing.JDialog {
                 jEmployeeNameTextFieldKeyReleased(evt);
             }
         });
-        getContentPane().add(jEmployeeNameTextField);
+        jEmployeeNameWrapperPanel.add(jEmployeeNameTextField);
+
+        getContentPane().add(jEmployeeNameWrapperPanel);
 
         jEmployeeFirstNameLabel.setText("Prénom de l'employé(e):");
-        getContentPane().add(jEmployeeFirstNameLabel);
+        jEmployeeFirstNameWrapperPanel.add(jEmployeeFirstNameLabel);
 
         jEmployeeFirstNameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jEmployeeFirstNameTextFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(jEmployeeFirstNameTextField);
+        jEmployeeFirstNameWrapperPanel.add(jEmployeeFirstNameTextField);
+
+        getContentPane().add(jEmployeeFirstNameWrapperPanel);
 
         jEmployeeJobLabel.setText("Poste de l'employé(e):");
-        getContentPane().add(jEmployeeJobLabel);
-        getContentPane().add(jEmployeeJobTextField);
+        jEmployeeJobWrapperPanel.add(jEmployeeJobLabel);
+        jEmployeeJobWrapperPanel.add(jEmployeeJobTextField);
+
+        getContentPane().add(jEmployeeJobWrapperPanel);
 
         jEmployeeSalaryLabel.setText("Salaire de l'employé(e):");
-        getContentPane().add(jEmployeeSalaryLabel);
-        getContentPane().add(jEmployeeSalarySpinner);
+        jEmployeeSalaryWrapperPanel.add(jEmployeeSalaryLabel);
+        jEmployeeSalaryWrapperPanel.add(jEmployeeSalarySpinner);
+
+        getContentPane().add(jEmployeeSalaryWrapperPanel);
 
         jEmployeeConfirmButton.setText("Confirmer");
         jEmployeeConfirmButton.addActionListener(new java.awt.event.ActionListener() {
@@ -96,7 +112,7 @@ public class EmployeeFormUi extends javax.swing.JDialog {
                 jEmployeeConfirmButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jEmployeeConfirmButton);
+        jButtonsWrapperPanel.add(jEmployeeConfirmButton);
 
         jEmployeeResetButton.setText("Réinitialiser");
         jEmployeeResetButton.addActionListener(new java.awt.event.ActionListener() {
@@ -104,7 +120,9 @@ public class EmployeeFormUi extends javax.swing.JDialog {
                 jEmployeeResetButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jEmployeeResetButton);
+        jButtonsWrapperPanel.add(jEmployeeResetButton);
+
+        getContentPane().add(jButtonsWrapperPanel);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -289,17 +307,23 @@ public class EmployeeFormUi extends javax.swing.JDialog {
     private String m_PreviousEmployeeId;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jButtonsWrapperPanel;
     private javax.swing.JButton jEmployeeConfirmButton;
     private javax.swing.JLabel jEmployeeFirstNameLabel;
     private javax.swing.JTextField jEmployeeFirstNameTextField;
+    private javax.swing.JPanel jEmployeeFirstNameWrapperPanel;
     private javax.swing.JLabel jEmployeeIdLabel;
     private javax.swing.JSpinner jEmployeeIdSpinner;
+    private javax.swing.JPanel jEmployeeIdWrapperPanel;
     private javax.swing.JLabel jEmployeeJobLabel;
     private javax.swing.JTextField jEmployeeJobTextField;
+    private javax.swing.JPanel jEmployeeJobWrapperPanel;
     private javax.swing.JLabel jEmployeeNameLabel;
     private javax.swing.JTextField jEmployeeNameTextField;
+    private javax.swing.JPanel jEmployeeNameWrapperPanel;
     private javax.swing.JButton jEmployeeResetButton;
     private javax.swing.JLabel jEmployeeSalaryLabel;
     private javax.swing.JSpinner jEmployeeSalarySpinner;
+    private javax.swing.JPanel jEmployeeSalaryWrapperPanel;
     // End of variables declaration//GEN-END:variables
 }
