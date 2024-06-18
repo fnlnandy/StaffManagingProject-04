@@ -7,19 +7,60 @@ package fnln.andy.gpcp.core;
 /**
  *
  * @author andy
+ * 
+ * @brief Class that represents
+ * a Holiday.
  */
 public class Holiday {
+    /**
+     * @brief The holiday's Id.
+     */
     private String m_NumConge;
+    /**
+     * @brief The employee's Id tied
+     * to the holiday.
+     */
     private String m_NumEmp;
+    /**
+     * @brief The reason given for
+     * the holiday.
+     */
     private String m_Motif;
+    /**
+     * @brief The number of days
+     * the holiday(s) will last.
+     */
     private int m_NombreJours;
+    /**
+     * @brief The date on which
+     * the holiday(s) was/were
+     * requested.
+     */
     private PseudoDate m_DateDemande;
+    /**
+     * @brief The date on which
+     * the employee will come back.
+     */
     private PseudoDate m_DateRetour;
     
+    /**
+     * @brief Default constructor.
+     */
     public Holiday() {
         this("0", "0", "", 0, "1999-01-01", "1999-01-01");
     }
-    
+
+    /**
+     * @param numConge
+     * @param numEmp
+     * @param motif
+     * @param nombreJours
+     * @param dateDemande
+     * @param dateRetour 
+     * 
+     * @brief Constructor that initializes
+     * the core fields with the given arguments.
+     */
     public Holiday(String numConge, String numEmp, String motif, int nombreJours,
                    String dateDemande, String dateRetour) {
         m_NumConge = numConge;
@@ -30,6 +71,11 @@ public class Holiday {
         m_DateRetour = new PseudoDate(dateRetour);
     }
     
+    /**
+     * @brief Gets the holiday's Id.
+     * 
+     * @return 
+     */
     public String getNumConge()        { return m_NumConge;    }
     public String getNumEmp()          { return m_NumEmp;      }
     public String getMotif()           { return m_Motif;       }

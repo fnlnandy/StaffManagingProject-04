@@ -45,8 +45,8 @@ public class EmployeeTableController extends ATableController<Employee> {
                                             employee.getPrenom(),
                                             employee.getPoste(),
                                             employee.getSalaire()
-                                        }
-                        );
+                                       }
+                         );
     }
     
     @Override

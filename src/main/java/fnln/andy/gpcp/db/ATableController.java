@@ -43,18 +43,6 @@ public abstract class ATableController<Type> {
         if (elements == null || elements.isEmpty())
             return;
         
-        for (Object o : elements)
-        {
-            if (o instanceof Employee)
-                System.out.println(((Employee) o).getPrintable());
-            else if (o instanceof Pointage)
-                System.out.println(((Pointage) o).getPrintable());
-            else if (o instanceof Holiday)
-                System.out.println(((Holiday) o).getPrintable());
-            else
-                System.out.println(o.toString());
-        }
-        
         for (Type element : elements)
             pushEntryIntoTable(element, dest);
     }
@@ -70,7 +58,6 @@ public abstract class ATableController<Type> {
     
     public void reloadEntries(List<Type> elements, Object dest)
     {
-        System.out.println("reloadEntries(List<Type> elements, Object dest)");
         if (dest == null)
         {
             System.out.println("dest is null, in reloadEntries.");
