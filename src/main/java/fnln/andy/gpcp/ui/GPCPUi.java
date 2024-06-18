@@ -79,7 +79,7 @@ public class GPCPUi extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         jEmployeePanel.setMaximumSize(new java.awt.Dimension(32767, 78));
-        jEmployeePanel.setLayout(new java.awt.GridLayout(0, 1, 0, 30));
+        jEmployeePanel.setLayout(new javax.swing.BoxLayout(jEmployeePanel, javax.swing.BoxLayout.PAGE_AXIS));
 
         jSearchBarPanel.setLayout(new java.awt.GridLayout(0, 3, 10, 0));
 
@@ -87,6 +87,7 @@ public class GPCPUi extends javax.swing.JFrame {
         jSearchBarPanel.add(jSearchEmployeeLabel);
 
         jSearchContentTextField.setMaximumSize(new java.awt.Dimension(2147483647, 24));
+        jSearchContentTextField.setPreferredSize(new java.awt.Dimension(80, 28));
         jSearchContentTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jSearchContentTextFieldActionPerformed(evt);
@@ -179,7 +180,7 @@ public class GPCPUi extends javax.swing.JFrame {
 
         jMainTabs.addTab("Employé(s)", jEmployeePanel);
 
-        jPointagePanel.setLayout(new java.awt.GridLayout(0, 1));
+        jPointagePanel.setLayout(new javax.swing.BoxLayout(jPointagePanel, javax.swing.BoxLayout.PAGE_AXIS));
 
         jAddPointageButton.setText("Ajouter un pointage");
         jAddPointageButton.addActionListener(new java.awt.event.ActionListener() {
@@ -248,7 +249,7 @@ public class GPCPUi extends javax.swing.JFrame {
 
         jMainTabs.addTab("Pointage(s)", jPointagePanel);
 
-        jHolidayPanel.setLayout(new java.awt.GridLayout(0, 1));
+        jHolidayPanel.setLayout(new javax.swing.BoxLayout(jHolidayPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
         jAddHolidayButton.setText("Ajouter un congé");
         jAddHolidayButton.addActionListener(new java.awt.event.ActionListener() {
