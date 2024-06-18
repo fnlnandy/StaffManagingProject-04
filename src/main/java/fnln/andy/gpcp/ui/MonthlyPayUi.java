@@ -54,20 +54,26 @@ public class MonthlyPayUi extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFilePathWrapperPanel = new javax.swing.JPanel();
         jFilePathLabel = new javax.swing.JLabel();
         jFilePathTextField = new javax.swing.JTextField();
         jCurrentEmployeeScrollPane = new javax.swing.JScrollPane();
         jCurrentEmployeeTable = new javax.swing.JTable();
+        jButtonWrapperPanel = new javax.swing.JPanel();
         jGenerateButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(452, 175));
         setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
-        getContentPane().setLayout(new java.awt.GridLayout(4, 1));
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
+
+        jFilePathWrapperPanel.setLayout(new javax.swing.BoxLayout(jFilePathWrapperPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         jFilePathLabel.setText("Emplacement du fichier:");
-        getContentPane().add(jFilePathLabel);
-        getContentPane().add(jFilePathTextField);
+        jFilePathWrapperPanel.add(jFilePathLabel);
+        jFilePathWrapperPanel.add(jFilePathTextField);
+
+        getContentPane().add(jFilePathWrapperPanel);
 
         jCurrentEmployeeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -98,13 +104,17 @@ public class MonthlyPayUi extends javax.swing.JDialog {
 
         getContentPane().add(jCurrentEmployeeScrollPane);
 
+        jButtonWrapperPanel.setLayout(new javax.swing.BoxLayout(jButtonWrapperPanel, javax.swing.BoxLayout.LINE_AXIS));
+
         jGenerateButton.setText("Générer");
         jGenerateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jGenerateButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jGenerateButton);
+        jButtonWrapperPanel.add(jGenerateButton);
+
+        getContentPane().add(jButtonWrapperPanel);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -223,10 +233,12 @@ public class MonthlyPayUi extends javax.swing.JDialog {
     private Employee m_CurrentEmployee;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jButtonWrapperPanel;
     private javax.swing.JScrollPane jCurrentEmployeeScrollPane;
     private javax.swing.JTable jCurrentEmployeeTable;
     private javax.swing.JLabel jFilePathLabel;
     private javax.swing.JTextField jFilePathTextField;
+    private javax.swing.JPanel jFilePathWrapperPanel;
     private javax.swing.JButton jGenerateButton;
     // End of variables declaration//GEN-END:variables
 }

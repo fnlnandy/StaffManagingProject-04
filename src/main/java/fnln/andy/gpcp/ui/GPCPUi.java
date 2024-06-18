@@ -81,7 +81,7 @@ public class GPCPUi extends javax.swing.JFrame {
         jEmployeePanel.setMaximumSize(new java.awt.Dimension(32767, 78));
         jEmployeePanel.setLayout(new javax.swing.BoxLayout(jEmployeePanel, javax.swing.BoxLayout.PAGE_AXIS));
 
-        jSearchBarPanel.setLayout(new java.awt.GridLayout(0, 3, 10, 0));
+        jSearchBarPanel.setLayout(new javax.swing.BoxLayout(jSearchBarPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         jSearchEmployeeLabel.setText("Rechercher:");
         jSearchBarPanel.add(jSearchEmployeeLabel);

@@ -159,6 +159,7 @@ public class PointageFormUi extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDatePointageWrapperPanel = new javax.swing.JPanel();
         jDatePointageLabel = new javax.swing.JLabel();
         jDatePointagePanel = new javax.swing.JPanel();
         jDatePointageDayLabel = new javax.swing.JLabel();
@@ -167,23 +168,28 @@ public class PointageFormUi extends javax.swing.JDialog {
         jDatePointageDaySpinner = new javax.swing.JSpinner();
         jDatePointageMonthComboBox = new javax.swing.JComboBox<>();
         jDatePointageYearSpinner = new javax.swing.JSpinner();
+        jNumEmpWrapperPanel = new javax.swing.JPanel();
         jNumEmpLabel = new javax.swing.JLabel();
         jNumEmpPanel = new javax.swing.JPanel();
         jNumEmpComboBox = new javax.swing.JComboBox<>();
         jEmployeeNameComboBox = new javax.swing.JComboBox<>();
+        jPointageWrapperPanel = new javax.swing.JPanel();
         jPointageLabel = new javax.swing.JLabel();
         jPointagePanel = new javax.swing.JPanel();
         jPointageYesRadioButton = new javax.swing.JRadioButton();
         jPointageNoRadioButton = new javax.swing.JRadioButton();
+        jButtonWrapperPanel = new javax.swing.JPanel();
         jConfirmPointageButton = new javax.swing.JButton();
         jResetPointageButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Formulaire d'un pointage");
-        getContentPane().setLayout(new java.awt.GridLayout(0, 2));
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
+
+        jDatePointageWrapperPanel.setLayout(new javax.swing.BoxLayout(jDatePointageWrapperPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         jDatePointageLabel.setText("Date de pointage:");
-        getContentPane().add(jDatePointageLabel);
+        jDatePointageWrapperPanel.add(jDatePointageLabel);
 
         jDatePointagePanel.setLayout(new java.awt.GridLayout(0, 3, 4, 0));
 
@@ -221,12 +227,16 @@ public class PointageFormUi extends javax.swing.JDialog {
         });
         jDatePointagePanel.add(jDatePointageYearSpinner);
 
-        getContentPane().add(jDatePointagePanel);
+        jDatePointageWrapperPanel.add(jDatePointagePanel);
+
+        getContentPane().add(jDatePointageWrapperPanel);
+
+        jNumEmpWrapperPanel.setLayout(new javax.swing.BoxLayout(jNumEmpWrapperPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         jNumEmpLabel.setText("Numéro d'employé:");
-        getContentPane().add(jNumEmpLabel);
+        jNumEmpWrapperPanel.add(jNumEmpLabel);
 
-        jNumEmpPanel.setLayout(new java.awt.GridLayout());
+        jNumEmpPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         jNumEmpComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -242,10 +252,14 @@ public class PointageFormUi extends javax.swing.JDialog {
         });
         jNumEmpPanel.add(jEmployeeNameComboBox);
 
-        getContentPane().add(jNumEmpPanel);
+        jNumEmpWrapperPanel.add(jNumEmpPanel);
+
+        getContentPane().add(jNumEmpWrapperPanel);
+
+        jPointageWrapperPanel.setLayout(new javax.swing.BoxLayout(jPointageWrapperPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         jPointageLabel.setText("Pointage:");
-        getContentPane().add(jPointageLabel);
+        jPointageWrapperPanel.add(jPointageLabel);
 
         jPointageYesRadioButton.setSelected(true);
         jPointageYesRadioButton.setText("Oui");
@@ -264,7 +278,11 @@ public class PointageFormUi extends javax.swing.JDialog {
         });
         jPointagePanel.add(jPointageNoRadioButton);
 
-        getContentPane().add(jPointagePanel);
+        jPointageWrapperPanel.add(jPointagePanel);
+
+        getContentPane().add(jPointageWrapperPanel);
+
+        jButtonWrapperPanel.setLayout(new javax.swing.BoxLayout(jButtonWrapperPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         jConfirmPointageButton.setText("Confirmer");
         jConfirmPointageButton.addActionListener(new java.awt.event.ActionListener() {
@@ -272,7 +290,7 @@ public class PointageFormUi extends javax.swing.JDialog {
                 jConfirmPointageButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jConfirmPointageButton);
+        jButtonWrapperPanel.add(jConfirmPointageButton);
 
         jResetPointageButton.setText("Réinitialiser");
         jResetPointageButton.addActionListener(new java.awt.event.ActionListener() {
@@ -280,7 +298,9 @@ public class PointageFormUi extends javax.swing.JDialog {
                 jResetPointageButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jResetPointageButton);
+        jButtonWrapperPanel.add(jResetPointageButton);
+
+        getContentPane().add(jButtonWrapperPanel);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -417,6 +437,7 @@ public class PointageFormUi extends javax.swing.JDialog {
     private Pointage m_PreviousPointage = new Pointage();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jButtonWrapperPanel;
     private javax.swing.JButton jConfirmPointageButton;
     private javax.swing.JLabel jDatePointageDayLabel;
     private javax.swing.JSpinner jDatePointageDaySpinner;
@@ -424,15 +445,18 @@ public class PointageFormUi extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> jDatePointageMonthComboBox;
     private javax.swing.JLabel jDatePointageMonthLabel;
     private javax.swing.JPanel jDatePointagePanel;
+    private javax.swing.JPanel jDatePointageWrapperPanel;
     private javax.swing.JLabel jDatePointageYearLabel;
     private javax.swing.JSpinner jDatePointageYearSpinner;
     private javax.swing.JComboBox<String> jEmployeeNameComboBox;
     private javax.swing.JComboBox<String> jNumEmpComboBox;
     private javax.swing.JLabel jNumEmpLabel;
     private javax.swing.JPanel jNumEmpPanel;
+    private javax.swing.JPanel jNumEmpWrapperPanel;
     private javax.swing.JLabel jPointageLabel;
     private javax.swing.JRadioButton jPointageNoRadioButton;
     private javax.swing.JPanel jPointagePanel;
+    private javax.swing.JPanel jPointageWrapperPanel;
     private javax.swing.JRadioButton jPointageYesRadioButton;
     private javax.swing.JButton jResetPointageButton;
     // End of variables declaration//GEN-END:variables

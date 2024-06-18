@@ -28,7 +28,7 @@
   <SubComponents>
     <Container class="javax.swing.JPanel" name="jEmployeeIdWrapperPanel">
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jEmployeeIdLabel">
           <Properties>
@@ -41,7 +41,7 @@
     </Container>
     <Container class="javax.swing.JPanel" name="jEmployeeNameWrapperPanel">
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jEmployeeNameLabel">
           <Properties>
@@ -64,7 +64,7 @@
     </Container>
     <Container class="javax.swing.JPanel" name="jEmployeeFirstNameWrapperPanel">
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jEmployeeFirstNameLabel">
           <Properties>
@@ -80,7 +80,7 @@
     </Container>
     <Container class="javax.swing.JPanel" name="jEmployeeJobWrapperPanel">
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jEmployeeJobLabel">
           <Properties>
@@ -93,7 +93,7 @@
     </Container>
     <Container class="javax.swing.JPanel" name="jEmployeeSalaryWrapperPanel">
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jEmployeeSalaryLabel">
           <Properties>
@@ -106,7 +106,7 @@
     </Container>
     <Container class="javax.swing.JPanel" name="jButtonsWrapperPanel">
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
       <SubComponents>
         <Component class="javax.swing.JButton" name="jEmployeeConfirmButton">
           <Properties>

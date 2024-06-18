@@ -265,11 +265,15 @@ public class HolidayFormUi extends javax.swing.JDialog {
         setSize(new java.awt.Dimension(0, 0));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
 
+        jHolidayNumberWrapperPanel.setLayout(new javax.swing.BoxLayout(jHolidayNumberWrapperPanel, javax.swing.BoxLayout.LINE_AXIS));
+
         jHolidayNumberLabel.setText("Numéro de congé:");
         jHolidayNumberWrapperPanel.add(jHolidayNumberLabel);
         jHolidayNumberWrapperPanel.add(jHolidayNumberSpinner);
 
         getContentPane().add(jHolidayNumberWrapperPanel);
+
+        jNumEmpWrapperPanel.setLayout(new javax.swing.BoxLayout(jNumEmpWrapperPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         jNumEmpLabel.setText("Numéro d'employé:");
         jNumEmpWrapperPanel.add(jNumEmpLabel);
@@ -295,6 +299,7 @@ public class HolidayFormUi extends javax.swing.JDialog {
         getContentPane().add(jNumEmpWrapperPanel);
 
         jReasonWrapperPanel.setMinimumSize(new java.awt.Dimension(600, 500));
+        jReasonWrapperPanel.setLayout(new javax.swing.BoxLayout(jReasonWrapperPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         jReasonLabel.setText("Motif du congé:");
         jReasonWrapperPanel.add(jReasonLabel);
@@ -307,11 +312,15 @@ public class HolidayFormUi extends javax.swing.JDialog {
 
         getContentPane().add(jReasonWrapperPanel);
 
+        jDaysCountWrapperPanel.setLayout(new javax.swing.BoxLayout(jDaysCountWrapperPanel, javax.swing.BoxLayout.LINE_AXIS));
+
         jDaysCountLabel.setText("Nombre de jours:");
         jDaysCountWrapperPanel.add(jDaysCountLabel);
         jDaysCountWrapperPanel.add(jDaysCountSpinner);
 
         getContentPane().add(jDaysCountWrapperPanel);
+
+        jDemandDateWrapperPanel.setLayout(new javax.swing.BoxLayout(jDemandDateWrapperPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         jDemandDateLabel.setText("Date de demande:");
         jDemandDateWrapperPanel.add(jDemandDateLabel);
@@ -345,6 +354,8 @@ public class HolidayFormUi extends javax.swing.JDialog {
 
         getContentPane().add(jDemandDateWrapperPanel);
 
+        jReturnDateWrapperPanel.setLayout(new javax.swing.BoxLayout(jReturnDateWrapperPanel, javax.swing.BoxLayout.LINE_AXIS));
+
         jReturnDateLabel.setText("Date de retour:");
         jReturnDateWrapperPanel.add(jReturnDateLabel);
 
@@ -376,6 +387,8 @@ public class HolidayFormUi extends javax.swing.JDialog {
         jReturnDateWrapperPanel.add(jReturnDatePanel);
 
         getContentPane().add(jReturnDateWrapperPanel);
+
+        jButtonsPane.setLayout(new javax.swing.BoxLayout(jButtonsPane, javax.swing.BoxLayout.LINE_AXIS));
 
         jConfirmButton.setText("Confirmer");
         jConfirmButton.addActionListener(new java.awt.event.ActionListener() {

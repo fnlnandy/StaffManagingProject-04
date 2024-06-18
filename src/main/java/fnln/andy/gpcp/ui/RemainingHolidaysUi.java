@@ -80,7 +80,9 @@ public class RemainingHolidaysUi extends javax.swing.JDialog {
         jCurrentEmployeeTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridLayout(0, 1));
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
+
+        jRemainingPanel.setLayout(new javax.swing.BoxLayout(jRemainingPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         jRemainingDaysLabel.setText("Jours restants pour cette année:");
         jRemainingPanel.add(jRemainingDaysLabel);

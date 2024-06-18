@@ -55,11 +55,15 @@ public class EmployeeFormUi extends javax.swing.JDialog {
         setTitle("Formulaire d'un employé");
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
 
+        jEmployeeIdWrapperPanel.setLayout(new javax.swing.BoxLayout(jEmployeeIdWrapperPanel, javax.swing.BoxLayout.LINE_AXIS));
+
         jEmployeeIdLabel.setText("Numéro de l'employé(e):");
         jEmployeeIdWrapperPanel.add(jEmployeeIdLabel);
         jEmployeeIdWrapperPanel.add(jEmployeeIdSpinner);
 
         getContentPane().add(jEmployeeIdWrapperPanel);
+
+        jEmployeeNameWrapperPanel.setLayout(new javax.swing.BoxLayout(jEmployeeNameWrapperPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         jEmployeeNameLabel.setText("Nom de l'employé(e):");
         jEmployeeNameWrapperPanel.add(jEmployeeNameLabel);
@@ -82,6 +86,8 @@ public class EmployeeFormUi extends javax.swing.JDialog {
 
         getContentPane().add(jEmployeeNameWrapperPanel);
 
+        jEmployeeFirstNameWrapperPanel.setLayout(new javax.swing.BoxLayout(jEmployeeFirstNameWrapperPanel, javax.swing.BoxLayout.LINE_AXIS));
+
         jEmployeeFirstNameLabel.setText("Prénom de l'employé(e):");
         jEmployeeFirstNameWrapperPanel.add(jEmployeeFirstNameLabel);
 
@@ -94,17 +100,23 @@ public class EmployeeFormUi extends javax.swing.JDialog {
 
         getContentPane().add(jEmployeeFirstNameWrapperPanel);
 
+        jEmployeeJobWrapperPanel.setLayout(new javax.swing.BoxLayout(jEmployeeJobWrapperPanel, javax.swing.BoxLayout.LINE_AXIS));
+
         jEmployeeJobLabel.setText("Poste de l'employé(e):");
         jEmployeeJobWrapperPanel.add(jEmployeeJobLabel);
         jEmployeeJobWrapperPanel.add(jEmployeeJobTextField);
 
         getContentPane().add(jEmployeeJobWrapperPanel);
 
+        jEmployeeSalaryWrapperPanel.setLayout(new javax.swing.BoxLayout(jEmployeeSalaryWrapperPanel, javax.swing.BoxLayout.LINE_AXIS));
+
         jEmployeeSalaryLabel.setText("Salaire de l'employé(e):");
         jEmployeeSalaryWrapperPanel.add(jEmployeeSalaryLabel);
         jEmployeeSalaryWrapperPanel.add(jEmployeeSalarySpinner);
 
         getContentPane().add(jEmployeeSalaryWrapperPanel);
+
+        jButtonsWrapperPanel.setLayout(new javax.swing.BoxLayout(jButtonsWrapperPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         jEmployeeConfirmButton.setText("Confirmer");
         jEmployeeConfirmButton.addActionListener(new java.awt.event.ActionListener() {

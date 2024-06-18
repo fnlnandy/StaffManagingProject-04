@@ -30,7 +30,7 @@
   <SubComponents>
     <Container class="javax.swing.JPanel" name="jHolidayNumberWrapperPanel">
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jHolidayNumberLabel">
           <Properties>
@@ -43,7 +43,7 @@
     </Container>
     <Container class="javax.swing.JPanel" name="jNumEmpWrapperPanel">
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jNumEmpLabel">
           <Properties>
@@ -84,7 +84,7 @@
         </Property>
       </Properties>
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jReasonLabel">
           <Properties>
@@ -110,7 +110,7 @@
     </Container>
     <Container class="javax.swing.JPanel" name="jDaysCountWrapperPanel">
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jDaysCountLabel">
           <Properties>
@@ -123,7 +123,7 @@
     </Container>
     <Container class="javax.swing.JPanel" name="jDemandDateWrapperPanel">
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jDemandDateLabel">
           <Properties>
@@ -189,7 +189,7 @@
     </Container>
     <Container class="javax.swing.JPanel" name="jReturnDateWrapperPanel">
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jReturnDateLabel">
           <Properties>
@@ -255,7 +255,7 @@
     </Container>
     <Container class="javax.swing.JPanel" name="jButtonsPane">
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
       <SubComponents>
         <Component class="javax.swing.JButton" name="jConfirmButton">
           <Properties>

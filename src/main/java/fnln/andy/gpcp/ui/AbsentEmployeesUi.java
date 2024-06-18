@@ -42,7 +42,9 @@ public class AbsentEmployeesUi extends javax.swing.JDialog {
         jAbsentEmployeesTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridLayout(0, 1));
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
+
+        jDatePanel.setLayout(new javax.swing.BoxLayout(jDatePanel, javax.swing.BoxLayout.LINE_AXIS));
 
         jDaySpinner.setValue(PseudoDate.getCurrentDate().getDay());
         jDaySpinner.addChangeListener(new javax.swing.event.ChangeListener() {
