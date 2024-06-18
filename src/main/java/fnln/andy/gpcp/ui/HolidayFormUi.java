@@ -230,41 +230,51 @@ public class HolidayFormUi extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jHolidayNumberWrapperPanel = new javax.swing.JPanel();
         jHolidayNumberLabel = new javax.swing.JLabel();
         jHolidayNumberSpinner = new javax.swing.JSpinner();
+        jNumEmpWrapperPanel = new javax.swing.JPanel();
         jNumEmpLabel = new javax.swing.JLabel();
         jNumEmpPanel = new javax.swing.JPanel();
         jNumEmpComboBox = new javax.swing.JComboBox<>();
         jEmployeeNameComboBox = new javax.swing.JComboBox<>();
+        jReasonWrapperPanel = new javax.swing.JPanel();
         jReasonLabel = new javax.swing.JLabel();
         jReasonScrollPane = new javax.swing.JScrollPane();
         jReasonTextArea = new javax.swing.JTextArea();
+        jDaysCountWrapperPanel = new javax.swing.JPanel();
         jDaysCountLabel = new javax.swing.JLabel();
         jDaysCountSpinner = new javax.swing.JSpinner();
+        jDemandDateWrapperPanel = new javax.swing.JPanel();
         jDemandDateLabel = new javax.swing.JLabel();
         jDemandDatePanel = new javax.swing.JPanel();
         jDemandDateDaySpinner = new javax.swing.JSpinner();
         jDemandDateMonthComboBox = new javax.swing.JComboBox<>();
         jDemandDateYearSpinner = new javax.swing.JSpinner();
+        jReturnDateWrapperPanel = new javax.swing.JPanel();
         jReturnDateLabel = new javax.swing.JLabel();
         jReturnDatePanel = new javax.swing.JPanel();
         jReturnDateDaySpinner = new javax.swing.JSpinner();
         jReturnDateMonthComboBox = new javax.swing.JComboBox<>();
         jReturnDateYearSpinner = new javax.swing.JSpinner();
+        jButtonsPane = new javax.swing.JPanel();
         jConfirmButton = new javax.swing.JButton();
         jResetButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridLayout(0, 2));
+        setSize(new java.awt.Dimension(0, 0));
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
 
         jHolidayNumberLabel.setText("Numéro de congé:");
-        getContentPane().add(jHolidayNumberLabel);
-        getContentPane().add(jHolidayNumberSpinner);
+        jHolidayNumberWrapperPanel.add(jHolidayNumberLabel);
+        jHolidayNumberWrapperPanel.add(jHolidayNumberSpinner);
+
+        getContentPane().add(jHolidayNumberWrapperPanel);
 
         jNumEmpLabel.setText("Numéro d'employé:");
-        getContentPane().add(jNumEmpLabel);
+        jNumEmpWrapperPanel.add(jNumEmpLabel);
 
-        jNumEmpPanel.setLayout(new java.awt.GridLayout());
+        jNumEmpPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         jNumEmpComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -280,23 +290,31 @@ public class HolidayFormUi extends javax.swing.JDialog {
         });
         jNumEmpPanel.add(jEmployeeNameComboBox);
 
-        getContentPane().add(jNumEmpPanel);
+        jNumEmpWrapperPanel.add(jNumEmpPanel);
+
+        getContentPane().add(jNumEmpWrapperPanel);
+
+        jReasonWrapperPanel.setMinimumSize(new java.awt.Dimension(600, 500));
 
         jReasonLabel.setText("Motif du congé:");
-        getContentPane().add(jReasonLabel);
+        jReasonWrapperPanel.add(jReasonLabel);
 
         jReasonTextArea.setColumns(20);
         jReasonTextArea.setRows(5);
         jReasonScrollPane.setViewportView(jReasonTextArea);
 
-        getContentPane().add(jReasonScrollPane);
+        jReasonWrapperPanel.add(jReasonScrollPane);
+
+        getContentPane().add(jReasonWrapperPanel);
 
         jDaysCountLabel.setText("Nombre de jours:");
-        getContentPane().add(jDaysCountLabel);
-        getContentPane().add(jDaysCountSpinner);
+        jDaysCountWrapperPanel.add(jDaysCountLabel);
+        jDaysCountWrapperPanel.add(jDaysCountSpinner);
+
+        getContentPane().add(jDaysCountWrapperPanel);
 
         jDemandDateLabel.setText("Date de demande:");
-        getContentPane().add(jDemandDateLabel);
+        jDemandDateWrapperPanel.add(jDemandDateLabel);
 
         jDemandDateDaySpinner.setValue(PseudoDate.getCurrentDate().getDay());
         jDemandDateDaySpinner.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -323,10 +341,12 @@ public class HolidayFormUi extends javax.swing.JDialog {
         });
         jDemandDatePanel.add(jDemandDateYearSpinner);
 
-        getContentPane().add(jDemandDatePanel);
+        jDemandDateWrapperPanel.add(jDemandDatePanel);
+
+        getContentPane().add(jDemandDateWrapperPanel);
 
         jReturnDateLabel.setText("Date de retour:");
-        getContentPane().add(jReturnDateLabel);
+        jReturnDateWrapperPanel.add(jReturnDateLabel);
 
         jReturnDateDaySpinner.setValue(PseudoDate.getCurrentDate().getDay());
         jReturnDateDaySpinner.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -353,7 +373,9 @@ public class HolidayFormUi extends javax.swing.JDialog {
         });
         jReturnDatePanel.add(jReturnDateYearSpinner);
 
-        getContentPane().add(jReturnDatePanel);
+        jReturnDateWrapperPanel.add(jReturnDatePanel);
+
+        getContentPane().add(jReturnDateWrapperPanel);
 
         jConfirmButton.setText("Confirmer");
         jConfirmButton.addActionListener(new java.awt.event.ActionListener() {
@@ -361,7 +383,7 @@ public class HolidayFormUi extends javax.swing.JDialog {
                 jConfirmButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jConfirmButton);
+        jButtonsPane.add(jConfirmButton);
 
         jResetButton.setText("Réinitialiser");
         jResetButton.addActionListener(new java.awt.event.ActionListener() {
@@ -369,7 +391,9 @@ public class HolidayFormUi extends javax.swing.JDialog {
                 jResetButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jResetButton);
+        jButtonsPane.add(jResetButton);
+
+        getContentPane().add(jButtonsPane);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -519,28 +543,35 @@ public class HolidayFormUi extends javax.swing.JDialog {
     private Holiday m_PreviousHoliday = new Holiday();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jButtonsPane;
     private javax.swing.JButton jConfirmButton;
     private javax.swing.JLabel jDaysCountLabel;
     private javax.swing.JSpinner jDaysCountSpinner;
+    private javax.swing.JPanel jDaysCountWrapperPanel;
     private javax.swing.JSpinner jDemandDateDaySpinner;
     private javax.swing.JLabel jDemandDateLabel;
     private javax.swing.JComboBox<String> jDemandDateMonthComboBox;
     private javax.swing.JPanel jDemandDatePanel;
+    private javax.swing.JPanel jDemandDateWrapperPanel;
     private javax.swing.JSpinner jDemandDateYearSpinner;
     private javax.swing.JComboBox<String> jEmployeeNameComboBox;
     private javax.swing.JLabel jHolidayNumberLabel;
     private javax.swing.JSpinner jHolidayNumberSpinner;
+    private javax.swing.JPanel jHolidayNumberWrapperPanel;
     private javax.swing.JComboBox<String> jNumEmpComboBox;
     private javax.swing.JLabel jNumEmpLabel;
     private javax.swing.JPanel jNumEmpPanel;
+    private javax.swing.JPanel jNumEmpWrapperPanel;
     private javax.swing.JLabel jReasonLabel;
     private javax.swing.JScrollPane jReasonScrollPane;
     private javax.swing.JTextArea jReasonTextArea;
+    private javax.swing.JPanel jReasonWrapperPanel;
     private javax.swing.JButton jResetButton;
     private javax.swing.JSpinner jReturnDateDaySpinner;
     private javax.swing.JLabel jReturnDateLabel;
     private javax.swing.JComboBox<String> jReturnDateMonthComboBox;
     private javax.swing.JPanel jReturnDatePanel;
+    private javax.swing.JPanel jReturnDateWrapperPanel;
     private javax.swing.JSpinner jReturnDateYearSpinner;
     // End of variables declaration//GEN-END:variables
 }
