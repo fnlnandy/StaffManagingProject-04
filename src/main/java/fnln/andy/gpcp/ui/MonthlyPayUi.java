@@ -56,21 +56,18 @@ public class MonthlyPayUi extends javax.swing.JDialog {
 
         jFilePathLabel = new javax.swing.JLabel();
         jFilePathTextField = new javax.swing.JTextField();
-        jOpenFileDialogButton = new javax.swing.JButton();
         jCurrentEmployeeScrollPane = new javax.swing.JScrollPane();
         jCurrentEmployeeTable = new javax.swing.JTable();
         jGenerateButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(452, 175));
+        setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+        getContentPane().setLayout(new java.awt.GridLayout(4, 1));
 
         jFilePathLabel.setText("Emplacement du fichier:");
-
-        jOpenFileDialogButton.setText("Sauvegarder sous...");
-        jOpenFileDialogButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jOpenFileDialogButtonActionPerformed(evt);
-            }
-        });
+        getContentPane().add(jFilePathLabel);
+        getContentPane().add(jFilePathTextField);
 
         jCurrentEmployeeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -99,50 +96,18 @@ public class MonthlyPayUi extends javax.swing.JDialog {
         jCurrentEmployeeScrollPane.setViewportView(jCurrentEmployeeTable);
         jCurrentEmployeeTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
+        getContentPane().add(jCurrentEmployeeScrollPane);
+
         jGenerateButton.setText("Générer");
         jGenerateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jGenerateButtonActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jOpenFileDialogButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jFilePathLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(jFilePathTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE))
-                    .addComponent(jCurrentEmployeeScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jGenerateButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jFilePathLabel)
-                    .addComponent(jFilePathTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jOpenFileDialogButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCurrentEmployeeScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jGenerateButton))
-        );
+        getContentPane().add(jGenerateButton);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jOpenFileDialogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOpenFileDialogButtonActionPerformed
-        // TODO: add something here
-    }//GEN-LAST:event_jOpenFileDialogButtonActionPerformed
 
     private void addParagraphToDoc(Document doc, String text)
     {
@@ -263,6 +228,5 @@ public class MonthlyPayUi extends javax.swing.JDialog {
     private javax.swing.JLabel jFilePathLabel;
     private javax.swing.JTextField jFilePathTextField;
     private javax.swing.JButton jGenerateButton;
-    private javax.swing.JButton jOpenFileDialogButton;
     // End of variables declaration//GEN-END:variables
 }

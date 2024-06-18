@@ -148,6 +148,8 @@ public class EmployeeFormUi extends javax.swing.JDialog {
             DBControl.deferEmployeeController().addEntry(e);
         
         DBControl.deferEmployeeController().reloadEntries(GPCPUi.getEmployeeTable());
+        DBControl.deferPointageController().reloadEntries(GPCPUi.getPointageTable());
+        DBControl.deferHolidayController().reloadEntries(GPCPUi.getHolidayTable());
         setVisible(false);
     }//GEN-LAST:event_jEmployeeConfirmButtonActionPerformed
 

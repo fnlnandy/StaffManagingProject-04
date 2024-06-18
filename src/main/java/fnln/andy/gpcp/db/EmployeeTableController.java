@@ -4,6 +4,7 @@
  */
 package fnln.andy.gpcp.db;
 
+import fnln.andy.gpcp.DBControl;
 import fnln.andy.gpcp.core.DataArg;
 import fnln.andy.gpcp.core.Employee;
 import fnln.andy.gpcp.core.PseudoDate;
@@ -141,6 +142,9 @@ public class EmployeeTableController extends ATableController<Employee> {
             retVal = preparedStatement.executeUpdate() >= 0;
             commitTransaction();
         } catch (SQLException sqlE) {}
+        
+        DBControl.deferPointageController().updatePointageWithEmployee(previousEmployeeId, employee.getNumEmp());
+        DBControl.deferHolidayController().updateHolidayWithEmployee(previousEmployeeId, employee.getNumEmp());
         
         return retVal;
     }

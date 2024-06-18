@@ -212,4 +212,21 @@ public class HolidayTableController extends ATableController<Holiday> {
         
         return false;
     }
+    
+    public void updateHolidayWithEmployee(String oldNumEmp, String newNumEmp)
+    {
+        String query = "UPDATE Conge SET NumEmp = ? WHERE NumEmp = ?;";
+        PreparedStatement preparedStatement = null;
+        
+        try {
+            preparedStatement = m_SQLConnection.prepareStatement(query);
+            
+            preparedStatement.setString(1, newNumEmp);
+            preparedStatement.setString(2, oldNumEmp);
+            
+            beginTransaction();
+            preparedStatement.executeUpdate();
+            commitTransaction();
+        } catch (SQLException e) { e.printStackTrace(); }
+    }
 }

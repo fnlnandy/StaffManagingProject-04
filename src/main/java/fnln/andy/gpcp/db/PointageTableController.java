@@ -230,4 +230,21 @@ public class PointageTableController extends ATableController<Pointage> {
     {
         return getAbsencesCount(employee, forDate, false);
     }
+    
+    public void updatePointageWithEmployee(String oldNumEmp, String newNumEmp)
+    {
+        String query = "UPDATE Pointage SET NumEmp = ? WHERE NumEmp = ?;";
+        PreparedStatement preparedStatement = null;
+        
+        try {
+            preparedStatement = m_SQLConnection.prepareStatement(query);
+            
+            preparedStatement.setString(1, newNumEmp);
+            preparedStatement.setString(2, oldNumEmp);
+            
+            beginTransaction();
+            preparedStatement.executeUpdate();
+            commitTransaction();
+        } catch (SQLException e) { e.printStackTrace(); }
+    }
 }
