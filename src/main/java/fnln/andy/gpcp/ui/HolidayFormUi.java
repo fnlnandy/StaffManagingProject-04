@@ -328,6 +328,8 @@ public class HolidayFormUi extends javax.swing.JDialog {
 
         jDaysCountLabel.setText("Nombre de jours:");
         jDaysCountWrapperPanel.add(jDaysCountLabel);
+
+        jDaysCountSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 30, 1));
         jDaysCountWrapperPanel.add(jDaysCountSpinner);
 
         getContentPane().add(jDaysCountWrapperPanel);
