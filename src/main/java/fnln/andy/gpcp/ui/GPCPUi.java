@@ -379,6 +379,8 @@ public class GPCPUi extends javax.swing.JFrame {
         
         DBControl.deferEmployeeController().removeEntry(numEmp);
         DBControl.deferEmployeeController().reloadEntries(jEmployeeTable);
+        DBControl.deferPointageController().reloadEntries(jPointageTable);
+        DBControl.deferHolidayController().reloadEntries(jHolidayTable);
     }//GEN-LAST:event_jRemoveEmployeeButtonActionPerformed
 
     private void jAddPointageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAddPointageButtonActionPerformed
