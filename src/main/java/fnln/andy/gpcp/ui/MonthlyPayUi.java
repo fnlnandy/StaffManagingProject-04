@@ -182,7 +182,11 @@ public class MonthlyPayUi extends javax.swing.JDialog {
         pdfDocument.addNewPage();
         
         Document doc = new Document(pdfDocument);
+        Paragraph titleParagraph = new Paragraph("Fiche de paie pour un mois.");
         
+        titleParagraph.setUnderline();
+        
+        doc.add(titleParagraph);
         addParagraphToDoc(doc, toWrite);
         
         doc.close();
