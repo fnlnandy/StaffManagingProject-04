@@ -77,11 +77,48 @@ public class Holiday {
      * @return 
      */
     public String getNumConge()        { return m_NumConge;    }
+    /**
+     * @brief Gets the concerned
+     * employee's Id.
+     * 
+     * @return 
+     */
     public String getNumEmp()          { return m_NumEmp;      }
+    /**
+     * @brief Get the reason of
+     * the holiday.
+     * 
+     * @return 
+     */
     public String getMotif()           { return m_Motif;       }
+    /**
+     * @brief Get the number of days
+     * for which this holiday will
+     * last.
+     * 
+     * @return 
+     */
     public int getNombreJours()        { return m_NombreJours; }
+    /**
+     * @brief Get the date when
+     * these holidays were asked.
+     * 
+     * @return 
+     */
     public PseudoDate getDateDemande() { return m_DateDemande; }
+    /**
+     * @brief Gets the date when
+     * the employee's coming back.
+     * 
+     * @return 
+     */
     public PseudoDate getDateRetour()  { return m_DateRetour;  }
+    /**
+     * @brief Get a printable
+     * string representation of
+     * this object.
+     * @return 
+     */
     public String getPrintable()
     {
         String printable = "Holiday(";
@@ -96,10 +133,49 @@ public class Holiday {
         return printable;
     }
     
+    /**
+     * @param numConge 
+     * 
+     * @brief Sets the holiday's
+     * Id.
+     */
     public void setNumConge(final String numConge)       { m_NumConge = numConge;             }
+    /**
+     * @param numEmp 
+     * 
+     * @brief Sets the concerned
+     * employee's Id.
+     */
     public void setNumEmp(final String numEmp)           { m_NumEmp = numEmp;                 }
+    /**
+     * @param motif
+     * 
+     * @brief Sets the reason
+     * for this holiday.
+     */
     public void setMotif(final String motif)             { m_Motif = motif;                   }
+    /**
+     * @param nombreJours 
+     * 
+     * @brief Sets the number
+     * of days for which this
+     * holiday will last.
+     */
     public void setNombreJours(final int nombreJours)    { m_NombreJours = nombreJours;       }
+    /**
+     * @param dateDemande
+     * 
+     * @brief Sets the date on
+     * which this holiday was
+     * requested.
+     */
     public void setDateDemande(final String dateDemande) { m_DateDemande.create(dateDemande); }
+    /**
+     * @param dateRetour 
+     * 
+     * @brief Sets the date on
+     * which the employee will
+     * come back.
+     */
     public void setDateRetour(final String dateRetour)   { m_DateRetour.create(dateRetour);   }
 }
