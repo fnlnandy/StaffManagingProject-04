@@ -496,6 +496,7 @@ public class GPCPUi extends javax.swing.JFrame {
         ui.setDateDemande(dateDemande);
         ui.setDateRetour(dateRetour);
         ui.setPreviousHoliday(numConge, numEmp);
+        ui.setPreviousDaysCount(nombreJours);
         ui.setIsEditMode(true);
         
         SwingUtilities.invokeLater(() -> {

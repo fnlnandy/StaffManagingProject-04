@@ -78,10 +78,15 @@ public class HolidayFormUi extends javax.swing.JDialog {
         final int demandDay = (int)jDemandDateDaySpinner.getValue();
         final int demandMonth = jDemandDateMonthComboBox.getSelectedIndex() + 1;
         final int demandYear = (int)jDemandDateYearSpinner.getValue();
+        PseudoDate demandDate = new PseudoDate(demandDay, demandMonth, demandYear);
         
         final int returnDay = (int)jReturnDateDaySpinner.getValue();
         final int returnMonth = jReturnDateMonthComboBox.getSelectedIndex() + 1;
         final int returnYear = (int)jReturnDateYearSpinner.getValue();
+        PseudoDate returnDate = new PseudoDate(returnDay, returnMonth, returnYear);
+        PseudoDate minimalReturnDate = new PseudoDate(demandDay, demandMonth, demandYear);
+        
+        minimalReturnDate.advance(daysCount);
         
         if (holidayId <= 0)
         {
@@ -103,12 +108,12 @@ public class HolidayFormUi extends javax.swing.JDialog {
             Util.invokeErrorMessage(parent, "Le motif de congé ne peut pas être vide.");
             return false;
         }
-        if (daysCount <= 0 || daysCount >= 30)
+        if (daysCount < 1|| daysCount > 30)
         {
             Util.invokeErrorMessage(parent, "Le nombre de jours doit appartenir à l'intervalle [1, 30].");
             return false;
         }
-        if (demandYear == PseudoDate.getCurrentDate().getYear() && (m_IsEditMode ? daysCount - m_PreviousHoliday.getNombreJours() + employeeHolidaysSum > 30 :
+        if (demandYear == PseudoDate.getCurrentDate().getYear() && (m_IsEditMode ? daysCount- m_PreviousHoliday.getNombreJours() + employeeHolidaysSum > 30 :
                 daysCount + employeeHolidaysSum > 30))
         {
             Util.invokeErrorMessage(parent, "Le nombre de jours excède la limite autorisée de 30 jours pour un an.");
@@ -124,10 +129,13 @@ public class HolidayFormUi extends javax.swing.JDialog {
             Util.invokeErrorMessage(parent, "L'année de retour doit être >= 2000.");
             return false;
         }
-        if (returnYear < demandYear || (demandYear == returnYear && returnMonth < demandMonth)
-                || (demandYear == returnYear && demandMonth == returnMonth && returnDay < demandDay))
+        if (returnDate.isBefore(demandDate))
         {
             Util.invokeErrorMessage(parent, "La date de retour ne peut pas être inférieure à la date de demande.");
+            return false;
+        }
+        if (minimalReturnDate.isAfter(returnDate)) {
+            Util.invokeErrorMessage(parent, "La date de retour ne correspond pas au nombre de jours restants.");
             return false;
         }
         
@@ -153,6 +161,10 @@ public class HolidayFormUi extends javax.swing.JDialog {
     {
         m_PreviousHoliday.setNumConge(numHoliday);
         m_PreviousHoliday.setNumEmp(numEmp);
+    }
+    public void setPreviousDaysCount(int daysCount)
+    {
+        m_PreviousHoliday.setNombreJours(daysCount);
     }
     public void setNumConge(String numConge)
     {
