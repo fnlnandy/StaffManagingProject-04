@@ -10,11 +10,15 @@ import java.time.LocalDate;
 /**
  *
  * @author andy
+ * 
+ * @brief Class that represents a
+ * date.
  */
 public class PseudoDate {
     private int m_Day;
     private int m_Month;
     private int m_Year;
+    private int m_Maxes[] = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
     
     public PseudoDate()
     {
@@ -84,6 +88,47 @@ public class PseudoDate {
         if (m_Month != toCompare.m_Month)
             return false;
         return m_Year == toCompare.m_Year;
+    }
+    
+    public void advance(int numberOfDays)
+    {
+        int remaining = numberOfDays;
+        
+        while (remaining > 0) {
+            int currMax = m_Maxes[m_Month - 1]; // A month is 1-indexed.
+        
+            if ((m_Month == 2) && (m_Year % 4 == 0))
+                currMax = 29;
+            
+            if (m_Day + remaining > currMax) {
+                remaining -= Math.abs(currMax - m_Day + 1); // Even if we're the 30, and it's the max, that's still a day.
+                m_Day = 1;
+                
+                if (m_Month == 12) {
+                    m_Month = 1;
+                    m_Year++;
+                }
+                else {
+                    m_Month++;
+                }
+            }
+            else {
+                m_Day += remaining;
+                remaining = 0;
+            }
+        }
+    }
+    
+    public boolean isBefore(PseudoDate date)
+    {
+        return (m_Year < date.getYear() || 
+                (m_Year == date.getYear() && m_Month < date.getMonth()) || 
+                (m_Year == date.getYear() && m_Month == date.getMonth() && m_Day < date.getDay()));
+    }
+    
+    public boolean isAfter(PseudoDate date)
+    {
+        return !isBefore(date) && !equals(date);
     }
     
     public static PseudoDate getCurrentDate()
